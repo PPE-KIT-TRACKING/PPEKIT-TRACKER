@@ -9,7 +9,8 @@ import {
   Hidden,
   IconButton,
   Toolbar,
-  makeStyles
+  makeStyles,
+  Typography
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
@@ -41,8 +42,15 @@ const TopBar = ({
       <Toolbar>
         <RouterLink to="/">
           <Logo />
+          
         </RouterLink>
-        <Box flexGrow={1} />
+        <Typography variant="h4">
+          <span> &nbsp; PPE TRACKER</span>
+        </Typography>
+        <Box flexGrow={1}>
+          
+        </Box>
+        
         <Hidden mdDown>
           <IconButton color="inherit">
             <Badge

@@ -23,7 +23,7 @@ const Orders = () => {
   return (
     <Page
       className={classes.root}
-      title="Dashboard"
+      title="Orders"
     >
       <Container maxWidth={false}>
         <Grid
