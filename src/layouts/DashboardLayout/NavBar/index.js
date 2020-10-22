@@ -20,16 +20,65 @@ import {
   ShoppingBag as ShoppingBagIcon,
   User as UserIcon,
   UserPlus as UserPlusIcon,
-  Users as UsersIcon
+  Users as UsersIcon,
+  Globe as GlobalIcon,
+  Database as InventoryIcon,
+  List as OrdersIcon
 } from 'react-feather';
 import NavItem from './NavItem';
 
+// const user = {
+//   avatar: '/static/images/avatars/avatar_6.png',
+//   jobTitle: 'Senior Developer',
+//   name: 'Katarina Smith'
+// };
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Senior Devel',
-  name: 'Katarina Smith',
-  type:"hospital"
+  name: 'AIIMS Delhi'
 };
+
+// const items = [
+//   {
+//     href: '/app/dashboard',
+//     icon: BarChartIcon,
+//     title: 'Dashboard'
+//   },
+//   {
+//     href: '/app/customers',
+//     icon: UsersIcon,
+//     title: 'Customers'
+//   },
+//   {
+//     href: '/app/products',
+//     icon: ShoppingBagIcon,
+//     title: 'Products'
+//   },
+//   {
+//     href: '/app/account',
+//     icon: UserIcon,
+//     title: 'Account'
+//   },
+//   {
+//     href: '/app/settings',
+//     icon: SettingsIcon,
+//     title: 'Settings'
+//   },
+//   {
+//     href: '/login',
+//     icon: LockIcon,
+//     title: 'Login'
+//   },
+//   {
+//     href: '/register',
+//     icon: UserPlusIcon,
+//     title: 'Register'
+//   },
+//   {
+//     href: '/404',
+//     icon: AlertCircleIcon,
+//     title: 'Error'
+//   }
+// ];
 
 const items = [
   {
@@ -39,13 +88,23 @@ const items = [
   },
   {
     href: '/app/customers',
-    icon: UsersIcon,
-    title: 'Customers'
+    icon: ShoppingBagIcon,
+    title: 'Market Place'
   },
   {
     href: '/app/products',
-    icon: ShoppingBagIcon,
-    title: 'Products'
+    icon: InventoryIcon,
+    title: 'Inventory'
+  },
+  {
+    href: '/app/customers',
+    icon: OrdersIcon,
+    title: 'Orders'
+  },
+  {
+    href: '/app/customers',
+    icon: GlobalIcon,
+    title: 'Global Transactions'
   },
   {
     href: '/app/account',
@@ -56,23 +115,9 @@ const items = [
     href: '/app/settings',
     icon: SettingsIcon,
     title: 'Settings'
-  },
-  {
-    href: '/login',
-    icon: LockIcon,
-    title: 'Login'
-  },
-  {
-    href: '/register',
-    icon: UserPlusIcon,
-    title: 'Register'
-  },
-  {
-    href: '/404',
-    icon: AlertCircleIcon,
-    title: 'Error'
   }
 ];
+
 
 const useStyles = makeStyles(() => ({
   mobileDrawer: {
@@ -158,6 +203,14 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           justifyContent="center"
           mt={2}
         >
+          <Button
+            color="primary"
+            component="a"
+            href="https://react-material-kit.devias.io"
+            variant="contained"
+          >
+            Source Code
+          </Button>
         </Box>
       </Box>
     </Box>
