@@ -10,6 +10,10 @@ import NotFoundView from 'src/views/errors/NotFoundView';
 import ProductListView from 'src/views/product/ProductListView';
 import RegisterView from 'src/views/auth/RegisterView';
 import SettingsView from 'src/views/settings/SettingsView';
+import MarketView from 'src/views/market/MarketView';
+import GlobalTransactionsView from 'src/views/global_transactions/GlobalTransactionsView';
+import OrdersView from 'src/views/orders/OrdersView';
+import InventoryView from 'src/views/inventory/InventoryView';
 
 const routes = [
   {
@@ -17,6 +21,10 @@ const routes = [
     element: <DashboardLayout />,
     children: [
       { path: 'account', element: <AccountView /> },
+      { path: 'orders', element: <OrdersView /> },
+      { path: 'global_transactions', element: <GlobalTransactionsView /> },
+      { path: 'inventory', element: <InventoryView /> },
+      { path: 'market', element: <MarketView /> },
       { path: 'customers', element: <CustomerListView /> },
       { path: 'dashboard', element: <DashboardView /> },
       { path: 'products', element: <ProductListView /> },

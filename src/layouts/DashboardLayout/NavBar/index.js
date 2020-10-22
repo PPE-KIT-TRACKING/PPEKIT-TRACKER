@@ -43,16 +43,16 @@ const user = {
 //     icon: BarChartIcon,
 //     title: 'Dashboard'
 //   },
-//   {
-//     href: '/app/customers',
-//     icon: UsersIcon,
-//     title: 'Customers'
-//   },
-//   {
-//     href: '/app/products',
-//     icon: ShoppingBagIcon,
-//     title: 'Products'
-//   },
+  // {
+  //   href: '/app/customers',
+  //   icon: UsersIcon,
+  //   title: 'Customers'
+  // },
+  // {
+  //   href: '/app/products',
+  //   icon: ShoppingBagIcon,
+  //   title: 'Products'
+  // },
 //   {
 //     href: '/app/account',
 //     icon: UserIcon,
@@ -73,11 +73,11 @@ const user = {
 //     icon: UserPlusIcon,
 //     title: 'Register'
 //   },
-//   {
-//     href: '/404',
-//     icon: AlertCircleIcon,
-//     title: 'Error'
-//   }
+  // {
+  //   href: '/404',
+  //   icon: AlertCircleIcon,
+  //   title: 'Error'
+  // }
 // ];
 
 const items = [
@@ -87,22 +87,22 @@ const items = [
     title: 'Dashboard'
   },
   {
-    href: '/app/customers',
+    href: '/app/market',
     icon: ShoppingBagIcon,
     title: 'Market Place'
   },
   {
-    href: '/app/products',
+    href: '/app/inventory',
     icon: InventoryIcon,
     title: 'Inventory'
   },
   {
-    href: '/app/customers',
+    href: '/app/orders',
     icon: OrdersIcon,
     title: 'Orders'
   },
   {
-    href: '/app/customers',
+    href: '/app/global_transactions',
     icon: GlobalIcon,
     title: 'Global Transactions'
   },
@@ -115,7 +115,22 @@ const items = [
     href: '/app/settings',
     icon: SettingsIcon,
     title: 'Settings'
-  }
+  },
+    {
+    href: '/404',
+    icon: AlertCircleIcon,
+    title: 'Error'
+  },
+      {
+    href: '/app/customers',
+    icon: UsersIcon,
+    title: 'Customers'
+  },
+  {
+    href: '/app/products',
+    icon: ShoppingBagIcon,
+    title: 'Products'
+  },
 ];
 
 
