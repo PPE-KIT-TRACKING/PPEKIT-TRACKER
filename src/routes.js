@@ -14,6 +14,7 @@ import MarketView from 'src/views/market/MarketView';
 import GlobalTransactionsView from 'src/views/global_transactions/GlobalTransactionsView';
 import OrdersView from 'src/views/orders/OrdersView';
 import InventoryView from 'src/views/inventory/InventoryView';
+import CheckoutView from 'src/views/checkout/CheckoutView';
 
 const routes = [
   {
@@ -27,6 +28,7 @@ const routes = [
       { path: 'market', element: <MarketView /> },
       { path: 'customers', element: <CustomerListView /> },
       { path: 'dashboard', element: <DashboardView /> },
+      { path: 'checkout', element: <CheckoutView /> },
       { path: 'products', element: <ProductListView /> },
       { path: 'settings', element: <SettingsView /> },
       { path: '*', element: <Navigate to="/404" /> }
