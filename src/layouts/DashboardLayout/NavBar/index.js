@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux'
+import { Link as RouterLink, useNavigate,useLocation } from 'react-router-dom'
 import {
   Avatar,
   Box,
@@ -28,15 +29,7 @@ import {
 } from 'react-feather';
 import NavItem from './NavItem';
 
-// const user = {
-//   avatar: '/static/images/avatars/avatar_6.png',
-//   jobTitle: 'Senior Developer',
-//   name: 'Katarina Smith'
-// };
-const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  name: 'AIIMS Delhi'
-};
+
 
 // const items = [
 //   {
@@ -81,7 +74,7 @@ const user = {
   // }
 // ];
 
-const items = [
+const hospitalitems = [
   {
     href: '/app/dashboard',
     icon: BarChartIcon,
@@ -139,6 +132,38 @@ const items = [
   },
 ];
 
+const manufactureritems = [
+  {
+    href: '/app/dashboard',
+    icon: BarChartIcon,
+    title: 'Dashboard'
+  },
+  {
+    href: '/app/orders',
+    icon: OrdersIcon,
+    title: 'Orders'
+  },
+  {
+    href: '/app/global_transactions',
+    icon: GlobalIcon,
+    title: 'Global Transactions'
+  },
+  {
+    href: '/app/requests',
+    icon: RequestsIcon,
+    title: 'Requests'
+  },
+  {
+    href: '/app/account',
+    icon: UserIcon,
+    title: 'Account'
+  },
+  {
+    href: '/app/settings',
+    icon: SettingsIcon,
+    title: 'Settings'
+  }
+];
 
 const useStyles = makeStyles(() => ({
   mobileDrawer: {
@@ -156,17 +181,26 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const NavBar = ({ onMobileClose, openMobile }) => {
+const NavBar = ({ onMobileClose, openMobile,...props }) => {
   const classes = useStyles();
   const location = useLocation();
-
+  const authenticated = props.auth.authenticated;
+  const navigate = useNavigate();
+  const user = {
+    avatar: '/static/images/avatars/avatar_6.png',
+    name: 'AIIMS Delhi',
+    email: props.auth.currentUser.email,
+    usertype:props.auth.currentUser.user
+  };
+  const items = user.usertype === "hospital" ? hospitalitems : manufactureritems; 
+  
   useEffect(() => {
     if (openMobile && onMobileClose) {
       onMobileClose();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname]);
-
+  }, [location.pathname]);  
+  
   const content = (
     <Box
       height="100%"
@@ -196,7 +230,13 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           color="textSecondary"
           variant="body2"
         >
-          {user.jobTitle}
+          {user.email}
+        </Typography>
+        <Typography
+          color="textSecondary"
+          variant="body2"
+        >
+          {user.usertype}
         </Typography>
       </Box>
       <Divider />
@@ -236,7 +276,6 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       </Box>
     </Box>
   );
-
   return (
     <>
       <Hidden lgUp>
@@ -274,4 +313,10 @@ NavBar.defaultProps = {
   openMobile: false
 };
 
-export default NavBar;
+
+const mapState = (state) => ({
+  auth:state.auth
+})
+
+
+export default connect(mapState,null)(NavBar);

@@ -1,23 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Box,
   Container,
   makeStyles,
-  Collapse,
-  IconButton,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-  Paper
 } from '@material-ui/core';
 import Page from 'src/components/Page';
-import PropTypes from 'prop-types';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Requests from './Requests'
 
 
