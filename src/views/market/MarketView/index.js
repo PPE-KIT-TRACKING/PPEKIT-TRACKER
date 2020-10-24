@@ -30,7 +30,7 @@ const ProductList = () => {
   return (
     <Page
       className={classes.root}
-      title="Products"
+      title="Market"
     >
       <Container maxWidth={false}>
         <Toolbar />

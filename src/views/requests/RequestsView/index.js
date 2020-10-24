@@ -42,7 +42,7 @@ const RequestsView = () => {
   return (
     <Page
       className={classes.root}
-      title="Customers"
+      title="Requests"
     >
       <Container maxWidth={false}>
         <Requests />
