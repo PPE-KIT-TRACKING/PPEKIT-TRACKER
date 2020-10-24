@@ -11,8 +11,7 @@ import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import PropTypes from 'prop-types';
 import { TextField } from '@material-ui/core';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 // const useStyles = makeStyles((theme) => ({
 //   root: {
@@ -179,7 +178,7 @@ const ProductCard = ({ className, product, ...rest }) => {
               variant="contained"
               color="primary"
               className={classes.button}
-              startIcon={<AddShoppingCartIcon />}
+              startIcon={<AddCircleIcon />}
             >
               Add
             </Button>

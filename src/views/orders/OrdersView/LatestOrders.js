@@ -23,6 +23,7 @@ import {
 import InfoIcon from '@material-ui/icons/Info';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 
+
 const data = [
   {
     id: uuid(),

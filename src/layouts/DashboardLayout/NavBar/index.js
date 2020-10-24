@@ -23,7 +23,8 @@ import {
   Users as UsersIcon,
   Globe as GlobalIcon,
   Database as InventoryIcon,
-  List as OrdersIcon
+  List as OrdersIcon,
+  Edit as RequestsIcon
 } from 'react-feather';
 import NavItem from './NavItem';
 
@@ -105,6 +106,11 @@ const items = [
     href: '/app/global_transactions',
     icon: GlobalIcon,
     title: 'Global Transactions'
+  },
+  {
+    href: '/app/requests',
+    icon: RequestsIcon,
+    title: 'Requests'
   },
   {
     href: '/app/account',

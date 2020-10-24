@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { useHistory } from 'react-router-dom';
-import { NavLink, Link } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+
 
 import clsx from 'clsx';
 import {
@@ -16,7 +16,7 @@ import {
 } from '@material-ui/core';
 import { Search as SearchIcon } from 'react-feather';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import { Link as RouterLink } from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -30,12 +30,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Toolbar = ({ className, ...rest }) => {
   const classes = useStyles();
-  // const history = useHistory();
+  const navigate = useNavigate();
 
-  // const checkout = () =>{ 
-  //   let path = `/checkout`; 
-  //   history.push(path);
-  // }
+  const handleCheckout = () => { 
+    navigate('/app/checkout', { replace: true });
+  }
+
 
   return (
     <div
@@ -69,9 +69,7 @@ const Toolbar = ({ className, ...rest }) => {
                 color="primary"
                 className={classes.button}
                 startIcon={<AddShoppingCartIcon />}
-                // onClick={checkout}
-                component={RouterLink}
-                to='/app/checkout'
+                onClick={handleCheckout}
               >
                 Checkout
               </Button>

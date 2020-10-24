@@ -10,11 +10,22 @@ import {
   Link,
   TextField,
   Typography,
-  makeStyles
+  makeStyles,
+  MenuItem
 } from '@material-ui/core';
 import FacebookIcon from 'src/icons/Facebook';
 import GoogleIcon from 'src/icons/Google';
 import Page from 'src/components/Page';
+const currencies = [
+  {
+    value: 'hospital',
+    label: 'Hospital',
+  },
+  {
+    value: 'manufacturer',
+    label: 'Manufacturer',
+  },
+];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +39,11 @@ const useStyles = makeStyles((theme) => ({
 const LoginView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
-
+  // const [currency, setCurrency] = React.useState('hospital');
+  // const handleChange1 = (event) => {
+  //   setCurrency(event.target.value);
+  // };
+  // const user = "";
   return (
     <Page
       className={classes.root}
@@ -44,14 +59,17 @@ const LoginView = () => {
           <Formik
             initialValues={{
               email: 'demo@devias.io',
-              password: 'Password123'
+              password: 'Password123',
+              user: "",
             }}
             validationSchema={Yup.object().shape({
               email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-              password: Yup.string().max(255).required('Password is required')
+              password: Yup.string().max(255).required('Password is required'),
+              user: Yup.string().required("User type is required")
             })}
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+            onSubmit={(values) => {
+              const user = values.user
+              navigate('/'+user+'/dashboard', { replace: false });
             }}
           >
             {({
@@ -126,7 +144,25 @@ const LoginView = () => {
                   >
                     or login with email address
                   </Typography>
-                </Box>
+                  </Box>
+                  <TextField
+                  error={Boolean(touched.user && errors.user)}
+                  helperText={touched.user && errors.user}
+                  fullWidth
+                  id="outlined-select-currency"
+                  select
+                  label="User"
+                  value={values.user}
+                  onChange={handleChange}
+                  variant="outlined"
+                  name="user"
+                >
+                  {currencies.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>  
                 <TextField
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
