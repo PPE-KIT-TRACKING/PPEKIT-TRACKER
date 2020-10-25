@@ -31,44 +31,6 @@ const routes = [
     ]
   },
   {
-    path: 'hospital',
-    element: <DashboardLayout />,
-    children: [
-      { path: 'account', element: <AccountView /> },
-      { path: 'orders', element: <OrdersView /> },
-      { path: 'global_transactions', element: <GlobalTransactionsView /> },
-      { path: 'inventory', element: <InventoryView /> },
-      { path: 'market', element: <MarketView /> },
-      { path: 'customers', element: <CustomerListView /> },
-      { path: 'dashboard', element: <DashboardView /> },
-      { path: 'checkout', element: <CheckoutView /> },
-      { path: 'products', element: <ProductListView /> },
-      { path: 'settings', element: <SettingsView /> },
-      { path: 'requests', element: <RequestsView /> },
-      { path: 'checkoutreq', element: <CheckoutRequestView /> },
-      { path: '*', element: <Navigate to="/404" /> }
-    ]
-  },
-  {
-    path: 'manufacturer',
-    element: <DashboardLayout />,
-    children: [
-      { path: 'account', element: <AccountView /> },
-      { path: 'orders', element: <OrdersView /> },
-      { path: 'global_transactions', element: <GlobalTransactionsView /> },
-      { path: 'inventory', element: <InventoryView /> },
-      { path: 'market', element: <MarketView /> },
-      { path: 'customers', element: <CustomerListView /> },
-      { path: 'dashboard', element: <DashboardView /> },
-      { path: 'checkout', element: <CheckoutView /> },
-      { path: 'products', element: <ProductListView /> },
-      { path: 'settings', element: <SettingsView /> },
-      { path: 'requests', element: <RequestsView /> },
-      { path: 'checkoutreq', element: <CheckoutRequestView /> },
-      { path: '*', element: <Navigate to="/404" /> },
-    ]
-  },
-  {
     path: 'app',
     element: <DashboardLayout />,
     children: [

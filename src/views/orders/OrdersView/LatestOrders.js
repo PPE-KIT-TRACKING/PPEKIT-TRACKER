@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import moment from 'moment';
-import { v4 as uuid } from 'uuid';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
 import {
@@ -22,89 +21,7 @@ import {
 } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-
-
-const data = [
-  {
-    id: uuid(),
-    ref: 'CDD1049',
-    amount: 30.5,
-    supplier: {
-      name: 'Ekaterina Tankova'
-    },
-    createdAt: 1555016400000,
-    status: 'pending',
-    costOffered: 1000,
-    itemName: "Sanitizer",
-    quantity:10
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1048',
-    amount: 25.1,
-    supplier: {
-      name: 'Cao Yu'
-    },
-    createdAt: 1555016400000,
-    status: 'delivered',
-    costOffered: 1000,
-    itemName: "Sanitizer",
-    quantity:10
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1047',
-    amount: 10.99,
-    supplier: {
-      name: 'Alexa Richardson'
-    },
-    createdAt: 1554930000000,
-    status: 'refunded',
-    costOffered: 1000,
-    itemName: "Sanitizer",
-    quantity:10
-    
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1046',
-    amount: 96.43,
-    supplier: {
-      name: 'Anje Keizer'
-    },
-    createdAt: 1554757200000,
-    status: 'pending',
-    costOffered: 1000,
-    itemName: "Sanitizer",
-    quantity:10
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1045',
-    amount: 32.54,
-    supplier: {
-      name: 'Clarke Gillebert'
-    },
-    createdAt: 1554670800000,
-    status: 'delivered',
-    costOffered: 1000,
-    itemName: "Sanitizer",
-    quantity:10
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1044',
-    amount: 16.76,
-    supplier: {
-      name: 'Adam Denisov'
-    },
-    createdAt: 1554670800000,
-    status: 'delivered',
-    costOffered: 1000,
-    itemName: "Sanitizer",
-    quantity:10
-  }
-];
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -113,14 +30,15 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const LatestOrders = ({ className, ...rest }) => {
+const LatestOrders = ({ className, ...props }) => {
   const classes = useStyles();
-  const [orders] = useState(data);
+  console.log(props);
+  const orders = props.orders;
 
   return (
     <Card
       className={clsx(classes.root, className)}
-      {...rest}
+      {...props}
     >
       <CardHeader title="Latest Orders" />
       <Divider />
@@ -229,4 +147,7 @@ LatestOrders.propTypes = {
   className: PropTypes.string
 };
 
-export default LatestOrders;
+const mapState = state => ({
+    orders:state.orders
+})
+export default connect(mapState,null)(LatestOrders);

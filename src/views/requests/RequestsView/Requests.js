@@ -17,6 +17,9 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import { useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+
 
 const useRowStyles = makeStyles({
   root: {
@@ -26,18 +29,6 @@ const useRowStyles = makeStyles({
   },
 });
 
-function createData(name, location, requiredby, verified) {
-  return {
-    name,
-    location,
-    requiredby,
-    verified,
-    ppeNeeded: [
-      { item: 'Sanitizers', quantity: 3 },
-      { item: 'Masks', quantity: 1 },
-    ],
-  };
-}
 
 function Row(props) {
 
@@ -125,16 +116,13 @@ Row.propTypes = {
   }).isRequired,
 };
 
-const rows = [
-  createData('Ankur Hospital', 'New Delhi', '31/10/2020', 'Yes'),
-  createData('Vishal Hospital', 'New Delhi', '31/10/2020', 'Yes'),
-  createData('Kriplani Hospital', 'New Delhi', '31/10/2020', 'Yes'),
-];
 
 
 
-export default function Requests() {
-  return (
+
+function Requests(props) {
+  const requests = props.requests;
+  return (  
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
@@ -148,11 +136,17 @@ export default function Requests() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} />
+          {requests.map((request) => (
+            <Row key={request.name} row={request} />
           ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
 }
+
+const mapState = state => ({
+  requests:state.requests
+})
+
+export default connect(mapState,null)(Requests);

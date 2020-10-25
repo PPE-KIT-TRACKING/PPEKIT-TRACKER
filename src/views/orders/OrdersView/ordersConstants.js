@@ -1,0 +1,2 @@
+export const INSERT_ORDER = "INSERT_ORDER";
+export const CHANGE_ORDER_STATUS = "CHANGE_ORDER_STATUS";

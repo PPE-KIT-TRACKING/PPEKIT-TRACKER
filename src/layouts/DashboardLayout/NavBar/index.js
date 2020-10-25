@@ -192,6 +192,7 @@ const NavBar = ({ onMobileClose, openMobile,...props }) => {
     email: props.auth.currentUser.email,
     usertype:props.auth.currentUser.user
   };
+  
   const items = user.usertype === "hospital" ? hospitalitems : manufactureritems; 
   
   useEffect(() => {

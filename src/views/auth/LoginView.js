@@ -18,8 +18,7 @@ import FacebookIcon from 'src/icons/Facebook';
 import GoogleIcon from 'src/icons/Google';
 import Page from 'src/components/Page';
 import { login } from './authActions'
-import authReducer from './authReducer';
-import { PureComponent } from 'react';
+
 
 const actions = {
   login
@@ -78,7 +77,6 @@ const LoginView = (props) => {
                 })}
                 onSubmit={(values) => {
                   const user = values.user;
-                  console.log(props);
                   props.login(values);
                   navigate('/app/dashboard', { replace: false });
                 }}
