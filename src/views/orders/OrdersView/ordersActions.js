@@ -11,11 +11,11 @@ export const insertOrder = (order) => {
     }
 }
 
-export const changeOrderStatus = (orderStatus) => {
+export const changeOrderStatus = (orderId) => {
     return {
         type: CHANGE_ORDER_STATUS,
         payload: {
-            orderStatus
+            orderId
         }
     }
 }

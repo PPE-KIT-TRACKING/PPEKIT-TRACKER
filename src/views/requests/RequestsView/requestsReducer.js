@@ -12,15 +12,14 @@ function createData(id,name, location, requiredby, verified,ppeNeeded) {
         requiredby,
         verified,
         ppeNeeded
-    
     };   
 }
 
 
 const initialState = [
     createData(uuid(), 'Ankur Hospital', 'New Delhi', '31/10/2020', 'Yes', [
-        { orderId: uuid(), item: "Sanitizer", quantity: 5 },
-        { orderId: uuid(), item: "Mask", quantity: 5 },
+        { orderId: 1, item: "Sanitizer", quantity: 5 },
+        { orderId: 2, item: "Mask", quantity: 5 },
         { orderId: uuid(), item: "Gloves", quantity: 10 },
     ]),
     createData(uuid(), 'Vishal Hospital', 'New Delhi', '31/10/2020', 'Yes', [

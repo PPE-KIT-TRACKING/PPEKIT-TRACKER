@@ -37,7 +37,6 @@ function Row(props) {
   const classes = useRowStyles();
   const navigate = useNavigate();
   const handleSupply = (event) => {
-    // console.log(`/app/checkoutreq/${event.currentTarget.id}`);
     navigate(`/app/checkoutreq/${event.currentTarget.id}`, { requestId: event.currentTarget.id });
   }
 

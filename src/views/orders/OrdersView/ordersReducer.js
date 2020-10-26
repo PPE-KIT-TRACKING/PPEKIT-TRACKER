@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 
 const initialState = [
   {
-    id: uuid(),
+    id: 1,
     ref: 'CDD1049',
     amount: 30.5,
     supplier: {
@@ -15,10 +15,10 @@ const initialState = [
     status: 'pending',
     costOffered: 1000,
     itemName: "Sanitizer",
-    quantity:10
+    quantity: 10,
   },
   {
-    id: uuid(),
+    id: 2,
     ref: 'CDD1048',
     amount: 25.1,
     supplier: {
@@ -91,8 +91,8 @@ export const insertOrder = (state, payload) =>{
 
 export const changeOrderStatus = (state, payload) => {
     const newstate = state.map((value, index, array) => {
-        if (value.id === payload.orderId.id)
-            return Object.assign({}, { ...value, status: payload.orderId.status })
+        if (value.id === payload.orderId)
+        return Object.assign({}, { ...value, status: "completed" })
        
         return value;
     });

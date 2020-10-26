@@ -14,7 +14,7 @@ import Review from './Review';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { removeRequest } from '../../requests/RequestsView/requestsActions'
-
+import {  changeOrderStatus } from '../../orders/OrdersView/ordersActions'
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -92,6 +92,12 @@ function Checkout(props) {
   const handleAcceptRequest = () => {
     setActiveStep(activeStep + 1);
     props.removeRequest(params.requestId);
+    const request = props.requests.find(request => request.id === params.requestId);
+    console.log(request.ppeNeeded);
+    for (const order of request.ppeNeeded) {
+      console.log(order.orderId);
+      props.changeOrderStatus(order.orderId);
+    }   
   }
 
   const handleBack = () => {
@@ -162,9 +168,14 @@ function Checkout(props) {
   );
 }
 
+const mapState = state => ({
+  requests:state.requests
+})
+
 const actions = {
-  removeRequest
+  removeRequest,
+  changeOrderStatus
 }
 
 
-export default connect(null,actions)(Checkout);
+export default connect(mapState,actions)(Checkout);

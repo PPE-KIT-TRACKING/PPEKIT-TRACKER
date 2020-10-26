@@ -32,7 +32,6 @@ const useStyles = makeStyles(() => ({
 
 const LatestOrders = ({ className, ...props }) => {
   const classes = useStyles();
-  console.log(props);
   const orders = props.orders;
 
   return (
