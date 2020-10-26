@@ -36,8 +36,9 @@ function Row(props) {
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
   const navigate = useNavigate();
-  const handleSupply = () => { 
-    navigate('/app/checkoutreq', { replace: true });
+  const handleSupply = (event) => {
+    // console.log(`/app/checkoutreq/${event.currentTarget.id}`);
+    navigate(`/app/checkoutreq/${event.currentTarget.id}`, { requestId: event.currentTarget.id });
   }
 
   return (
@@ -62,6 +63,7 @@ function Row(props) {
             className={classes.button}
             startIcon={<LocalShippingIcon />}
             onClick={handleSupply}
+            id={row.id}
           >
             Supply
           </Button>

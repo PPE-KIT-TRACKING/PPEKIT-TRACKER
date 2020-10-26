@@ -17,14 +17,13 @@ const useStyles = makeStyles((theme) => ({
 
 const CheckoutRequestView = () => {
   const classes = useStyles();
-
   return (
     <Page
       className={classes.root}
       title="Customers"
     >
       <Container maxWidth={false}>
-        <Checkout />
+        <Checkout/>
       </Container>
     </Page>
   );

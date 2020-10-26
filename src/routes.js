@@ -45,7 +45,7 @@ const routes = [
       { path: 'products', element: <ProductListView /> },
       { path: 'settings', element: <SettingsView /> },
       { path: 'requests', element: <RequestsView /> },
-      { path: 'checkoutreq', element: <CheckoutRequestView /> },
+      { path: 'checkoutreq/:requestId', element: <CheckoutRequestView /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   },

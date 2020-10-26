@@ -11,6 +11,9 @@ import Typography from '@material-ui/core/Typography';
 import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
+import { useParams } from 'react-router-dom';
+import { connect } from 'react-redux'
+import { removeRequest } from '../../requests/RequestsView/requestsActions'
 
 function Copyright() {
   return (
@@ -77,13 +80,19 @@ function getStepContent(step) {
   }
 }
 
-export default function Checkout() {
+function Checkout(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const params = useParams();
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
+
+  const handleAcceptRequest = () => {
+    setActiveStep(activeStep + 1);
+    props.removeRequest(params.requestId);
+  }
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
@@ -123,15 +132,25 @@ export default function Checkout() {
                     <Button onClick={handleBack} className={classes.button}>
                       Back
                     </Button>
-                  )}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                  </Button>
+                    )}
+                    
+                    {activeStep === steps.length - 1 && <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleAcceptRequest}
+                      className={classes.button}
+                    >
+                      Accept Request
+                    </Button>}
+                    {activeStep !== steps.length - 1 && <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleNext}
+                      className={classes.button}
+                    >
+                      Next
+                    </Button>}
+
                 </div>
               </React.Fragment>
             )}
@@ -142,3 +161,10 @@ export default function Checkout() {
     </React.Fragment>
   );
 }
+
+const actions = {
+  removeRequest
+}
+
+
+export default connect(null,actions)(Checkout);

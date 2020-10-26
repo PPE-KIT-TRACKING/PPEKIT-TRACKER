@@ -23,9 +23,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const RequestsView = () => {
+const RequestsView = (props) => {
   const classes = useStyles();
-
   return (
     <Page
       className={classes.root}
