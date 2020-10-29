@@ -1,4 +1,4 @@
-import { createReducer } from '../../../utils/reducerUtil';
+import { createReducer } from '../../../app/common/utils/reducerUtil';
 import { INSERT_ORDER, CHANGE_ORDER_STATUS } from './ordersConstants';
 import { v4 as uuid } from 'uuid';
 

@@ -6,3 +6,12 @@
 obj = { id: 1, value: 500 }
 value = Object.assign({}, { ...obj, id: 5 } )
 console.log(value)
+
+
+console.log("Hello World");
+
+
+
+arr = () => {
+    
+}

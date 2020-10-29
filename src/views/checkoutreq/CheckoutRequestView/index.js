@@ -3,7 +3,7 @@ import {
   Container,
   makeStyles
 } from '@material-ui/core';
-import Page from 'src/components/Page';
+import Page from 'src/app/common/components/Page';
 import Checkout from './Checkout'
 
 const useStyles = makeStyles((theme) => ({

@@ -1,4 +1,4 @@
-import { createReducer } from '../../../utils/reducerUtil';
+import { createReducer } from '../../../app/common/utils/reducerUtil';
 import { INSERT_REQUEST, REMOVE_REQUEST } from './requestsConstants';
 import { v4 as uuid } from 'uuid';
 

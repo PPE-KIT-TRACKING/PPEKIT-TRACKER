@@ -12,170 +12,182 @@ import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
 import { useParams } from 'react-router-dom';
-import { connect } from 'react-redux'
-import { removeRequest } from '../../requests/RequestsView/requestsActions'
-import {  changeOrderStatus } from '../../orders/OrdersView/ordersActions'
+import { connect } from 'react-redux';
+import { removeRequest } from '../../requests/RequestsView/requestsActions';
+import { changeOrderStatus } from '../../orders/OrdersView/ordersActions';
 function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        ppetracker.org
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
+	return (
+		<Typography variant="body2" color="textSecondary" align="center">
+			{'Copyright © '}
+			<Link color="inherit" href="https://material-ui.com/">
+				ppetracker.org
+			</Link>{' '}
+			{new Date().getFullYear()}
+			{'.'}
+		</Typography>
+	);
 }
 
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    position: 'relative',
-  },
-  layout: {
-    width: 'auto',
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: 600,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-  },
-  paper: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
-    padding: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(6),
-      padding: theme.spacing(3),
-    },
-  },
-  stepper: {
-    padding: theme.spacing(3, 0, 5),
-  },
-  buttons: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
-  button: {
-    marginTop: theme.spacing(3),
-    marginLeft: theme.spacing(1),
-  },
+const useStyles = makeStyles(theme => ({
+	appBar: {
+		position: 'relative'
+	},
+	layout: {
+		width: 'auto',
+		marginLeft: theme.spacing(2),
+		marginRight: theme.spacing(2),
+		[theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+			width: 600,
+			marginLeft: 'auto',
+			marginRight: 'auto'
+		}
+	},
+	paper: {
+		marginTop: theme.spacing(3),
+		marginBottom: theme.spacing(3),
+		padding: theme.spacing(2),
+		[theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+			marginTop: theme.spacing(6),
+			marginBottom: theme.spacing(6),
+			padding: theme.spacing(3)
+		}
+	},
+	stepper: {
+		padding: theme.spacing(3, 0, 5)
+	},
+	buttons: {
+		display: 'flex',
+		justifyContent: 'flex-end'
+	},
+	button: {
+		marginTop: theme.spacing(3),
+		marginLeft: theme.spacing(1)
+	}
 }));
 
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
 function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <AddressForm />;
-    case 1:
-      return <PaymentForm />;
-    case 2:
-      return <Review />;
-    default:
-      throw new Error('Unknown step');
-  }
+	switch (step) {
+		case 0:
+			return <AddressForm />;
+		case 1:
+			return <PaymentForm />;
+		case 2:
+			return <Review />;
+		default:
+			throw new Error('Unknown step');
+	}
 }
 
 function Checkout(props) {
-  const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const params = useParams();
+	const classes = useStyles();
+	const [activeStep, setActiveStep] = React.useState(0);
+	const params = useParams();
 
-  const handleNext = () => {
-    setActiveStep(activeStep + 1);
-  };
+	const handleNext = () => {
+		setActiveStep(activeStep + 1);
+	};
 
-  const handleAcceptRequest = () => {
-    setActiveStep(activeStep + 1);
-    props.removeRequest(params.requestId);
-    const request = props.requests.find(request => request.id === params.requestId);
-    console.log(request.ppeNeeded);
-    for (const order of request.ppeNeeded) {
-      console.log(order.orderId);
-      props.changeOrderStatus(order.orderId);
-    }   
-  }
+	const handleAcceptRequest = () => {
+		setActiveStep(activeStep + 1);
+		props.removeRequest(params.requestId);
+		const request = props.requests.find(
+			request => request.id === params.requestId
+		);
+		console.log(request.ppeNeeded);
+		for (const order of request.ppeNeeded) {
+			console.log(order.orderId);
+			props.changeOrderStatus(order.orderId);
+		}
+	};
 
-  const handleBack = () => {
-    setActiveStep(activeStep - 1);
-  };
+	const handleBack = () => {
+		setActiveStep(activeStep - 1);
+	};
 
-  return (
-    <React.Fragment>
-      <CssBaseline />
-      <main className={classes.layout}>
-        <Paper className={classes.paper}>
-          <Typography component="h1" variant="h4" align="center">
-            Checkout
-          </Typography>
-          <Stepper activeStep={activeStep} className={classes.stepper}>
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          <React.Fragment>
-            {activeStep === steps.length ? (
-              <React.Fragment>
-                <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
-                </Typography>
-                <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order confirmation, and will
-                  send you an update when your order has shipped.
-                </Typography>
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                {getStepContent(activeStep)}
-                <div className={classes.buttons}>
-                  {activeStep !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
-                      Back
-                    </Button>
-                    )}
-                    
-                    {activeStep === steps.length - 1 && <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={handleAcceptRequest}
-                      className={classes.button}
-                    >
-                      Accept Request
-                    </Button>}
-                    {activeStep !== steps.length - 1 && <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={handleNext}
-                      className={classes.button}
-                    >
-                      Next
-                    </Button>}
+	return (
+		<React.Fragment>
+			<CssBaseline />
+			<main className={classes.layout}>
+				<Paper className={classes.paper}>
+					<Typography component="h1" variant="h4" align="center">
+						Checkout
+					</Typography>
+					<Stepper
+						activeStep={activeStep}
+						className={classes.stepper}
+					>
+						{steps.map(label => (
+							<Step key={label}>
+								<StepLabel>{label}</StepLabel>
+							</Step>
+						))}
+					</Stepper>
+					<React.Fragment>
+						{activeStep === steps.length ? (
+							<React.Fragment>
+								<Typography variant="h5" gutterBottom>
+									Thank you for your order.
+								</Typography>
+								<Typography variant="subtitle1">
+									Your order number is #2001539. We have
+									emailed your order confirmation, and will
+									send you an update when your order has
+									shipped.
+								</Typography>
+							</React.Fragment>
+						) : (
+							<React.Fragment>
+								{getStepContent(activeStep)}
+								<div className={classes.buttons}>
+									{activeStep !== 0 && (
+										<Button
+											onClick={handleBack}
+											className={classes.button}
+										>
+											Back
+										</Button>
+									)}
 
-                </div>
-              </React.Fragment>
-            )}
-          </React.Fragment>
-        </Paper>
-        <Copyright />
-      </main>
-    </React.Fragment>
-  );
+									{activeStep === steps.length - 1 && (
+										<Button
+											variant="contained"
+											color="primary"
+											onClick={handleAcceptRequest}
+											className={classes.button}
+										>
+											Accept Request
+										</Button>
+									)}
+									{activeStep !== steps.length - 1 && (
+										<Button
+											variant="contained"
+											color="primary"
+											onClick={handleNext}
+											className={classes.button}
+										>
+											Next
+										</Button>
+									)}
+								</div>
+							</React.Fragment>
+						)}
+					</React.Fragment>
+				</Paper>
+				<Copyright />
+			</main>
+		</React.Fragment>
+	);
 }
 
 const mapState = state => ({
-  requests:state.requests
-})
+	requests: state.requests
+});
 
 const actions = {
-  removeRequest,
-  changeOrderStatus
-}
+	removeRequest,
+	changeOrderStatus
+};
 
-
-export default connect(mapState,actions)(Checkout);
+export default connect(mapState, actions)(Checkout);

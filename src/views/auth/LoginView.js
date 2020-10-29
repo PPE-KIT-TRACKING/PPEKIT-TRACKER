@@ -14,9 +14,9 @@ import {
   makeStyles,
   MenuItem
 } from '@material-ui/core';
-import FacebookIcon from 'src/icons/Facebook';
-import GoogleIcon from 'src/icons/Google';
-import Page from 'src/components/Page';
+import FacebookIcon from 'src/app/common/icons/Facebook';
+import GoogleIcon from 'src/app/common/icons/Google';
+import Page from 'src/app/common/components/Page';
 import { login } from './authActions'
 
 
