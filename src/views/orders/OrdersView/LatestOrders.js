@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -22,6 +22,9 @@ import {
 import InfoIcon from '@material-ui/icons/Info';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import { connect } from 'react-redux';
+import { loadOrders } from './ordersActions';
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -33,6 +36,7 @@ const useStyles = makeStyles(() => ({
 const LatestOrders = ({ className, ...props }) => {
   const classes = useStyles();
   const orders = props.orders;
+  props.loadOrders();
 
   return (
     <Card
@@ -80,7 +84,7 @@ const LatestOrders = ({ className, ...props }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {orders.map((order) => (
+              {orders && orders.map((order) => (
                 <TableRow
                   hover
                   key={order.id}
@@ -146,7 +150,19 @@ LatestOrders.propTypes = {
   className: PropTypes.string
 };
 
-const mapState = state => ({
-    orders:state.orders
-})
-export default connect(mapState,null)(LatestOrders);
+const mapState = (state) => {
+  return {
+		orders: state.firestore.ordered.orders
+  };
+}
+
+const mapActions = {
+  loadOrders
+}
+
+export default compose(
+  connect(mapState, mapActions),
+  firestoreConnect([{
+    collection:"orders"
+  }])
+)(LatestOrders);

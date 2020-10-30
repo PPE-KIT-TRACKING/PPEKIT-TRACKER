@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -76,7 +76,7 @@ const LoginView = (props) => {
                   user: Yup.string().required("User type is required")
                 })}
                 onSubmit={(values) => {
-                  const user = values.user;
+                  // const user = values.user;
                   props.login(values);
                   navigate('/app/dashboard', { replace: false });
                 }}

@@ -18,7 +18,11 @@ export const configureStore = preloadedState => {
 
 	const composedEnhancer = composeWithDevTools(
 		...storeEnhancers,
-		reactReduxFirebase(firebase),
+		reactReduxFirebase(firebase, {
+			userProfile: 'users',
+			useFirestoreForProfile: true,
+			attachAuthIsReady: true
+		}),
 		reduxFirestore(firebase)
 	);
 

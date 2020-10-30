@@ -4,7 +4,8 @@ import {
 	FETCH_ORDERS
 } from './ordersConstants';
 import { asyncActionStart } from '../../async/asyncActions';
-import { asyncActionFinish } from 'src/views/async/asyncActions';
+import { asyncActionFinish } from '../../async/asyncActions';
+
 export const insertOrder = order => {
 	return {
 		type: INSERT_ORDER,
@@ -15,12 +16,21 @@ export const insertOrder = order => {
 };
 
 export const changeOrderStatus = orderId => {
-	return {
-		type: CHANGE_ORDER_STATUS,
-		payload: {
-			orderId
+	return async (dispatch, getState, { getFirestore }) => {
+		try {
+			const firestore = getFirestore();
+			dispatch(asyncActionStart());
+			await firestore
+				.collection('orders')
+				.doc(orderId)
+				.set({
+					pending:"completed"
+				});
+			dispatch(asyncActionFinish()); 
+		} catch (error) {
+			console.log(error);
 		}
-	};
+	}
 };
 
 export const fetchOrders = orders => {
@@ -31,14 +41,27 @@ export const fetchOrders = orders => {
 };
 
 export const loadOrders = () => {
-	return async (dispatch, getState, { getFirestore }) => {
-		const firestore = getFirestore;
+	return async(dispatch, getState, {getFirestore}) => {
 		try {
+			// const firestore = getFirestore();
 			dispatch(asyncActionStart());
-			let orders = firestore.collection('orders');
+			
+			// const querySnap = await firestore.collection('orders').get()
+			
+			// if (querySnap.docs.length === 0) {
+			// 	dispatch(asyncActionFinish());
+			// 	return querySnap;
+			// }
+
+			// const orders = [];
+			// for (let order of querySnap.docs) {
+			// 	order = { ...order.data(), id: order.id }
+			// 	orders.push(order)
+			// }
+
 			dispatch(asyncActionFinish());
 		} catch (error) {
-			console.log(err);
+			console.log(error);
 		}
 	};
 };

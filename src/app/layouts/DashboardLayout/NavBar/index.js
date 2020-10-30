@@ -16,11 +16,9 @@ import {
 import {
   AlertCircle as AlertCircleIcon,
   BarChart as BarChartIcon,
-  Lock as LockIcon,
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
   User as UserIcon,
-  UserPlus as UserPlusIcon,
   Users as UsersIcon,
   Globe as GlobalIcon,
   Database as InventoryIcon,
@@ -184,7 +182,7 @@ const useStyles = makeStyles(() => ({
 const NavBar = ({ onMobileClose, openMobile,...props }) => {
   const classes = useStyles();
   const location = useLocation();
-  const authenticated = props.auth.authenticated;
+  // const authenticated = props.auth.authenticated;
   const navigate = useNavigate();
   const user = {
     avatar: '/static/images/avatars/avatar_6.png',

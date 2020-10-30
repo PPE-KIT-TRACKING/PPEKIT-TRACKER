@@ -15,6 +15,11 @@ import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { removeRequest } from '../../requests/RequestsView/requestsActions';
 import { changeOrderStatus } from '../../orders/OrdersView/ordersActions';
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
+
+
+
 function Copyright() {
 	return (
 		<Typography variant="body2" color="textSecondary" align="center">
@@ -84,7 +89,6 @@ function Checkout(props) {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
 	const params = useParams();
-
 	const handleNext = () => {
 		setActiveStep(activeStep + 1);
 	};
@@ -95,9 +99,7 @@ function Checkout(props) {
 		const request = props.requests.find(
 			request => request.id === params.requestId
 		);
-		console.log(request.ppeNeeded);
 		for (const order of request.ppeNeeded) {
-			console.log(order.orderId);
 			props.changeOrderStatus(order.orderId);
 		}
 	};
@@ -181,13 +183,23 @@ function Checkout(props) {
 	);
 }
 
-const mapState = state => ({
-	requests: state.requests
-});
+const mapState = state => {
+	return {
+		requests: state.firestore.ordered.requests
+	}
+};
 
 const actions = {
 	removeRequest,
 	changeOrderStatus
 };
 
-export default connect(mapState, actions)(Checkout);
+
+export default compose(
+	connect(mapState,actions),
+	firestoreConnect([
+		{
+			collection: 'requests'
+		}
+	])
+)(Checkout);
