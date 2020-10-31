@@ -48,7 +48,8 @@ export const register = user => {
 			const newUser = {
 				name: user.firstName + ' ' + user.lastName,
 				avatar: '/static/images/avatars/avatar_6.png',
-				type: user.type
+				type: user.type,
+				orders:[]
 			};
 			await firestore.set(`users/${createdUser.uid}`, { ...newUser });
 			dispatch({ type: REGISTER_USER_SUCESS });
