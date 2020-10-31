@@ -28,16 +28,20 @@ const useStyles = makeStyles(() => ({
 const TopBar = ({
   className,
   onMobileNavOpen,
-  ...rest
+  ...props
 }) => {
   const classes = useStyles();
   const [notifications] = useState([]);
+
+  const handleLogout = () => {
+    props.logout();
+  }
 
   return (
     <AppBar
       className={clsx(classes.root, className)}
       elevation={0}
-      {...rest}
+      {...props}
     >
       <Toolbar>
         <RouterLink to="/">
@@ -61,7 +65,7 @@ const TopBar = ({
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          <IconButton color="inherit">
+          <IconButton color="inherit" onClick={handleLogout}>
             <InputIcon />
           </IconButton>
         </Hidden>

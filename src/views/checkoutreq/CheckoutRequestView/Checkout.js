@@ -12,11 +12,7 @@ import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
 import { useParams } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { removeRequest } from '../../requests/RequestsView/requestsActions';
-import { changeOrderStatus } from '../../orders/OrdersView/ordersActions';
-import { firestoreConnect } from 'react-redux-firebase';
-import { compose } from 'redux';
+
 
 
 
@@ -183,23 +179,4 @@ function Checkout(props) {
 	);
 }
 
-const mapState = state => {
-	return {
-		requests: state.firestore.ordered.requests
-	}
-};
-
-const actions = {
-	removeRequest,
-	changeOrderStatus
-};
-
-
-export default compose(
-	connect(mapState,actions),
-	firestoreConnect([
-		{
-			collection: 'requests'
-		}
-	])
-)(Checkout);
+export default Checkout;

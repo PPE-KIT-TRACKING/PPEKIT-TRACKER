@@ -13,6 +13,10 @@ import TasksProgress from './TasksProgress';
 import TotalCustomers from './TotalCustomers';
 import TotalProfit from './TotalProfit';
 import TrafficByDevice from './TrafficByDevice';
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
+import { useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,7 +27,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Dashboard = () => {
+const Dashboard = (props) => {
+  const { auth } = props;
+  const navigate = useNavigate();
+  if (!auth.uid) navigate('/login', { replace: false });
+  
   const classes = useStyles();
 
   return (
@@ -114,4 +122,11 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+const mapState = state => {
+  return {
+    auth : state.firebase.auth
+  }
+} 
+
+
+export default connect(mapState,null)(Dashboard);

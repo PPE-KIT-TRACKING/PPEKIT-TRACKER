@@ -9,9 +9,6 @@ console.log(value)
 
 
 console.log("Hello World");
-
-
-
-arr = () => {
-    
-}
+a = null
+if (a)
+console.log("IN")
