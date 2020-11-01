@@ -18,21 +18,21 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Orders = props => {
-	const { allOrders, loadOrders, auth ,profile} = props;
+	const { allOrders, loadOrders, auth, profile } = props;
 	const classes = useStyles();
 	const navigate = useNavigate();
 	if (!auth.uid) navigate('/login', { replace: false });
 	let orders = null;
 	console.log(profile);
 	if (allOrders && profile.orders) {
-		orders = allOrders.filter(order => profile.orders.includes(order.id));	
+		orders = allOrders.filter(order => profile.orders.includes(order.id));
 	}
 	return (
 		<Page className={classes.root} title="Orders">
 			<Container maxWidth={false}>
 				<Grid container spacing={4}>
 					<Grid item lg={10} md={14} xl={11} xs={14}>
-            <LatestOrders loadOrders={loadOrders} orders={orders}/>
+						<LatestOrders loadOrders={loadOrders} orders={orders} />
 					</Grid>
 				</Grid>
 			</Container>
@@ -44,7 +44,7 @@ const mapState = state => {
 	return {
 		allOrders: state.firestore.ordered.orders,
 		auth: state.firebase.auth,
-		profile:state.firebase.profile
+		profile: state.firebase.profile
 	};
 };
 
@@ -54,7 +54,5 @@ const mapActions = {
 
 export default compose(
 	connect(mapState, mapActions),
-	firestoreConnect([
-		'orders'
-	])
+	firestoreConnect(['orders'])
 )(Orders);
