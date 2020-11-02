@@ -21,6 +21,7 @@ import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import moment from 'moment';
+import { insertRequest } from './requestsActions'
 
 const useRowStyles = makeStyles({
 	root: {
@@ -143,9 +144,18 @@ Row.propTypes = {
 };
 
 function Requests(props) {
-	const requests = props.requests;
+	const { requests, insertRequest } = props;
 	return (
 		<TableContainer component={Paper}>
+			<Button
+				variant="contained"
+				color="primary"
+				size="small"
+				startIcon={<LocalShippingIcon />}
+				onClick={insertRequest}
+			>
+				populate
+			</Button>
 			<Table aria-label="collapsible table">
 				<TableHead>
 					<TableRow>
@@ -175,8 +185,12 @@ const mapState = state => {
 	};
 };
 
+const mapActions = {
+	insertRequest
+};
+
 export default compose(
-	connect(mapState),
+	connect(mapState,mapActions),
 	firestoreConnect([
 		{
 			collection: 'requests'

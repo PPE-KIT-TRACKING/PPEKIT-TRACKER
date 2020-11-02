@@ -25,16 +25,16 @@ const Orders = props => {
 		return <Navigate to="/login" state={{ from: location }} />;
 	}
 	let orders = null;
-	console.log(profile);
 	if (allOrders && profile.orders) {
 		orders = allOrders.filter(order => profile.orders.includes(order.id));
 	}
+
 	return (
 		<Page className={classes.root} title="Orders">
 			<Container maxWidth={false}>
 				<Grid container spacing={4}>
 					<Grid item lg={10} md={14} xl={11} xs={14}>
-						<LatestOrders loadOrders={loadOrders} orders={orders} />
+						<LatestOrders profile={profile} orders={orders} />
 					</Grid>
 				</Grid>
 			</Container>

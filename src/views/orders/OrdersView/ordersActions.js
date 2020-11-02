@@ -5,6 +5,7 @@ import {
 } from './ordersConstants';
 import { asyncActionStart } from '../../async/asyncActions';
 import { asyncActionFinish } from '../../async/asyncActions';
+import { firebase, getFirebase } from 'react-redux-firebase';
 
 export const insertOrder = order => {
 	return {
@@ -16,16 +17,29 @@ export const insertOrder = order => {
 };
 
 export const changeOrderStatus = orderId => {
-	return async (dispatch, getState, { getFirestore }) => {
+	return async (dispatch, getState, { getFirestore,getFirebase }) => {
 		try {
 			const firestore = getFirestore();
+			const firebase = getFirebase()
+			const {
+				isEmpty,
+				isLoaded,
+				...oldUser
+			} = getState().firebase.profile;
+			const newUser = {
+				...oldUser,
+			}
 			dispatch(asyncActionStart());
 			await firestore
 				.collection('orders')
 				.doc(orderId)
-				.set({
-					pending: 'completed'
+				.update({
+					status: 'completed',
+					manufacturer: newUser
 				});
+			await firebase.updateProfile({
+				orders:[...newUser.orders,orderId]
+			})
 			dispatch(asyncActionFinish());
 		} catch (error) {
 			console.log(error);

@@ -1,4 +1,5 @@
-const handleUpload = () => {
-	const uploadTask = storage.ref(`images/${image.name}`).put(image);
-	uploadTask.on();
-};
+const hell = {
+	name:"vishal"
+}
+if (hell.com) console.log(1);
+if (!hell.com) console.log(2);

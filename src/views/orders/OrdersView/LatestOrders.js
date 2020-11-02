@@ -17,22 +17,107 @@ import {
 	TableRow,
 	TableSortLabel,
 	Tooltip,
-	makeStyles
+	makeStyles,
+	Slide,
+	AppBar,
+	List,
+	ListItem,
+	ListItemText,
+	Typography,
+	IconButton,
+	Dialog,
+	Toolbar,
+	CardContent,
+	CardActions,
+	Avatar,
+	Container
 } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import CloseIcon from '@material-ui/icons/Close';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
 	root: {},
 	actions: {
 		justifyContent: 'flex-end'
+	},
+	appBar: {
+		position: 'relative'
+	},
+	title: {
+		marginLeft: theme.spacing(2),
+		flex: 1
 	}
 }));
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+	return <Slide direction="up" ref={ref} {...props} />;
+});
+
+
+const Profile = ({ className, user, props }) => {
+	const classes = useStyles();
+	if (!user || user === {}) {
+		return (
+			<Container maxWidth="lg">
+				<Typography color="textPrimary" gutterBottom variant="h3">
+					Order is Still Pending..!
+				</Typography>
+			</Container>
+		);
+	}
+	return (
+		<Container maxWidth="lg">
+			<Card className={clsx(classes.root, className)} {...props}>
+				<CardContent>
+					<Box
+						alignItems="center"
+						display="flex"
+						flexDirection="column"
+					>
+						<Avatar
+							className={classes.avatar}
+							src={
+								user.avatar ||
+								'/static/images/avatars/avatar_6.png'
+							}
+						/>
+						<Typography
+							color="textPrimary"
+							gutterBottom
+							variant="h3"
+						>
+							{user.firstName + ' ' + user.lastName}
+						</Typography>
+						<Typography color="textSecondary" variant="body1">
+							{`${user.state} ${user.country}`}
+						</Typography>
+						<Typography color="textSecondary" variant="body1">
+							{`${moment().format('hh:mm A')} GMT-5:30`}
+						</Typography>
+					</Box>
+				</CardContent>
+				<Divider />
+				<CardActions></CardActions>
+			</Card>
+		</Container>
+	);
+};
+
+
 const LatestOrders = ({ className, ...props }) => {
 	const classes = useStyles();
-	const orders = props.orders;
-	props.loadOrders();
+	const { profile,orders} = props;
+	const [open, setOpen] = React.useState(false);
+	const isHospital = profile.type === "hospital";
+	console.log(orders);
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
 
 	return (
 		<Card className={clsx(classes.root, className)} {...props}>
@@ -87,9 +172,64 @@ const LatestOrders = ({ className, ...props }) => {
 												size="small"
 												className={classes.button}
 												startIcon={<InfoIcon />}
+												onClick={handleClickOpen}
 											>
 												More Info
 											</Button>
+											<Dialog
+												// fullScreen
+												open={open}
+												onClose={handleClose}
+												TransitionComponent={Transition}
+											>
+												<AppBar
+													className={classes.appBar}
+												>
+													<Toolbar>
+														<IconButton
+															edge="start"
+															color="inherit"
+															onClick={
+																handleClose
+															}
+															aria-label="close"
+														>
+															<CloseIcon />
+														</IconButton>
+														<Typography
+															variant="h6"
+															className={
+																classes.title
+															}
+														>
+															{!isHospital
+																? 'Hospital'
+																: 'Manufacturer'}{' '}
+															Details
+														</Typography>
+													</Toolbar>
+												</AppBar>
+												{/* to add */}
+												{}
+												{isHospital ? (
+													<Profile
+														className={className}
+														user={
+															order.manufacturer
+														}
+														props={props}
+													/>
+												) : (
+													<Profile
+														className={className}
+														user={
+															order.hospital
+														}
+														props={props}
+													/>
+												)}
+												{/*  */}
+											</Dialog>
 										</TableCell>
 									</TableRow>
 								))}
