@@ -13,9 +13,6 @@ import PaymentForm from './PaymentForm';
 import Review from './Review';
 import { useParams } from 'react-router-dom';
 
-
-
-
 function Copyright() {
 	return (
 		<Typography variant="body2" color="textSecondary" align="center">

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import {
@@ -40,9 +41,11 @@ const userTypes = [
 
 const RegisterView = props => {
 	const classes = useStyles();
-	const navigate = useNavigate();
-	const { auth, register,registerError,_error } = props;
-	if (auth.uid) navigate('/app/dashboard', { replace: false });
+	const { auth, register, registerError, _error } = props;
+	const location = useLocation();
+	if (auth.uid) {
+		return <Navigate to="/app/dashboard" state={{ from: location }} />;
+	}
 
 	return (
 		<Page className={classes.root} title="Register">
@@ -60,7 +63,7 @@ const RegisterView = props => {
 							lastName: '',
 							password: '',
 							policy: false,
-							type:""
+							type: ''
 						}}
 						validationSchema={Yup.object().shape({
 							email: Yup.string()
@@ -266,7 +269,7 @@ const mapState = state => {
 	return {
 		auth: state.firebase.auth,
 		registerError: state.auth.registerError,
-		_error:state.auth._error
+		_error: state.auth._error
 	};
 };
 

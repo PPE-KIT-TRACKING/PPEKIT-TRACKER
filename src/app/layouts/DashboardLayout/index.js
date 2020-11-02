@@ -5,7 +5,7 @@ import NavBar from './NavBar';
 import TopBar from './TopBar';
 import { connect } from 'react-redux';
 import { logout } from '../../../views/auth/authActions';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 const useStyles = makeStyles(theme => ({
 	root: {
 		backgroundColor: theme.palette.background.dark,
@@ -37,12 +37,13 @@ const useStyles = makeStyles(theme => ({
 
 const DashboardLayout = props => {
 	const { auth, profile, logout } = props;
-	const navigate = useNavigate();
-  
-  if (!auth.uid) navigate('/login', { replace: false });
-  console.log("dashboard");
-  const classes = useStyles();
+	const location = useLocation();
+	const classes = useStyles();
 	const [isMobileNavOpen, setMobileNavOpen] = useState(false);
+
+	if (!auth.uid) {
+		return <Navigate to="/login" state={{ from: location }} />;
+	}
 
 	return (
 		<div className={classes.root}>

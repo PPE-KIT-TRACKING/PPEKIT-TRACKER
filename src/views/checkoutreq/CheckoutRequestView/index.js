@@ -9,7 +9,6 @@ import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import { useNavigate } from 'react-router-dom';
 
-
 const useStyles = makeStyles(theme => ({
 	root: {
 		backgroundColor: theme.palette.background.dark,
@@ -20,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const CheckoutRequestView = props => {
-	const { auth,requests, removeRequest, changeOrderStatus } = props;
+	const { auth, requests, removeRequest, changeOrderStatus } = props;
 	const navigate = useNavigate();
 	if (!auth.uid) navigate('/login', { replace: false });
 

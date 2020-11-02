@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
@@ -81,113 +81,88 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 // import React from 'react';
 // import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import {
-  Avatar,
-  Box,
-  Divider,
-  Grid,
-  Button
-} from '@material-ui/core';
+import { Avatar, Box, Divider, Grid, Button } from '@material-ui/core';
 
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: 100,
-    }
-  },
-  statsItem: {
-    alignItems: 'center',
-    display: 'flex'
-  },
-  statsIcon: {
-    marginRight: theme.spacing(1)
-  }
+const useStyles = makeStyles(theme => ({
+	root: {
+		display: 'flex',
+		flexDirection: 'column',
+		'& .MuiTextField-root': {
+			margin: theme.spacing(1),
+			width: 100
+		}
+	},
+	statsItem: {
+		alignItems: 'center',
+		display: 'flex'
+	},
+	statsIcon: {
+		marginRight: theme.spacing(1)
+	}
 }));
 
 const ProductCard = ({ className, product, ...rest }) => {
-  const classes = useStyles();
+	const classes = useStyles();
 
-  return (
-    <Card
-      className={clsx(classes.root, className)}
-      {...rest}
-    >
-      <CardContent>
-        <Box
-          display="flex"
-          justifyContent="center"
-          mb={3}
-        >
-          <Avatar
-            alt="Product"
-            src={product.media}
-            variant="square"
-          />
-        </Box>
-        <Typography
-          align="center"
-          color="textPrimary"
-          gutterBottom
-          variant="h4"
-        >
-          {product.title}
-        </Typography>
-        <Typography
-          align="center"
-          color="textPrimary"
-          variant="body1"
-        >
-          {product.description}
-        </Typography>
-      </CardContent>
-      <Box flexGrow={1} />
-      <Divider />
-      <Box p={2}>
-        <Grid
-          container
-          justify="space-between"
-          spacing={2}
-        >
-          <Grid
-            className={classes.statsItem}
-            item
-          >
-            <IconButton aria-label="previous">
-            {<RemoveIcon />}
-           </IconButton>
-             {/* <PlayArrowIcon className={classes.playIcon} /> */}
-             <TextField id="quantity" label="Quantity" variant="outlined" size="small"/>
-           <IconButton aria-label="next">
-            {<AddIcon />}
-           </IconButton>
-          </Grid>
-          
-          <Grid
-            className={classes.statsItem}
-            item
-          >
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              startIcon={<AddCircleIcon />}
-            >
-              Add
-            </Button>
-          </Grid>
-        </Grid>
-      </Box>
-    </Card>
-  );
+	return (
+		<Card className={clsx(classes.root, className)} {...rest}>
+			<CardContent>
+				<Box display="flex" justifyContent="center" mb={3}>
+					<Avatar
+						alt="Product"
+						src={product.media}
+						variant="square"
+					/>
+				</Box>
+				<Typography
+					align="center"
+					color="textPrimary"
+					gutterBottom
+					variant="h4"
+				>
+					{product.title}
+				</Typography>
+				<Typography align="center" color="textPrimary" variant="body1">
+					{product.description}
+				</Typography>
+			</CardContent>
+			<Box flexGrow={1} />
+			<Divider />
+			<Box p={2}>
+				<Grid container justify="space-between" spacing={2}>
+					<Grid className={classes.statsItem} item>
+						<IconButton aria-label="previous">
+							{<RemoveIcon />}
+						</IconButton>
+						{/* <PlayArrowIcon className={classes.playIcon} /> */}
+						<TextField
+							id="quantity"
+							label="Quantity"
+							variant="outlined"
+							size="small"
+						/>
+						<IconButton aria-label="next">{<AddIcon />}</IconButton>
+					</Grid>
+
+					<Grid className={classes.statsItem} item>
+						<Button
+							variant="contained"
+							color="primary"
+							className={classes.button}
+							startIcon={<AddCircleIcon />}
+						>
+							Add
+						</Button>
+					</Grid>
+				</Grid>
+			</Box>
+		</Card>
+	);
 };
 
 ProductCard.propTypes = {
-  className: PropTypes.string,
-  product: PropTypes.object.isRequired
+	className: PropTypes.string,
+	product: PropTypes.object.isRequired
 };
 
 export default ProductCard;

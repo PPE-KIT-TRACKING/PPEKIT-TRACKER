@@ -24,13 +24,13 @@ export const changeOrderStatus = orderId => {
 				.collection('orders')
 				.doc(orderId)
 				.set({
-					pending:"completed"
+					pending: 'completed'
 				});
-			dispatch(asyncActionFinish()); 
+			dispatch(asyncActionFinish());
 		} catch (error) {
 			console.log(error);
 		}
-	}
+	};
 };
 
 export const fetchOrders = orders => {
@@ -41,13 +41,13 @@ export const fetchOrders = orders => {
 };
 
 export const loadOrders = () => {
-	return async(dispatch, getState, {getFirestore}) => {
+	return async (dispatch, getState, { getFirestore }) => {
 		try {
 			// const firestore = getFirestore();
 			dispatch(asyncActionStart());
-			
+
 			// const querySnap = await firestore.collection('orders').get()
-			
+
 			// if (querySnap.docs.length === 0) {
 			// 	dispatch(asyncActionFinish());
 			// 	return querySnap;

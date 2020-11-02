@@ -6,8 +6,6 @@ import thunk from 'redux-thunk';
 import rootReducer from '../reducers/rootReducer';
 import firebase from '../config/firebase';
 
-
-
 export const configureStore = preloadedState => {
 	const middlewares = [
 		thunk.withExtraArgument({ getFirebase, getFirestore })

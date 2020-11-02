@@ -18,17 +18,7 @@ import FacebookIcon from 'src/app/common/icons/Facebook';
 import GoogleIcon from 'src/app/common/icons/Google';
 import Page from 'src/app/common/components/Page';
 import { login } from './authActions';
-
-const userTypes = [
-	{
-		value: 'hospital',
-		label: 'Hospital'
-	},
-	{
-		value: 'manufacturer',
-		label: 'Manufacturer'
-	}
-];
+import { Navigate, useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -42,9 +32,11 @@ const useStyles = makeStyles(theme => ({
 const LoginView = props => {
 	const classes = useStyles();
 	const navigate = useNavigate();
-  const { login, authError, auth,_error } = props;
-
-	if (auth.uid) navigate('/app/dashboard', { replace: false });
+	const { login, authError, auth, _error } = props;
+	const location = useLocation();
+	if (auth.uid) {
+		return <Navigate to="/app/dashboard" state={{ from: location }} />;
+	}
 	return (
 		<Page className={classes.root} title="Login">
 			<Box
@@ -67,8 +59,7 @@ const LoginView = props => {
 								.required('Email is required'),
 							password: Yup.string()
 								.max(255)
-								.required('Password is required'),
-							
+								.required('Password is required')
 						})}
 						onSubmit={values => {
 							login(values);
@@ -206,7 +197,7 @@ const mapState = state => {
 	return {
 		authError: state.auth.authError,
 		auth: state.firebase.auth,
-		_error:state.auth._error
+		_error: state.auth._error
 	};
 };
 

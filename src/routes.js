@@ -19,37 +19,42 @@ import RequestsView from 'src/views/requests/RequestsView';
 import CheckoutRequestView from 'src/views/checkoutreq/CheckoutRequestView';
 
 const routes = [
-  {
-    path: '/',
-    element: <MainLayout />,
-    children: [
-      { path: 'login', element: <LoginView /> },
-      { path: 'register', element: <RegisterView /> },
-      { path: '404', element: <NotFoundView /> },
-      { path: '/', element: <Navigate to="/login" /> },
-      { path: '*', element: <Navigate to="/404" /> }
-    ]
-  },
-  {
-    path: 'app',
-    element: <DashboardLayout />,
-    children: [
-      { path: 'account', element: <AccountView /> },
-      { path: 'orders', element: <OrdersView /> },
-      { path: 'global_transactions', element: <GlobalTransactionsView /> },
-      { path: 'inventory', element: <InventoryView /> },
-      { path: 'market', element: <MarketView /> },
-      { path: 'customers', element: <CustomerListView /> },
-      { path: 'dashboard', element: <DashboardView /> },
-      { path: 'checkout', element: <CheckoutView /> },
-      { path: 'products', element: <ProductListView /> },
-      { path: 'settings', element: <SettingsView /> },
-      { path: 'requests', element: <RequestsView /> },
-      { path: 'checkoutreq/:requestId', element: <CheckoutRequestView /> },
-      { path: '*', element: <Navigate to="/404" /> }
-    ]
-  },
-  
+	{
+		path: '/',
+		element: <MainLayout />,
+		children: [
+			{ path: 'login', element: <LoginView /> },
+			{ path: 'register', element: <RegisterView /> },
+			{ path: '404', element: <NotFoundView /> },
+			{ path: '/', element: <Navigate to="/login" /> },
+			{ path: '*', element: <Navigate to="/404" /> }
+		]
+	},
+	{
+		path: 'app',
+		element: <DashboardLayout />,
+		children: [
+			{ path: 'account', element: <AccountView /> },
+			{ path: 'orders', element: <OrdersView /> },
+			{
+				path: 'global_transactions',
+				element: <GlobalTransactionsView />
+			},
+			{ path: 'inventory', element: <InventoryView /> },
+			{ path: 'market', element: <MarketView /> },
+			{ path: 'customers', element: <CustomerListView /> },
+			{ path: 'dashboard', element: <DashboardView /> },
+			{ path: 'checkout', element: <CheckoutView /> },
+			{ path: 'products', element: <ProductListView /> },
+			{ path: 'settings', element: <SettingsView /> },
+			{ path: 'requests', element: <RequestsView /> },
+			{
+				path: 'checkoutreq/:requestId',
+				element: <CheckoutRequestView />
+			},
+			{ path: '*', element: <Navigate to="/404" /> }
+		]
+	}
 ];
 
 export default routes;

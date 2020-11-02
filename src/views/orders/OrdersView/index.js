@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { loadOrders } from './ordersActions';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -20,8 +20,10 @@ const useStyles = makeStyles(theme => ({
 const Orders = props => {
 	const { allOrders, loadOrders, auth, profile } = props;
 	const classes = useStyles();
-	const navigate = useNavigate();
-	if (!auth.uid) navigate('/login', { replace: false });
+	const location = useLocation();
+	if (!auth.uid) {
+		return <Navigate to="/login" state={{ from: location }} />;
+	}
 	let orders = null;
 	console.log(profile);
 	if (allOrders && profile.orders) {

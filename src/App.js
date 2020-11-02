@@ -8,14 +8,14 @@ import theme from 'src/app/common/theme';
 import routes from 'src/routes';
 
 const App = () => {
-  const routing = useRoutes(routes);
+	const routing = useRoutes(routes);
 
-  return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      {routing}
-    </ThemeProvider>
-  );
+	return (
+		<ThemeProvider theme={theme}>
+			<GlobalStyles />
+			{routing}
+		</ThemeProvider>
+	);
 };
 
 export default App;

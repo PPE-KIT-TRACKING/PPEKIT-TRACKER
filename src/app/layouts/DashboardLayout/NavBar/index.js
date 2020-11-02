@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import {
 	Avatar,
 	Box,
@@ -179,19 +179,22 @@ const useStyles = makeStyles(() => ({
 const NavBar = ({ onMobileClose, openMobile, ...props }) => {
 	const classes = useStyles();
 	const location = useLocation();
-  const navigate = useNavigate();
-  
-  const { profile,email } = props; 
+
+	const { profile, email } = props;
 
 	const user = {
 		avatar: profile.avatar,
-		name: profile.name,
+		name: profile.firstName + ' ' + profile.lastName,
 		email: email,
 		usertype: profile.type
 	};
 
 	const items =
-		user.usertype === 'hospital' ? hospitalitems : manufactureritems;
+		user.usertype === 'hospital'
+			? hospitalitems
+			: user.usertype === 'manufacturer'
+			? manufactureritems
+			: [];
 
 	useEffect(() => {
 		if (openMobile && onMobileClose) {
@@ -292,7 +295,5 @@ NavBar.defaultProps = {
 	onMobileClose: () => {},
 	openMobile: false
 };
-
-
 
 export default NavBar;

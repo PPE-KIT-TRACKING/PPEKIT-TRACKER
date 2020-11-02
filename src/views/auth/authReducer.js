@@ -3,7 +3,9 @@ import {
 	LOGIN_USER_ERR,
 	SIGN_OUT_USER,
 	REGISTER_USER_SUCESS,
-	REGISTER_USER_ERR
+	REGISTER_USER_ERR,
+	UPDATE_PASSWORD_ERR,
+	UPDATE_PASSWORD_SUCESS
 } from './authConstants';
 import { createReducer } from '../../app/common/utils/reducerUtil';
 
@@ -15,14 +17,14 @@ const initialState = {
 };
 
 export const loginUser = (state, payload) => {
-	return state
+	return state;
 };
 
 export const loginUserErr = (state, payload) => {
 	return {
 		...state,
 		authError: true,
-		_error : payload.message
+		_error: payload.message
 	};
 };
 
@@ -52,10 +54,25 @@ export const registerErr = (state, payload) => {
 	};
 };
 
+export const updatePasswordErr = (state, payload) => {
+	return {
+		...state,
+		_error: payload.message
+	};
+};
+
+export const updatePassword = (state, payload) => {
+	return {
+		...state
+	};
+};
+
 export default createReducer(initialState, {
 	[LOGIN_USER_SUCESS]: loginUser,
 	[LOGIN_USER_ERR]: loginUserErr,
 	[SIGN_OUT_USER]: signOutUser,
 	[REGISTER_USER_SUCESS]: register,
-	[REGISTER_USER_ERR]: registerErr
+	[REGISTER_USER_ERR]: registerErr,
+	[UPDATE_PASSWORD_SUCESS]: updatePassword,
+	[UPDATE_PASSWORD_ERR]: updatePasswordErr
 });
