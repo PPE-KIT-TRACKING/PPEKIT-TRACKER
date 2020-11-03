@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -102,8 +102,25 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ProductCard = ({ className, product, ...rest }) => {
-	const classes = useStyles();
+	const noteCount = product => {
+		product.count = quantity;
+		console.log('product.count: ', product.count);
+		console.log(product);
+	};
 
+	function changeCounter(value) {
+		if (value === 'increment') {
+			setCount(prevCount => prevCount + 1);
+		} else if (value === 'decrement') {
+			if (quantity !== 0) {
+				setCount(prevCount => prevCount - 1);
+			}
+		}
+	}
+
+	const initialState = 0;
+	const [quantity, setCount] = useState(initialState);
+	const classes = useStyles();
 	return (
 		<Card className={clsx(classes.root, className)} {...rest}>
 			<CardContent>
@@ -131,7 +148,10 @@ const ProductCard = ({ className, product, ...rest }) => {
 			<Box p={2}>
 				<Grid container justify="space-between" spacing={2}>
 					<Grid className={classes.statsItem} item>
-						<IconButton aria-label="previous">
+						<IconButton
+							aria-label="previous"
+							onClick={() => changeCounter('decrement')}
+						>
 							{<RemoveIcon />}
 						</IconButton>
 						{/* <PlayArrowIcon className={classes.playIcon} /> */}
@@ -140,8 +160,14 @@ const ProductCard = ({ className, product, ...rest }) => {
 							label="Quantity"
 							variant="outlined"
 							size="small"
+							value={quantity}
 						/>
-						<IconButton aria-label="next">{<AddIcon />}</IconButton>
+						<IconButton
+							aria-label="next"
+							onClick={() => changeCounter('increment')}
+						>
+							{<AddIcon />}
+						</IconButton>
 					</Grid>
 
 					<Grid className={classes.statsItem} item>
@@ -150,6 +176,7 @@ const ProductCard = ({ className, product, ...rest }) => {
 							color="primary"
 							className={classes.button}
 							startIcon={<AddCircleIcon />}
+							onClick={() => noteCount(product)}
 						>
 							Add
 						</Button>
