@@ -32,11 +32,11 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-const TotalCustomers = ({ className, ...rest }) => {
+const TotalCustomers = ({ className, ...props }) => {
 	const classes = useStyles();
-
+	const { product } = props;
 	return (
-		<Card className={clsx(classes.root, className)} {...rest}>
+		<Card className={clsx(classes.root, className)} {...props}>
 			<CardContent>
 				<Grid container justify="space-between" spacing={3}>
 					<Grid item>
@@ -45,10 +45,10 @@ const TotalCustomers = ({ className, ...rest }) => {
 							gutterBottom
 							variant="h6"
 						>
-							TOTAL CUSTOMERS
+							{product.name}
 						</Typography>
 						<Typography color="textPrimary" variant="h3">
-							1,600
+							{product.burnrate}
 						</Typography>
 					</Grid>
 					<Grid item>
@@ -63,7 +63,7 @@ const TotalCustomers = ({ className, ...rest }) => {
 						className={classes.differenceValue}
 						variant="body2"
 					>
-						16%
+						{product.percent}
 					</Typography>
 					<Typography color="textSecondary" variant="caption">
 						Since last month

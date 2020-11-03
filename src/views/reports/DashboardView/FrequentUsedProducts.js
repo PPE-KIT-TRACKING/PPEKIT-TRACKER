@@ -23,7 +23,7 @@ const useStyles = makeStyles(() => ({
 	}
 }));
 
-const TrafficByDevice = ({ className, ...rest }) => {
+const FrequentUsedProducts = ({ className, ...rest }) => {
 	const classes = useStyles();
 	const theme = useTheme();
 
@@ -34,7 +34,9 @@ const TrafficByDevice = ({ className, ...rest }) => {
 				backgroundColor: [
 					colors.indigo[500],
 					colors.red[600],
-					colors.orange[600]
+					colors.orange[600],
+					colors.green[500],
+					colors.blue
 				],
 				borderWidth: 8,
 				borderColor: colors.common.white,
@@ -66,7 +68,25 @@ const TrafficByDevice = ({ className, ...rest }) => {
 		}
 	};
 
-	const devices = [
+	const products = [
+		{
+			title: 'Desktop',
+			value: 63,
+			icon: LaptopMacIcon,
+			color: colors.indigo[500]
+		},
+		{
+			title: 'Tablet',
+			value: 15,
+			icon: TabletIcon,
+			color: colors.red[600]
+		},
+		{
+			title: 'Mobile',
+			value: 23,
+			icon: PhoneIcon,
+			color: colors.orange[600]
+		},
 		{
 			title: 'Desktop',
 			value: 63,
@@ -89,21 +109,20 @@ const TrafficByDevice = ({ className, ...rest }) => {
 
 	return (
 		<Card className={clsx(classes.root, className)} {...rest}>
-			<CardHeader title="Traffic by Device" />
+			<CardHeader title="Frequently Used Products" />
 			<Divider />
 			<CardContent>
 				<Box height={300} position="relative">
 					<Doughnut data={data} options={options} />
 				</Box>
 				<Box display="flex" justifyContent="center" mt={2}>
-					{devices.map(({ color, icon: Icon, title, value }) => (
+					{products.map(({ color, title, value }) => (
 						<Box key={title} p={1} textAlign="center">
-							<Icon color="action" />
 							<Typography color="textPrimary" variant="body1">
 								{title}
 							</Typography>
 							<Typography style={{ color }} variant="h2">
-								{value}%
+								{burnrate}%
 							</Typography>
 						</Box>
 					))}
@@ -113,8 +132,8 @@ const TrafficByDevice = ({ className, ...rest }) => {
 	);
 };
 
-TrafficByDevice.propTypes = {
+FrequentUsedProducts.propTypes = {
 	className: PropTypes.string
 };
 
-export default TrafficByDevice;
+export default FrequentUsedProducts;

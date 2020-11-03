@@ -8,10 +8,10 @@ import Sales from './Sales';
 import TasksProgress from './TasksProgress';
 import TotalCustomers from './TotalCustomers';
 import TotalProfit from './TotalProfit';
-import TrafficByDevice from './TrafficByDevice';
+import FrequentUsedProducts from './FrequentUsedProducts';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
@@ -23,40 +23,58 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
+const products = [
+	{
+		name: 'Sanitizer',
+		percent: '0%',
+		burnrate: 160,
+		color:"blue"
+
+	},
+	{
+		name: 'Masks',
+		percent: '0%',
+		burnrate: 50,
+		color:"red"
+	},
+	{
+		name: 'Gloves',
+		percent: '0%',
+		burnrate: 10,
+		color:"green"
+	},
+	{
+		name: 'Gown',
+		percent: '0%',
+		burnrate: 120,
+		color:"yellow"
+	},
+];
+
 const Dashboard = props => {
 	const { auth } = props;
-	const navigate = useNavigate();
-	if (!auth.uid) navigate('/login', { replace: false });
-
 	const classes = useStyles();
+	const location = useLocation();
+	if (!auth.uid) {
+		return <Navigate to="/login" state={{ from: location }} />;
+	}
 
 	return (
 		<Page className={classes.root} title="Dashboard">
 			<Container maxWidth={false}>
 				<Grid container spacing={3}>
-					<Grid item lg={3} sm={6} xl={3} xs={12}>
-						<Budget />
-					</Grid>
-					<Grid item lg={3} sm={6} xl={3} xs={12}>
-						<TotalCustomers />
-					</Grid>
-					<Grid item lg={3} sm={6} xl={3} xs={12}>
-						<TasksProgress />
-					</Grid>
-					<Grid item lg={3} sm={6} xl={3} xs={12}>
-						<TotalProfit />
-					</Grid>
+					{products &&
+						products.map(product => (
+							<Grid item lg={3} sm={6} xl={3} xs={12}>
+								<TotalCustomers product={product} />
+							</Grid>
+						))}
+
 					<Grid item lg={8} md={12} xl={9} xs={12}>
 						<Sales />
 					</Grid>
 					<Grid item lg={4} md={6} xl={3} xs={12}>
-						<TrafficByDevice />
-					</Grid>
-					<Grid item lg={4} md={6} xl={3} xs={12}>
-						<LatestProducts />
-					</Grid>
-					<Grid item lg={8} md={12} xl={9} xs={12}>
-						<LatestOrders />
+						<FrequentUsedProducts products={products}/>
 					</Grid>
 				</Grid>
 			</Container>

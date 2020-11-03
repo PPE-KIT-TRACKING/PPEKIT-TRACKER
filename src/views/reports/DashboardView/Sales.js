@@ -35,6 +35,11 @@ const Sales = ({ className, ...rest }) => {
 				backgroundColor: colors.grey[200],
 				data: [11, 20, 12, 29, 30, 25, 13],
 				label: 'Last year'
+			},
+			{
+				backgroundColor: colors.red[200],
+				data: [1,2,3,4,5],
+				label: 'Next year'
 			}
 		],
 		labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug']
