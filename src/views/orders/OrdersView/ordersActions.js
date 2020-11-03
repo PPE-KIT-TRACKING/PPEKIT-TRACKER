@@ -17,18 +17,18 @@ export const insertOrder = order => {
 };
 
 export const changeOrderStatus = orderId => {
-	return async (dispatch, getState, { getFirestore,getFirebase }) => {
+	return async (dispatch, getState, { getFirestore, getFirebase }) => {
 		try {
 			const firestore = getFirestore();
-			const firebase = getFirebase()
+			const firebase = getFirebase();
 			const {
 				isEmpty,
 				isLoaded,
 				...oldUser
 			} = getState().firebase.profile;
 			const newUser = {
-				...oldUser,
-			}
+				...oldUser
+			};
 			dispatch(asyncActionStart());
 			await firestore
 				.collection('orders')
@@ -38,8 +38,8 @@ export const changeOrderStatus = orderId => {
 					manufacturer: newUser
 				});
 			await firebase.updateProfile({
-				orders:[...newUser.orders,orderId]
-			})
+				orders: [...newUser.orders, orderId]
+			});
 			dispatch(asyncActionFinish());
 		} catch (error) {
 			console.log(error);

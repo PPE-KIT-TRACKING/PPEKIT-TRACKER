@@ -3,7 +3,6 @@ import { Container, Grid, makeStyles } from '@material-ui/core';
 import Page from 'src/app/common/components/Page';
 import LatestOrders from './LatestOrders';
 import { connect } from 'react-redux';
-import { loadOrders } from './ordersActions';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import { Navigate, useLocation } from 'react-router-dom';
@@ -18,7 +17,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Orders = props => {
-	const { allOrders, loadOrders, auth, profile } = props;
+	const { allOrders, auth, profile } = props;
 	const classes = useStyles();
 	const location = useLocation();
 	if (!auth.uid) {
@@ -50,11 +49,8 @@ const mapState = state => {
 	};
 };
 
-const mapActions = {
-	loadOrders
-};
 
 export default compose(
-	connect(mapState, mapActions),
+	connect(mapState),
 	firestoreConnect(['orders'])
 )(Orders);

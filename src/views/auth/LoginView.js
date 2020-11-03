@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { connect } from 'react-redux';
@@ -12,7 +12,6 @@ import {
 	TextField,
 	Typography,
 	makeStyles,
-	MenuItem
 } from '@material-ui/core';
 import FacebookIcon from 'src/app/common/icons/Facebook';
 import GoogleIcon from 'src/app/common/icons/Google';
@@ -31,11 +30,17 @@ const useStyles = makeStyles(theme => ({
 
 const LoginView = props => {
 	const classes = useStyles();
-	const navigate = useNavigate();
 	const { login, authError, auth, _error } = props;
 	const location = useLocation();
+	const to = location.state ? location.state.from.pathname : "/app/dashboard";
+	console.log(to);
 	if (auth.uid) {
-		return <Navigate to="/app/dashboard" state={{ from: location }} />;
+		return (
+			<Navigate
+				to={to}
+				state={{ from: location }}
+			/>
+		);
 	}
 	return (
 		<Page className={classes.root} title="Login">

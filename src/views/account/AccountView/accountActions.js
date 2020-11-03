@@ -56,5 +56,4 @@ export const upload = image => {
 			toastr.error('Error', 'Profile photo not updated');
 		}
 	};
-	
 };

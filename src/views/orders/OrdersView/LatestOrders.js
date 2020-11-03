@@ -20,9 +20,6 @@ import {
 	makeStyles,
 	Slide,
 	AppBar,
-	List,
-	ListItem,
-	ListItemText,
 	Typography,
 	IconButton,
 	Dialog,
@@ -36,7 +33,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import CloseIcon from '@material-ui/icons/Close';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
 	root: {},
 	actions: {
 		justifyContent: 'flex-end'
@@ -53,7 +50,6 @@ const useStyles = makeStyles((theme) => ({
 const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
 });
-
 
 const Profile = ({ className, user, props }) => {
 	const classes = useStyles();
@@ -104,13 +100,11 @@ const Profile = ({ className, user, props }) => {
 	);
 };
 
-
 const LatestOrders = ({ className, ...props }) => {
 	const classes = useStyles();
-	const { profile,orders} = props;
+	const { profile, orders } = props;
 	const [open, setOpen] = React.useState(false);
-	const isHospital = profile.type === "hospital";
-	console.log(orders);
+	const isHospital = profile.type === 'hospital';
 	const handleClickOpen = () => {
 		setOpen(true);
 	};
@@ -222,9 +216,7 @@ const LatestOrders = ({ className, ...props }) => {
 												) : (
 													<Profile
 														className={className}
-														user={
-															order.hospital
-														}
+														user={order.hospital}
 														props={props}
 													/>
 												)}

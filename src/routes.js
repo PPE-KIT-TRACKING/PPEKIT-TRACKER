@@ -3,7 +3,6 @@ import { Navigate } from 'react-router-dom';
 import DashboardLayout from 'src/app/layouts/DashboardLayout';
 import MainLayout from 'src/app/layouts/MainLayout';
 import AccountView from 'src/views/account/AccountView';
-import CustomerListView from 'src/views/customer/CustomerListView';
 import DashboardView from 'src/views/reports/DashboardView';
 import LoginView from 'src/views/auth/LoginView';
 import NotFoundView from 'src/views/errors/NotFoundView';
@@ -42,7 +41,6 @@ const routes = [
 			},
 			{ path: 'inventory', element: <InventoryView /> },
 			{ path: 'market', element: <MarketView /> },
-			{ path: 'customers', element: <CustomerListView /> },
 			{ path: 'dashboard', element: <DashboardView /> },
 			{ path: 'checkout', element: <CheckoutView /> },
 			{ path: 'products', element: <ProductListView /> },

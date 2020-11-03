@@ -21,7 +21,7 @@ import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import moment from 'moment';
-import { insertRequest } from './requestsActions'
+import { insertRequest } from './requestsActions';
 
 const useRowStyles = makeStyles({
 	root: {
@@ -190,7 +190,7 @@ const mapActions = {
 };
 
 export default compose(
-	connect(mapState,mapActions),
+	connect(mapState, mapActions),
 	firestoreConnect([
 		{
 			collection: 'requests'

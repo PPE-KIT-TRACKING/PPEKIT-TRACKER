@@ -13,7 +13,7 @@ import {
 	Typography,
 	makeStyles
 } from '@material-ui/core';
-import { Upload } from 'react-feather';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 const useStyles = makeStyles(() => ({
 	root: {},
@@ -113,6 +113,7 @@ const Profile = ({ className, ...props }) => {
 					component="span"
 					fullWidth
 					onClick={handleUpload}
+					startIcon={<CloudUploadIcon />}
 				>
 					Upload
 				</Button>

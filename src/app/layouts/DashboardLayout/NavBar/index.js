@@ -13,19 +13,15 @@ import {
 	makeStyles
 } from '@material-ui/core';
 import {
-	AlertCircle as AlertCircleIcon,
 	BarChart as BarChartIcon,
 	Settings as SettingsIcon,
 	ShoppingBag as ShoppingBagIcon,
 	User as UserIcon,
-	Users as UsersIcon,
-	Globe as GlobalIcon,
 	Database as InventoryIcon,
 	List as OrdersIcon,
 	Edit as RequestsIcon
 } from 'react-feather';
 import NavItem from './NavItem';
-
 
 const hospitalitems = [
 	{
@@ -58,7 +54,6 @@ const hospitalitems = [
 		icon: SettingsIcon,
 		title: 'Settings'
 	}
-	
 ];
 
 const manufactureritems = [
