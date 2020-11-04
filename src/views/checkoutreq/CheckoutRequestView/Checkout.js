@@ -11,6 +11,7 @@ import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
 import { useParams } from 'react-router-dom';
+import { toastr } from 'react-redux-toastr';
 
 const useStyles = makeStyles(theme => ({
 	appBar: {
@@ -68,7 +69,14 @@ function Checkout(props) {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
 	const params = useParams();
-	const { addToHospitalInventory, changeOrderStatus ,removeRequest,requests} = props;
+	const {
+		addToHospitalInventory,
+		changeOrderStatus,
+		removeRequest,
+		inventory,
+		requests,
+		removeFromInventory
+	} = props;
 	const handleNext = () => {
 		setActiveStep(activeStep + 1);
 	};
@@ -79,11 +87,27 @@ function Checkout(props) {
 		const request = requests.find(
 			request => request.id === params.requestId
 		);
+		let canRequestCompleted = true;
 		for (const order of request.ppeNeeded) {
-			changeOrderStatus(order.orderId);
-			addToHospitalInventory(order.orderId,order.item.index,order.quantity)
+			if (order.quantity > inventory[order.item.index].quantity)
+				canRequestCompleted = false;
 		}
-
+		if (canRequestCompleted) {
+			for (const order of request.ppeNeeded) {
+				changeOrderStatus(order.orderId);
+				addToHospitalInventory(
+					order.orderId,
+					order.item.index,
+					order.quantity
+				);
+				removeFromInventory(order.item.index, order.quantity);
+			}
+			toastr.success('Success', 'Request completed..!');
+		} else
+			toastr.error(
+				'Error',
+				'Inventory is not enough for this request...!'
+			);
 	};
 
 	const handleBack = () => {

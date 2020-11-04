@@ -5,7 +5,10 @@ import Checkout from './Checkout';
 import { connect } from 'react-redux';
 import { removeRequest } from '../../requests/RequestsView/requestsActions';
 import { changeOrderStatus } from '../../orders/OrdersView/ordersActions';
-import { addToHospitalInventory } from '../../inventory/InventoryView/inventoryActions'
+import {
+	addToHospitalInventory,
+	removeFromInventory
+} from '../../inventory/InventoryView/inventoryActions';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +28,9 @@ const CheckoutRequestView = props => {
 		requests,
 		removeRequest,
 		changeOrderStatus,
-		addToHospitalInventory
+		addToHospitalInventory,
+		inventory,
+		removeFromInventory
 	} = props;
 	const navigate = useNavigate();
 	if (!auth.uid) navigate('/login', { replace: false });
@@ -39,6 +44,8 @@ const CheckoutRequestView = props => {
 					removeRequest={removeRequest}
 					changeOrderStatus={changeOrderStatus}
 					addToHospitalInventory={addToHospitalInventory}
+					inventory={inventory}
+					removeFromInventory={removeFromInventory}
 				/>
 			</Container>
 		</Page>
@@ -48,14 +55,16 @@ const CheckoutRequestView = props => {
 const mapState = state => {
 	return {
 		requests: state.firestore.ordered.requests,
-		auth: state.firebase.auth
+		auth: state.firebase.auth,
+		inventory: state.firebase.profile.inventory
 	};
 };
 
 const actions = {
 	removeRequest,
 	changeOrderStatus,
-	addToHospitalInventory
+	addToHospitalInventory,
+	removeFromInventory
 };
 
 export default compose(

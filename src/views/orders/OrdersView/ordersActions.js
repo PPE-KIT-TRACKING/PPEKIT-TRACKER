@@ -6,7 +6,7 @@ import {
 import { asyncActionStart } from '../../async/asyncActions';
 import { asyncActionFinish } from '../../async/asyncActions';
 import { firebase, getFirebase } from 'react-redux-firebase';
-import moment from "moment";
+import moment from 'moment';
 
 export const insertOrder = order => {
 	return {
@@ -30,7 +30,7 @@ export const changeOrderStatus = orderId => {
 			const newUser = {
 				...oldUser,
 				email: firebase.auth().currentUser.email,
-				uid: firebase.auth().currentUser.uid,
+				uid: firebase.auth().currentUser.uid
 			};
 			dispatch(asyncActionStart());
 			await firestore
@@ -41,7 +41,7 @@ export const changeOrderStatus = orderId => {
 					manufacturer: newUser,
 					completedDate: firebase.firestore.FieldValue.serverTimestamp()
 				});
-			
+
 			dispatch(asyncActionFinish());
 		} catch (error) {
 			console.log(error);

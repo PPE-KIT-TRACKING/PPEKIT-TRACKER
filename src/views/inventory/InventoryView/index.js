@@ -30,7 +30,7 @@ const Inventory = props => {
 			<Container maxWidth={false}>
 				<Grid container spacing={3}>
 					{inventory &&
-						inventory.map((product,index,obj) => (
+						inventory.map((product, index, obj) => (
 							<Grid item lg={3} sm={6} xl={3} xs={12}>
 								<TasksProgress
 									product={product}

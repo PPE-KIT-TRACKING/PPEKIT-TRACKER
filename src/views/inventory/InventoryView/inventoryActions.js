@@ -10,7 +10,6 @@ export const removeFromInventory = (index, quantity) => {
 	return async (dispatch, getState, { getFirebase }) => {
 		const firebase = getFirebase();
 		try {
-			
 			if (quantity >= 0) {
 				const inventory = getState().firebase.profile.inventory;
 				inventory[index].quantity =
@@ -49,23 +48,29 @@ export const addToInventory = (index, quantity) => {
 	};
 };
 
-export const addToHospitalInventory = (orderId,index, quantity) => {
+export const addToHospitalInventory = (orderId, index, quantity) => {
 	return async (dispatch, getState, { getFirebase }) => {
 		const firebase = getFirebase();
 		const firestore = getFirestore();
 		try {
 			if (quantity >= 0) {
-				let querySnap = await firestore.collection('orders').doc(orderId).get()
+				let querySnap = await firestore
+					.collection('orders')
+					.doc(orderId)
+					.get();
 				const hospitalId = querySnap.data().hospital.uid;
-				querySnap = await firestore.collection('users').doc(hospitalId).get()
-				let inventory = querySnap.data().inventory
+				querySnap = await firestore
+					.collection('users')
+					.doc(hospitalId)
+					.get();
+				let inventory = querySnap.data().inventory;
 				inventory[index].quantity += quantity;
 				await firestore
-						.collection('users')
-						.doc(hospitalId)
-					 .update({
-							inventory:inventory
-						});
+					.collection('users')
+					.doc(hospitalId)
+					.update({
+						inventory: inventory
+					});
 			}
 			dispatch({ type: ADD_TO_HOSPITAL_INVENTORY });
 		} catch (error) {

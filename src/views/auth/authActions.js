@@ -8,8 +8,7 @@ import {
 	UPDATE_PASSWORD_ERR
 } from './authConstants';
 import { toastr } from 'react-redux-toastr';
-import moment from "moment";
-
+import moment from 'moment';
 
 const initialInventory = [
 	{
@@ -29,7 +28,6 @@ const initialInventory = [
 		quantity: '100'
 	}
 ];
-
 
 export const login = creds => {
 	return async (dispatch, getState, { getFirebase }) => {

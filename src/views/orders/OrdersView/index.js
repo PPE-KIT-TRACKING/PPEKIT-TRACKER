@@ -26,11 +26,15 @@ const Orders = props => {
 	let orders = null;
 	if (allOrders) {
 		if (profile.type === 'hospital')
-			orders = allOrders.filter(order => order.hospital.uid === auth.uid);
+			orders = allOrders.filter(order => {
+				return order.hospital ? order.hospital.uid === auth.uid : false;
+			});
 		else
-			orders = allOrders.filter(
-				order => order.manufacturer.uid === auth.uid
-			);
+			orders = allOrders.filter(order => {
+				return order.manufacturer
+					? order.manufacturer.uid === auth.uid
+					: false;
+			});
 	}
 	return (
 		<Page className={classes.root} title="Orders">

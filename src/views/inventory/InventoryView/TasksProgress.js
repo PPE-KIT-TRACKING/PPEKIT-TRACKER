@@ -11,7 +11,7 @@ import {
 	makeStyles,
 	ButtonGroup,
 	Button,
-	TextField,
+	TextField
 } from '@material-ui/core';
 import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
 
@@ -29,10 +29,16 @@ const useStyles = makeStyles(() => ({
 const TasksProgress = ({ className, ...props }) => {
 	const classes = useStyles();
 	const [current, setCurrent] = React.useState(0);
-	const { isHospital, product, removeFromInventory, addToInventory, index } = props;
-	
+	const {
+		isHospital,
+		product,
+		removeFromInventory,
+		addToInventory,
+		index
+	} = props;
+
 	const handleAddProducts = () => {
-	    addToInventory(index,Number(current));
+		addToInventory(index, Number(current));
 		setCurrent(0);
 	};
 
