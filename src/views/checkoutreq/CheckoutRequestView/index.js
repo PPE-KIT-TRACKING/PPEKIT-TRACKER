@@ -5,6 +5,7 @@ import Checkout from './Checkout';
 import { connect } from 'react-redux';
 import { removeRequest } from '../../requests/RequestsView/requestsActions';
 import { changeOrderStatus } from '../../orders/OrdersView/ordersActions';
+import { addToHospitalInventory } from '../../inventory/InventoryView/inventoryActions'
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import { useNavigate } from 'react-router-dom';
@@ -19,7 +20,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const CheckoutRequestView = props => {
-	const { auth, requests, removeRequest, changeOrderStatus } = props;
+	const {
+		auth,
+		requests,
+		removeRequest,
+		changeOrderStatus,
+		addToHospitalInventory
+	} = props;
 	const navigate = useNavigate();
 	if (!auth.uid) navigate('/login', { replace: false });
 
@@ -31,6 +38,7 @@ const CheckoutRequestView = props => {
 					requests={requests}
 					removeRequest={removeRequest}
 					changeOrderStatus={changeOrderStatus}
+					addToHospitalInventory={addToHospitalInventory}
 				/>
 			</Container>
 		</Page>
@@ -46,7 +54,8 @@ const mapState = state => {
 
 const actions = {
 	removeRequest,
-	changeOrderStatus
+	changeOrderStatus,
+	addToHospitalInventory
 };
 
 export default compose(

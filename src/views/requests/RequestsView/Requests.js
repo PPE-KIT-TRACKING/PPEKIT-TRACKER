@@ -105,12 +105,12 @@ function Row(props) {
 								</TableHead>
 								<TableBody>
 									{row.ppeNeeded.map(ppeNeededRow => (
-										<TableRow key={ppeNeededRow.item}>
+										<TableRow key={ppeNeededRow.item.name}>
 											<TableCell
 												component="th"
 												scope="row"
 											>
-												{ppeNeededRow.item}
+												{ppeNeededRow.item.name}
 											</TableCell>
 											<TableCell align="right">
 												{ppeNeededRow.quantity}
@@ -135,7 +135,7 @@ Row.propTypes = {
 		ppeNeeded: PropTypes.arrayOf(
 			PropTypes.shape({
 				quantity: PropTypes.number.isRequired,
-				item: PropTypes.string.isRequired
+				item: PropTypes.object.isRequired
 			})
 		).isRequired,
 		name: PropTypes.string.isRequired,
@@ -168,7 +168,6 @@ function Requests(props) {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{/* {console.log(typeof(requests))} */}
 					{requests &&
 						requests.map(request => (
 							<Row key={request.name} row={request} />

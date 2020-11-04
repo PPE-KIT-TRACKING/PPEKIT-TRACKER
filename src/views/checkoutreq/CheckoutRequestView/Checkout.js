@@ -68,19 +68,22 @@ function Checkout(props) {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
 	const params = useParams();
+	const { addToHospitalInventory, changeOrderStatus ,removeRequest,requests} = props;
 	const handleNext = () => {
 		setActiveStep(activeStep + 1);
 	};
 
 	const handleAcceptRequest = () => {
 		setActiveStep(activeStep + 1);
-		// props.removeRequest(params.requestId);
-		const request = props.requests.find(
+		// removeRequest(params.requestId);
+		const request = requests.find(
 			request => request.id === params.requestId
 		);
 		for (const order of request.ppeNeeded) {
-			props.changeOrderStatus(order.orderId);
+			changeOrderStatus(order.orderId);
+			addToHospitalInventory(order.orderId,order.item.index,order.quantity)
 		}
+
 	};
 
 	const handleBack = () => {

@@ -31,7 +31,6 @@ export const upload = image => {
 		const storage = firebase.storage();
 
 		try {
-			console.log(image);
 			await storage.ref(`avatars/${image.name}`).put(image);
 
 			const URL = await storage
@@ -52,7 +51,6 @@ export const upload = image => {
 			toastr.success('Success', 'Profile Photo Updated..!');
 			dispatch({ type: UPLOAD_PHOTO });
 		} catch (error) {
-			console.log(error);
 			toastr.error('Error', 'Profile photo not updated');
 		}
 	};

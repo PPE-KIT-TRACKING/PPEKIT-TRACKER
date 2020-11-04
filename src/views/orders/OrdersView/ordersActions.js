@@ -22,7 +22,6 @@ export const changeOrderStatus = orderId => {
 		try {
 			const firestore = getFirestore();
 			const firebase = getFirebase();
-			console.log(firebase.firestore.FieldValue.serverTimestamp());
 			const {
 				isEmpty,
 				isLoaded,
@@ -42,6 +41,7 @@ export const changeOrderStatus = orderId => {
 					manufacturer: newUser,
 					completedDate: firebase.firestore.FieldValue.serverTimestamp()
 				});
+			
 			dispatch(asyncActionFinish());
 		} catch (error) {
 			console.log(error);

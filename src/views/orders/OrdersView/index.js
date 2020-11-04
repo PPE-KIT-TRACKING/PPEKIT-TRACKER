@@ -24,14 +24,14 @@ const Orders = props => {
 		return <Navigate to="/login" state={{ from: location }} />;
 	}
 	let orders = null;
-	if (allOrders && profile.orders) {
-		if (profile.type === "hospital")
+	if (allOrders) {
+		if (profile.type === 'hospital')
 			orders = allOrders.filter(order => order.hospital.uid === auth.uid);
 		else
-			orders = allOrders.filter(order => order.manufacturer.uid === auth.uid);
-			
+			orders = allOrders.filter(
+				order => order.manufacturer.uid === auth.uid
+			);
 	}
-
 	return (
 		<Page className={classes.root} title="Orders">
 			<Container maxWidth={false}>

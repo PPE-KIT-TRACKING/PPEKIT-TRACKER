@@ -33,7 +33,6 @@ const LoginView = props => {
 	const { login, authError, auth, _error } = props;
 	const location = useLocation();
 	const to = location.state ? location.state.from.pathname : '/app/dashboard';
-	console.log(to);
 	if (auth.uid) {
 		return <Navigate to={to} state={{ from: location }} />;
 	}

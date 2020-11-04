@@ -86,6 +86,9 @@ const Profile = ({ className, user, props }) => {
 							{user.firstName + ' ' + user.lastName}
 						</Typography>
 						<Typography color="textSecondary" variant="body1">
+							{user.email}
+						</Typography>
+						<Typography color="textSecondary" variant="body1">
 							{`${user.state} ${user.country}`}
 						</Typography>
 						<Typography color="textSecondary" variant="body1">
