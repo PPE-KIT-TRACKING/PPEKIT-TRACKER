@@ -8,6 +8,7 @@ import {
 	UPDATE_PASSWORD_ERR
 } from './authConstants';
 import { toastr } from 'react-redux-toastr';
+import moment from "moment";
 
 export const login = creds => {
 	return async (dispatch, getState, { getFirebase }) => {
@@ -54,8 +55,9 @@ export const register = user => {
 				state: '',
 				avatar: '/static/images/avatars/avatar_6.png',
 				type: user.type,
-				orders: [],
-				phone: ''
+				inventory: [],
+				phone: '',
+				registeredDate:firebase.firestore.FieldValue.serverTimestamp(),
 			};
 			await firestore.set(`users/${createdUser.uid}`, { ...newUser });
 			toastr.success('Success', 'User created sucessfully..!');

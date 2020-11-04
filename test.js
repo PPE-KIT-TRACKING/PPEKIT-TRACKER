@@ -1,5 +1,3 @@
-const hell = {
-	name: 'vishal'
-};
-if (hell.com) console.log(1);
-if (!hell.com) console.log(2);
+import moment from 'moment';
+console.log(moment());
+console.log(moment().format("hh:mm"))

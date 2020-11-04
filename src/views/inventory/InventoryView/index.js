@@ -1,6 +1,18 @@
 import React from 'react';
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import Page from 'src/app/common/components/Page';
+import Budget from './Budget';
+// import LatestOrders from './LatestOrders';
+// import LatestProducts from './LatestProducts';
+import Sales from './Sales';
+import TasksProgress from './TasksProgress';
+// import TotalCustomers from './TotalCustomers';
+// import TotalProfit from './TotalProfit';
+// import FrequentUsedProducts from './FrequentUsedProducts';
+// import { firestoreConnect } from 'react-redux-firebase';
+// import { compose } from 'redux';
+import { Navigate, useLocation } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -11,20 +23,61 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-const Inventory = () => {
+const products = [
+	{
+		name: 'Sanitizer',
+		percent: '0%',
+		burnrate: 160,
+		color: 'blue'
+	},
+	{
+		name: 'Masks',
+		percent: '0%',
+		burnrate: 50,
+		color: 'red'
+	},
+	{
+		name: 'Gloves',
+		percent: '0%',
+		burnrate: 10,
+		color: 'green'
+	},
+	{
+		name: 'Gown',
+		percent: '0%',
+		burnrate: 120,
+		color: 'yellow'
+	}
+];
+
+const Inventory = props => {
+	const { auth } = props;
 	const classes = useStyles();
+	const location = useLocation();
+	if (!auth.uid) {
+		return <Navigate to="/login" state={{ from: location }} />;
+	}
 
 	return (
-		<Page className={classes.root} title="Market">
-			<Container maxWidth="lg">
+		<Page className={classes.root} title="Inventory">
+			<Container maxWidth={false}>
 				<Grid container spacing={3}>
-					<div>
-						<h1>Inventory</h1>
-					</div>
+					{products &&
+						products.map(product => (
+							<Grid item lg={3} sm={6} xl={3} xs={12}>
+								<TasksProgress/>
+							</Grid>
+						))}
 				</Grid>
 			</Container>
 		</Page>
 	);
 };
 
-export default Inventory;
+const mapState = state => {
+	return {
+		auth: state.firebase.auth
+	};
+};
+
+export default connect(mapState, null)(Inventory);

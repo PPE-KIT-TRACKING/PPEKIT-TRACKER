@@ -74,7 +74,7 @@ function Checkout(props) {
 
 	const handleAcceptRequest = () => {
 		setActiveStep(activeStep + 1);
-		props.removeRequest(params.requestId);
+		// props.removeRequest(params.requestId);
 		const request = props.requests.find(
 			request => request.id === params.requestId
 		);

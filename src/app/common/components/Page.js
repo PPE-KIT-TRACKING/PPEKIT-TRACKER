@@ -14,7 +14,6 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 function Copyright() {
-	
 	return (
 		<Typography variant="body2" color="textSecondary" align="center">
 			{'Copyright © '}
@@ -30,7 +29,6 @@ function Copyright() {
 	);
 }
 
-
 const Page = forwardRef(({ children, title = '', ...rest }, ref) => {
 	const classes = useStyles();
 	return (
@@ -40,7 +38,7 @@ const Page = forwardRef(({ children, title = '', ...rest }, ref) => {
 			</Helmet>
 			{children}
 			<BottomNavigation className={classes.stickToBottom}>
-				<Copyright  />
+				<Copyright />
 			</BottomNavigation>
 		</div>
 	);

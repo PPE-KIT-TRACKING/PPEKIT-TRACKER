@@ -1,4 +1,4 @@
-import { createReducer } from 'C:/Users/DELL/Desktop/React App/PPEKIT-TRACKER/src/app/common/utils/reducerUtil.js';
+import { createReducer } from '../../app/common/utils/reducerUtil';
 import {
 	ASYNC_ACTION_START,
 	ASYNC_ACTION_FINISH,

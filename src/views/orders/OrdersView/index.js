@@ -25,7 +25,11 @@ const Orders = props => {
 	}
 	let orders = null;
 	if (allOrders && profile.orders) {
-		orders = allOrders.filter(order => profile.orders.includes(order.id));
+		if (profile.type === "hospital")
+			orders = allOrders.filter(order => order.hospital.uid === auth.uid);
+		else
+			orders = allOrders.filter(order => order.manufacturer.uid === auth.uid);
+			
 	}
 
 	return (
@@ -49,8 +53,4 @@ const mapState = state => {
 	};
 };
 
-
-export default compose(
-	connect(mapState),
-	firestoreConnect(['orders'])
-)(Orders);
+export default compose(connect(mapState), firestoreConnect(['orders']))(Orders);

@@ -11,7 +11,7 @@ import {
 	Link,
 	TextField,
 	Typography,
-	makeStyles,
+	makeStyles
 } from '@material-ui/core';
 import FacebookIcon from 'src/app/common/icons/Facebook';
 import GoogleIcon from 'src/app/common/icons/Google';
@@ -32,15 +32,10 @@ const LoginView = props => {
 	const classes = useStyles();
 	const { login, authError, auth, _error } = props;
 	const location = useLocation();
-	const to = location.state ? location.state.from.pathname : "/app/dashboard";
+	const to = location.state ? location.state.from.pathname : '/app/dashboard';
 	console.log(to);
 	if (auth.uid) {
-		return (
-			<Navigate
-				to={to}
-				state={{ from: location }}
-			/>
-		);
+		return <Navigate to={to} state={{ from: location }} />;
 	}
 	return (
 		<Page className={classes.root} title="Login">

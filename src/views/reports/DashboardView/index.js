@@ -2,15 +2,15 @@ import React from 'react';
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import Page from 'src/app/common/components/Page';
 import Budget from './Budget';
-import LatestOrders from './LatestOrders';
-import LatestProducts from './LatestProducts';
+// import LatestOrders from './LatestOrders';
+// import LatestProducts from './LatestProducts';
 import Sales from './Sales';
-import TasksProgress from './TasksProgress';
-import TotalCustomers from './TotalCustomers';
-import TotalProfit from './TotalProfit';
-import FrequentUsedProducts from './FrequentUsedProducts';
-import { firestoreConnect } from 'react-redux-firebase';
-import { compose } from 'redux';
+// import TasksProgress from './TasksProgress';
+// import TotalCustomers from './TotalCustomers';
+// import TotalProfit from './TotalProfit';
+// import FrequentUsedProducts from './FrequentUsedProducts';
+// import { firestoreConnect } from 'react-redux-firebase';
+// import { compose } from 'redux';
 import { Navigate, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -28,27 +28,26 @@ const products = [
 		name: 'Sanitizer',
 		percent: '0%',
 		burnrate: 160,
-		color:"blue"
-
+		color: 'blue'
 	},
 	{
 		name: 'Masks',
 		percent: '0%',
 		burnrate: 50,
-		color:"red"
+		color: 'red'
 	},
 	{
 		name: 'Gloves',
 		percent: '0%',
 		burnrate: 10,
-		color:"green"
+		color: 'green'
 	},
 	{
 		name: 'Gown',
 		percent: '0%',
 		burnrate: 120,
-		color:"yellow"
-	},
+		color: 'yellow'
+	}
 ];
 
 const Dashboard = props => {
@@ -66,7 +65,7 @@ const Dashboard = props => {
 					{products &&
 						products.map(product => (
 							<Grid item lg={3} sm={6} xl={3} xs={12}>
-								<TotalCustomers product={product} />
+								{/* <TotalCustomers product={product} /> */}
 							</Grid>
 						))}
 
@@ -74,7 +73,7 @@ const Dashboard = props => {
 						<Sales />
 					</Grid>
 					<Grid item lg={4} md={6} xl={3} xs={12}>
-						<FrequentUsedProducts products={products}/>
+						{/* <FrequentUsedProducts products={products} /> */}
 					</Grid>
 				</Grid>
 			</Container>
