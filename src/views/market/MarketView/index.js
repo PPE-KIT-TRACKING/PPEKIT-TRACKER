@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Box, Container, Grid, makeStyles } from '@material-ui/core';
 import { Pagination } from '@material-ui/lab';
 import Page from 'src/app/common/components/Page';
 import Toolbar from './Toolbar';
 import ProductCard from './ProductCard';
 import data from './data';
-
+import { addToCart } from '../MarketView/marketActions';
 const useStyles = makeStyles(theme => ({
 	root: {
 		backgroundColor: theme.palette.background.dark,
@@ -18,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-const ProductList = () => {
+const ProductList = props => {
 	const classes = useStyles();
 	const [products] = useState(data);
 
@@ -33,6 +34,7 @@ const ProductList = () => {
 								<ProductCard
 									className={classes.productCard}
 									product={product}
+									addToCart={props.addToCart}
 								/>
 							</Grid>
 						))}
@@ -46,4 +48,8 @@ const ProductList = () => {
 	);
 };
 
-export default ProductList;
+const mapActions = {
+	addToCart
+};
+
+export default connect(null, mapActions)(ProductList);
