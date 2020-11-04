@@ -102,12 +102,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ProductCard = ({ className, product, ...rest }) => {
-	const noteCount = product => {
-		product.count = quantity;
-		console.log('product.count: ', product.count);
-		console.log(product);
-	};
-
+	function addProduct(props, product) {
+		product.count += quantity;
+		props.addToCart(product);
+	}
 	function changeCounter(value) {
 		if (value === 'increment') {
 			setCount(prevCount => prevCount + 1);
@@ -176,7 +174,7 @@ const ProductCard = ({ className, product, ...rest }) => {
 							color="primary"
 							className={classes.button}
 							startIcon={<AddCircleIcon />}
-							onClick={() => noteCount(product)}
+							onClick={() => addProduct(rest, product)}
 						>
 							Add
 						</Button>
