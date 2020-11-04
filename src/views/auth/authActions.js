@@ -10,6 +10,27 @@ import {
 import { toastr } from 'react-redux-toastr';
 import moment from "moment";
 
+
+const initialInventory = [
+	{
+		name: 'SANITIZERS',
+		quantity: '100'
+	},
+	{
+		name: 'GLOVES',
+		quantity: '100'
+	},
+	{
+		name: 'MASKS',
+		quantity: '100'
+	},
+	{
+		name: 'GOWNS',
+		quantity: '100'
+	}
+];
+
+
 export const login = creds => {
 	return async (dispatch, getState, { getFirebase }) => {
 		const firebase = getFirebase();
@@ -55,9 +76,9 @@ export const register = user => {
 				state: '',
 				avatar: '/static/images/avatars/avatar_6.png',
 				type: user.type,
-				inventory: [],
+				inventory: initialInventory,
 				phone: '',
-				registeredDate:firebase.firestore.FieldValue.serverTimestamp(),
+				registeredDate: firebase.firestore.FieldValue.serverTimestamp()
 			};
 			await firestore.set(`users/${createdUser.uid}`, { ...newUser });
 			toastr.success('Success', 'User created sucessfully..!');

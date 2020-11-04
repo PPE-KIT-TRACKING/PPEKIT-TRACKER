@@ -1,18 +1,10 @@
 import React from 'react';
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import Page from 'src/app/common/components/Page';
-import Budget from './Budget';
-// import LatestOrders from './LatestOrders';
-// import LatestProducts from './LatestProducts';
-import Sales from './Sales';
 import TasksProgress from './TasksProgress';
-// import TotalCustomers from './TotalCustomers';
-// import TotalProfit from './TotalProfit';
-// import FrequentUsedProducts from './FrequentUsedProducts';
-// import { firestoreConnect } from 'react-redux-firebase';
-// import { compose } from 'redux';
 import { Navigate, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { removeFromInventory, addToInventory } from './inventoryActions';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -23,35 +15,10 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-const products = [
-	{
-		name: 'Sanitizer',
-		percent: '0%',
-		burnrate: 160,
-		color: 'blue'
-	},
-	{
-		name: 'Masks',
-		percent: '0%',
-		burnrate: 50,
-		color: 'red'
-	},
-	{
-		name: 'Gloves',
-		percent: '0%',
-		burnrate: 10,
-		color: 'green'
-	},
-	{
-		name: 'Gown',
-		percent: '0%',
-		burnrate: 120,
-		color: 'yellow'
-	}
-];
-
 const Inventory = props => {
-	const { auth } = props;
+	const { auth, profile, removeFromInventory, addToInventory } = props;
+	const inventory = profile.inventory;
+	const isHospital = profile.type === 'hospital';
 	const classes = useStyles();
 	const location = useLocation();
 	if (!auth.uid) {
@@ -62,10 +29,16 @@ const Inventory = props => {
 		<Page className={classes.root} title="Inventory">
 			<Container maxWidth={false}>
 				<Grid container spacing={3}>
-					{products &&
-						products.map(product => (
+					{inventory &&
+						inventory.map((product,index,obj) => (
 							<Grid item lg={3} sm={6} xl={3} xs={12}>
-								<TasksProgress/>
+								<TasksProgress
+									product={product}
+									isHospital={isHospital}
+									removeFromInventory={removeFromInventory}
+									addToInventory={addToInventory}
+									index={index}
+								/>
 							</Grid>
 						))}
 				</Grid>
@@ -76,8 +49,13 @@ const Inventory = props => {
 
 const mapState = state => {
 	return {
-		auth: state.firebase.auth
+		auth: state.firebase.auth,
+		profile: state.firebase.profile
 	};
 };
+const mapActions = {
+	removeFromInventory,
+	addToInventory
+};
 
-export default connect(mapState, null)(Inventory);
+export default connect(mapState, mapActions)(Inventory);

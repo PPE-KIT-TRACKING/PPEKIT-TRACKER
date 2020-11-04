@@ -63,6 +63,11 @@ const manufactureritems = [
 		title: 'Dashboard'
 	},
 	{
+		href: '/app/inventory',
+		icon: InventoryIcon,
+		title: 'Inventory'
+	},
+	{
 		href: '/app/orders',
 		icon: OrdersIcon,
 		title: 'Orders'

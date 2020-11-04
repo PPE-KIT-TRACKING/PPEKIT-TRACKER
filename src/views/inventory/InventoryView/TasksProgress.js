@@ -33,27 +33,23 @@ const useStyles = makeStyles(() => ({
 	}
 }));
 
-const TasksProgress = ({ className, ...rest }) => {
+const TasksProgress = ({ className, ...props }) => {
 	const classes = useStyles();
 	const [current, setCurrent] = React.useState(0);
-	const [total, setTotal] = React.useState(0);
-
+	const { isHospital, product,removeFromInventory,addToInventory,index } = props;
+	// const [total, setTotal] = React.useState(product.quantity);
 	const handleAddProducts = () => {
+	    addToInventory(index,Number(current));
 		setCurrent(0);
-		console.log(typeof total, typeof current);
-		setTotal(Number(total) + Number(current));
 	};
 
 	const handleRemoveProducts = () => {
+		removeFromInventory(index, Number(current));
 		setCurrent(0);
-		let a = Number(total);
-		let b = Number(current);
-		if (a - b >= 0) setTotal(a - b);
-		else setTotal(0);
 	};
 
 	return (
-		<Card className={clsx(classes.root, className)} {...rest}>
+		<Card className={clsx(classes.root, className)} {...props}>
 			<CardContent>
 				<Grid container justify="space-between" spacing={3}>
 					<Grid item>
@@ -62,10 +58,10 @@ const TasksProgress = ({ className, ...rest }) => {
 							gutterBottom
 							variant="h6"
 						>
-							PRODUCT NAME
+							{product.name}
 						</Typography>
 						<Typography color="textPrimary" variant="h3">
-							{total}
+							{product.quantity}
 						</Typography>
 					</Grid>
 					<Grid item>
@@ -81,7 +77,11 @@ const TasksProgress = ({ className, ...rest }) => {
 								type="number"
 								id="standard-basic"
 								value={current}
-								onChange={e => setCurrent(e.target.value)}
+								onChange={e =>
+									e.target.value >= 0
+										? setCurrent(e.target.value)
+										: setCurrent(0)
+								}
 							/>
 						</Grid>
 
@@ -91,10 +91,15 @@ const TasksProgress = ({ className, ...rest }) => {
 								color="primary"
 								aria-label="contained primary button group"
 							>
-								<Button onClick={handleAddProducts}>Add</Button>
-								<Button onClick={handleRemoveProducts}>
-									Remove
-								</Button>
+								{!isHospital ? (
+									<Button onClick={handleAddProducts}>
+										Add
+									</Button>
+								) : (
+									<Button onClick={handleRemoveProducts}>
+										Remove
+									</Button>
+								)}
 							</ButtonGroup>
 						</Grid>
 					</Grid>
