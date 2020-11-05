@@ -52,13 +52,13 @@ const products = [
 ];
 
 const Dashboard = props => {
-	const { auth } = props;
+	const { auth,profile } = props;
 	const classes = useStyles();
 	const location = useLocation();
 	if (!auth.uid) {
 		return <Navigate to="/login" state={{ from: location }} />;
 	}
-
+	console.log("in index",profile.activity);
 	return (
 		<Page className={classes.root} title="Dashboard">
 			<Container maxWidth={false}>
@@ -75,7 +75,8 @@ const Dashboard = props => {
 					</Grid> */}
 					<Grid item lg={4} md={6} xl={3} xs={12}>
 						{/* <FrequentUsedProducts products={products} /> */}
-						<TestChart />
+						{console.log("rendered index")}
+						<TestChart activity={profile.activity}/>
 					</Grid>
 				</Grid>
 			</Container>
@@ -85,7 +86,8 @@ const Dashboard = props => {
 
 const mapState = state => {
 	return {
-		auth: state.firebase.auth
+		auth: state.firebase.auth,
+		profile:state.firebase.profile
 	};
 };
 
