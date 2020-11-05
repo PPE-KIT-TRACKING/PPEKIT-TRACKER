@@ -76,7 +76,8 @@ export const register = user => {
 				type: user.type,
 				inventory: initialInventory,
 				phone: '',
-				registeredDate: firebase.firestore.FieldValue.serverTimestamp()
+				registeredDate: firebase.firestore.FieldValue.serverTimestamp(),
+				activity: []
 			};
 			await firestore.set(`users/${createdUser.uid}`, { ...newUser });
 			toastr.success('Success', 'User created sucessfully..!');

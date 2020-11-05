@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import Page from 'src/app/common/components/Page';
 import Budget from './Budget';
+import TestChart from './TestChart';
 // import LatestOrders from './LatestOrders';
 // import LatestProducts from './LatestProducts';
 import Sales from './Sales';
@@ -69,11 +70,12 @@ const Dashboard = props => {
 							</Grid>
 						))}
 
-					<Grid item lg={8} md={12} xl={9} xs={12}>
+					{/* <Grid item lg={8} md={12} xl={9} xs={12}>
 						<Sales />
-					</Grid>
+					</Grid> */}
 					<Grid item lg={4} md={6} xl={3} xs={12}>
 						{/* <FrequentUsedProducts products={products} /> */}
+						<TestChart />
 					</Grid>
 				</Grid>
 			</Container>
