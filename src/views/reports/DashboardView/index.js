@@ -2,7 +2,8 @@ import React from 'react';
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import Page from 'src/app/common/components/Page';
 import Budget from './Budget';
-import TestChart from './TestChart';
+import InventoryTimeSeries from './InventoryTimeSeries';
+import InventoryDonut from './InventoryDonut';
 // import LatestOrders from './LatestOrders';
 // import LatestProducts from './LatestProducts';
 import Sales from './Sales';
@@ -52,17 +53,17 @@ const products = [
 ];
 
 const Dashboard = props => {
-	const { auth,profile } = props;
+	const { auth, profile } = props;
 	const classes = useStyles();
 	const location = useLocation();
 	if (!auth.uid) {
 		return <Navigate to="/login" state={{ from: location }} />;
 	}
-	console.log("in index",profile.activity);
+	console.log('in index', profile.activity);
 	return (
 		<Page className={classes.root} title="Dashboard">
 			<Container maxWidth={false}>
-				<Grid container spacing={3}>
+				<Grid container spacing={1}>
 					{products &&
 						products.map(product => (
 							<Grid item lg={3} sm={6} xl={3} xs={12}>
@@ -70,13 +71,11 @@ const Dashboard = props => {
 							</Grid>
 						))}
 
-					{/* <Grid item lg={8} md={12} xl={9} xs={12}>
-						<Sales />
-					</Grid> */}
+					<Grid item lg={7} md={12} xl={9} xs={12}>
+						<InventoryTimeSeries activity={profile.activity} />
+					</Grid>
 					<Grid item lg={4} md={6} xl={3} xs={12}>
-						{/* <FrequentUsedProducts products={products} /> */}
-						{console.log("rendered index")}
-						<TestChart activity={profile.activity}/>
+						<InventoryDonut inventory={profile.inventory}/>
 					</Grid>
 				</Grid>
 			</Container>
@@ -87,7 +86,7 @@ const Dashboard = props => {
 const mapState = state => {
 	return {
 		auth: state.firebase.auth,
-		profile:state.firebase.profile
+		profile: state.firebase.profile
 	};
 };
 

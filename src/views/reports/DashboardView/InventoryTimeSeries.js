@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import Chart from 'react-apexcharts';
-import moment from 'moment'
-class TestChart extends PureComponent {
+import moment from 'moment';
+import { Box, Card, CardContent, CardHeader, Divider } from '@material-ui/core';
+class InventoryTimeSeries extends PureComponent {
 	constructor(props) {
 		super(props);
 		const { activity } = props;
@@ -51,10 +52,9 @@ class TestChart extends PureComponent {
 					enabled: false
 				},
 				stroke: {
-					curve: 'straight'
+					curve: 'smooth'
 				},
 				title: {
-					text: 'Inventory Updates with time.',
 					align: 'left'
 				},
 				grid: {
@@ -70,7 +70,7 @@ class TestChart extends PureComponent {
 		};
 	}
 	componentWillReceiveProps(props) {
-		console.log("local props", props)
+		console.log('local props', props);
 		const { activity } = props;
 		let data = [[0], [0], [0], [0]];
 		let categories = ['started'];
@@ -115,21 +115,29 @@ class TestChart extends PureComponent {
 	}
 	render() {
 		return (
-			<div className="app">
-				<div className="row">
-					<div className="mixed-chart">
-						<Chart
-							options={this.state.options}
-							series={this.state.series}
-							type="line"
-							height="550"
-							width="700"
-						/>
-					</div>
-				</div>
-			</div>
+			<Card>
+				<CardHeader title="Inventory Updates with time." />
+				<Divider />
+				<CardContent>
+					<Box height={560} position="relative">
+						<div className="app">
+							<div className="row">
+								<div className="mixed-chart">
+									<Chart
+										options={this.state.options}
+										series={this.state.series}
+										type="line"
+										height="540"
+										width="600"
+									/>
+								</div>
+							</div>
+						</div>
+					</Box>
+				</CardContent>
+			</Card>
 		);
 	}
 }
 
-export default TestChart;
+export default InventoryTimeSeries;
