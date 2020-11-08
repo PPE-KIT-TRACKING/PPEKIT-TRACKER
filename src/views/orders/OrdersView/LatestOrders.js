@@ -51,7 +51,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Profile = ({ className, user,completedDate, props }) => {
+const Profile = ({ className, user, completedDate, props }) => {
 	const classes = useStyles();
 	if (!user || user === {}) {
 		return (
@@ -62,7 +62,6 @@ const Profile = ({ className, user,completedDate, props }) => {
 			</Container>
 		);
 	}
-	console.log(user.avatar);
 	return (
 		<Container maxWidth="lg">
 			<Card className={clsx(classes.root, className)} {...props}>

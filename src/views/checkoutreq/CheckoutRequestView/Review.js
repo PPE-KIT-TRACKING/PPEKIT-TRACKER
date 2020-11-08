@@ -5,7 +5,11 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
-
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import Button from '@material-ui/core/Button';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Input from '@material-ui/core/Input';
 const products = [
 	{ name: 'Product 1', desc: 'A nice thing', price: '$9.99' },
 	{ name: 'Product 2', desc: 'Another thing', price: '$3.45' },
@@ -13,13 +17,7 @@ const products = [
 	{ name: 'Product 4', desc: 'Best thing of all', price: '$14.11' },
 	{ name: 'Shipping', desc: '', price: 'Free' }
 ];
-const addresses = [
-	'1 Material-UI Drive',
-	'Reactville',
-	'Anytown',
-	'99999',
-	'USA'
-];
+
 const payments = [
 	{ name: 'Card type', detail: 'Visa' },
 	{ name: 'Card holder', detail: 'Mr John Smith' },
@@ -36,72 +34,106 @@ const useStyles = makeStyles(theme => ({
 	},
 	title: {
 		marginTop: theme.spacing(2)
+	},
+	button: {
+		marginTop: theme.spacing(3),
+		marginLeft: theme.spacing(1)
 	}
 }));
 
-export default function Review() {
+export default function Review(props) {
 	const classes = useStyles();
+	const { hospital, orders, handleAcceptRequest } = props;
+
+	const hospitaldetails = [
+		hospital.firstName + ' ' + hospital.lastName,
+		hospital.state + ' , ' + hospital.country,
+		hospital.email,
+		hospital.phone
+	];
 
 	return (
 		<React.Fragment>
-			<Typography variant="h6" gutterBottom>
-				Order summary
-			</Typography>
-			<List disablePadding>
-				{products.map(product => (
-					<ListItem className={classes.listItem} key={product.name}>
-						<ListItemText
-							primary={product.name}
-							secondary={product.desc}
-						/>
-						<Typography variant="body2">{product.price}</Typography>
-					</ListItem>
-				))}
-				<ListItem className={classes.listItem}>
-					<ListItemText primary="Total" />
-					<Typography variant="subtitle1" className={classes.total}>
-						$34.06
-					</Typography>
-				</ListItem>
-			</List>
-			<Grid container spacing={2}>
-				<Grid item xs={12} sm={6}>
-					<Typography
-						variant="h6"
-						gutterBottom
-						className={classes.title}
-					>
-						Shipping
-					</Typography>
-					<Typography gutterBottom>John Smith</Typography>
-					<Typography gutterBottom>{addresses.join(', ')}</Typography>
-				</Grid>
-				<Grid item container direction="column" xs={12} sm={6}>
-					<Typography
-						variant="h6"
-						gutterBottom
-						className={classes.title}
-					>
-						Payment details
-					</Typography>
-					<Grid container>
-						{payments.map(payment => (
-							<React.Fragment key={payment.name}>
-								<Grid item xs={6}>
-									<Typography gutterBottom>
-										{payment.name}
-									</Typography>
-								</Grid>
-								<Grid item xs={6}>
-									<Typography gutterBottom>
-										{payment.detail}
-									</Typography>
-								</Grid>
-							</React.Fragment>
-						))}
-					</Grid>
-				</Grid>
-			</Grid>
+			<Formik
+				initialValues={{}}
+				onSubmit={values => {
+					handleAcceptRequest(values);
+				}}
+			>
+				{({
+					errors,
+					handleBlur,
+					handleChange,
+					handleSubmit,
+					touched,
+					values
+				}) => (
+					<form onSubmit={handleSubmit}>
+						<Typography variant="h6" gutterBottom>
+							Request summary
+						</Typography>
+						<List disablePadding>
+							{orders &&
+								orders.map((order, idx) => (
+									<ListItem
+										className={classes.listItem}
+										key={order.item.name}
+									>
+										<ListItemText
+											primary={order.item.name}
+											secondary={
+												'Quantity : ' + order.quantity
+											}
+										/>
+										{/* <Typography variant="body2">
+											{product.price}
+										</Typography> */}
+										<Input
+											id="standard-adornment-amount"
+											value={values.amount}
+											onChange={handleChange}
+											name={idx}
+											startAdornment={
+												<InputAdornment position="start">
+													₹
+												</InputAdornment>
+											}
+										/>
+									</ListItem>
+								))}
+						</List>
+						<Grid container spacing={2}>
+							<Grid item xs={12} sm={6}>
+								<Typography
+									variant="h6"
+									gutterBottom
+									className={classes.title}
+								>
+									Hospital Details
+								</Typography>
+								{hospitaldetails.map(e => (
+									<Typography gutterBottom>{e}</Typography>
+								))}
+							</Grid>
+							<Grid
+								item
+								container
+								direction="column"
+								xs={12}
+								sm={6}
+							></Grid>
+						</Grid>
+						<Button
+							variant="contained"
+							color="primary"
+							onClick={handleSubmit}
+							className={classes.button}
+						>
+							Accept Request
+						</Button>
+					</form>
+				)}
+			</Formik>
 		</React.Fragment>
 	);
 }

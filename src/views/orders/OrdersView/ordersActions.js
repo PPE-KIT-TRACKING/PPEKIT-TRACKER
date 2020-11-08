@@ -5,7 +5,7 @@ import {
 } from './ordersConstants';
 import { asyncActionStart } from '../../async/asyncActions';
 import { asyncActionFinish } from '../../async/asyncActions';
-import { DELETE_ORDER } from './ordersConstants'
+import { DELETE_ORDER } from './ordersConstants';
 
 export const insertOrder = order => {
 	return {
@@ -16,7 +16,7 @@ export const insertOrder = order => {
 	};
 };
 
-export const changeOrderStatus = orderId => {
+export const changeOrderStatus = (orderId, costOffered) => {
 	return async (dispatch, getState, { getFirestore, getFirebase }) => {
 		try {
 			const firestore = getFirestore();
@@ -38,7 +38,8 @@ export const changeOrderStatus = orderId => {
 				.update({
 					status: 'completed',
 					manufacturer: newUser,
-					completedDate: firebase.firestore.FieldValue.serverTimestamp()
+					completedDate: firebase.firestore.FieldValue.serverTimestamp(),
+					costOffered: costOffered
 				});
 
 			dispatch(asyncActionFinish());
@@ -48,7 +49,6 @@ export const changeOrderStatus = orderId => {
 	};
 };
 
-
 export const deleteOrder = orderId => {
 	return async (dispatch, getState, { getFirestore }) => {
 		try {
@@ -57,7 +57,7 @@ export const deleteOrder = orderId => {
 			await firestore
 				.collection('orders')
 				.doc(orderId)
-				.delete()
+				.delete();
 			dispatch({ type: DELETE_ORDER });
 			dispatch(asyncActionFinish());
 		} catch (error) {

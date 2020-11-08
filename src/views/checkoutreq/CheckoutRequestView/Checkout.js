@@ -7,11 +7,10 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import AddressForm from './AddressForm';
-import PaymentForm from './PaymentForm';
 import Review from './Review';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toastr } from 'react-redux-toastr';
+import { useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
 	appBar: {
@@ -50,18 +49,18 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-const steps = ['Shipping address', 'Payment details', 'Review your order'];
+const steps = ['Review your order'];
 
-function getStepContent(step) {
+function getStepContent(step, hospital, orders, handleAcceptRequest) {
 	switch (step) {
 		case 0:
-			return <AddressForm />;
-		case 1:
-			return <PaymentForm />;
-		case 2:
-			return <Review />;
-		default:
-			throw new Error('Unknown step');
+			return (
+				<Review
+					hospital={hospital}
+					orders={orders}
+					handleAcceptRequest={handleAcceptRequest}
+				/>
+			);
 	}
 }
 
@@ -69,6 +68,9 @@ function Checkout(props) {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
 	const params = useParams();
+	const location = useLocation();
+	const navigate = useNavigate();
+
 	const {
 		addToHospitalInventory,
 		changeOrderStatus,
@@ -78,36 +80,35 @@ function Checkout(props) {
 		removeFromInventory,
 		removeOrder
 	} = props;
-	const currentDate = new Date()
+	let request = null;
+	if (requests)
+		request = requests.find(request => request.id === params.requestId);
+	const currentDate = new Date();
 	if (requests) {
 		for (const request of requests) {
 			const requiredby = new Date(request.requiredby);
 			if (currentDate > requiredby) {
 				for (const order of request.ppeNeeded)
-					removeOrder(order.orderId)
+					removeOrder(order.orderId);
 			}
 		}
 	}
-	
 
 	const handleNext = () => {
 		setActiveStep(activeStep + 1);
 	};
 
-	const handleAcceptRequest = () => {
-		setActiveStep(activeStep + 1);
-		// removeRequest(params.requestId);
-		const request = requests.find(
-			request => request.id === params.requestId
-		);
+	const handleAcceptRequest = costOffered => {
 		let canRequestCompleted = true;
 		for (const order of request.ppeNeeded) {
 			if (order.quantity > inventory[order.item.index].quantity)
 				canRequestCompleted = false;
 		}
+		let pointer = 0;
 		if (canRequestCompleted) {
 			for (const order of request.ppeNeeded) {
-				changeOrderStatus(order.orderId);
+				changeOrderStatus(order.orderId, costOffered[pointer]);
+				pointer += 1;
 				addToHospitalInventory(
 					order.orderId,
 					order.item.index,
@@ -121,6 +122,7 @@ function Checkout(props) {
 				'Error',
 				'Inventory is not enough for this request...!'
 			);
+		navigate('/app/requests', { from: location });
 	};
 
 	const handleBack = () => {
@@ -131,71 +133,33 @@ function Checkout(props) {
 		<React.Fragment>
 			<CssBaseline />
 			<main className={classes.layout}>
-				<Paper className={classes.paper}>
-					<Typography component="h1" variant="h4" align="center">
-						Checkout
-					</Typography>
-					<Stepper
-						activeStep={activeStep}
-						className={classes.stepper}
-					>
-						{steps.map(label => (
-							<Step key={label}>
-								<StepLabel>{label}</StepLabel>
-							</Step>
-						))}
-					</Stepper>
-					<React.Fragment>
-						{activeStep === steps.length ? (
+				{requests && (
+					<Paper className={classes.paper}>
+						<Typography component="h1" variant="h4" align="center">
+							Checkout
+						</Typography>
+						<Stepper
+							activeStep={activeStep}
+							className={classes.stepper}
+						>
+							{steps.map(label => (
+								<Step key={label}>
+									<StepLabel>{label}</StepLabel>
+								</Step>
+							))}
+						</Stepper>
+						<React.Fragment>
 							<React.Fragment>
-								<Typography variant="h5" gutterBottom>
-									Thank you for your order.
-								</Typography>
-								<Typography variant="subtitle1">
-									Your order number is #2001539. We have
-									emailed your order confirmation, and will
-									send you an update when your order has
-									shipped.
-								</Typography>
+								{getStepContent(
+									activeStep,
+									request.hospital,
+									request.ppeNeeded,
+									handleAcceptRequest
+								)}
 							</React.Fragment>
-						) : (
-							<React.Fragment>
-								{getStepContent(activeStep)}
-								<div className={classes.buttons}>
-									{activeStep !== 0 && (
-										<Button
-											onClick={handleBack}
-											className={classes.button}
-										>
-											Back
-										</Button>
-									)}
-
-									{activeStep === steps.length - 1 && (
-										<Button
-											variant="contained"
-											color="primary"
-											onClick={handleAcceptRequest}
-											className={classes.button}
-										>
-											Accept Request
-										</Button>
-									)}
-									{activeStep !== steps.length - 1 && (
-										<Button
-											variant="contained"
-											color="primary"
-											onClick={handleNext}
-											className={classes.button}
-										>
-											Next
-										</Button>
-									)}
-								</div>
-							</React.Fragment>
-						)}
-					</React.Fragment>
-				</Paper>
+						</React.Fragment>
+					</Paper>
+				)}
 			</main>
 		</React.Fragment>
 	);

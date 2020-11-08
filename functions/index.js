@@ -26,7 +26,6 @@ exports.createActivity = functions.firestore
 			timestamp: new Date()
 		};
 		newUser.activity.push(activity);
-		console.log(activity);
 		return admin
 			.firestore()
 			.collection('users')

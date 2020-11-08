@@ -7,7 +7,6 @@ import BurnRate from './BurnRate';
 import { Navigate, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-
 const useStyles = makeStyles(theme => ({
 	root: {
 		backgroundColor: theme.palette.background.dark,
