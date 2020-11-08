@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import Chart from 'react-apexcharts';
-import moment from 'moment';
 import { Box, Card, CardContent, CardHeader, Divider } from '@material-ui/core';
 
 class InventoryDonut extends PureComponent {

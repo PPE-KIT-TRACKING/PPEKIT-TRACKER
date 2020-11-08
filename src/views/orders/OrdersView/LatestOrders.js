@@ -51,7 +51,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Profile = ({ className, user, props }) => {
+const Profile = ({ className, user,completedDate, props }) => {
 	const classes = useStyles();
 	if (!user || user === {}) {
 		return (
@@ -62,6 +62,7 @@ const Profile = ({ className, user, props }) => {
 			</Container>
 		);
 	}
+	console.log(user.avatar);
 	return (
 		<Container maxWidth="lg">
 			<Card className={clsx(classes.root, className)} {...props}>
@@ -85,14 +86,15 @@ const Profile = ({ className, user, props }) => {
 						>
 							{user.firstName + ' ' + user.lastName}
 						</Typography>
-						<Typography color="textSecondary" variant="body1">
+						<Typography color="textPrimary" variant="body1">
 							{user.email}
 						</Typography>
-						<Typography color="textSecondary" variant="body1">
+						<Typography color="textPrimary" variant="body1">
 							{`${user.state} ${user.country}`}
 						</Typography>
-						<Typography color="textSecondary" variant="body1">
-							{`${moment().format('hh:mm A')} GMT-5:30`}
+						<Typography color="textPrimary" variant="body1">
+							{'Completed Date - ' +
+								moment(completedDate).format('DD/MM/YYYY')}
 						</Typography>
 					</Box>
 				</CardContent>
@@ -131,7 +133,7 @@ const LatestOrders = ({ className, ...props }) => {
 								<TableCell sortDirection="desc">
 									<Tooltip enterDelay={300} title="Sort">
 										<TableSortLabel active direction="desc">
-											Date
+											Expected date
 										</TableSortLabel>
 									</Tooltip>
 								</TableCell>
@@ -148,7 +150,7 @@ const LatestOrders = ({ className, ...props }) => {
 										<TableCell>{order.itemName}</TableCell>
 										<TableCell>{order.quantity}</TableCell>
 										<TableCell>
-											{moment(order.createdAt).format(
+											{moment(order.expectedDate).format(
 												'DD/MM/YYYY'
 											)}
 										</TableCell>
@@ -214,12 +216,18 @@ const LatestOrders = ({ className, ...props }) => {
 														user={
 															order.manufacturer
 														}
+														completedDate={
+															order.completedDate
+														}
 														props={props}
 													/>
 												) : (
 													<Profile
 														className={className}
 														user={order.hospital}
+														completedDate={
+															order.completedDate
+														}
 														props={props}
 													/>
 												)}

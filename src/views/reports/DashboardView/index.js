@@ -1,22 +1,12 @@
 import React from 'react';
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import Page from 'src/app/common/components/Page';
-import Budget from './Budget';
 import InventoryTimeSeries from './InventoryTimeSeries';
 import InventoryDonut from './InventoryDonut';
-// import LatestOrders from './LatestOrders';
-// import LatestProducts from './LatestProducts';
-import Sales from './Sales';
-// import TasksProgress from './TasksProgress';
-import TotalCustomers from './TotalCustomers';
-// import TotalProfit from './TotalProfit';
-// import FrequentUsedProducts from './FrequentUsedProducts';
-// import { firestoreConnect } from 'react-redux-firebase';
-// import { compose } from 'redux';
+import BurnRate from './BurnRate';
 import { Navigate, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
-import moment from 'moment';
-import { first } from 'lodash';
+
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -93,7 +83,7 @@ const Dashboard = props => {
 					{inventory &&
 						inventory.map((product, index, obj) => (
 							<Grid item lg={3} sm={6} xl={3} xs={12}>
-								<TotalCustomers
+								<BurnRate
 									item={product}
 									burnrate={burnRate[index]}
 									isHospital={isHospital}

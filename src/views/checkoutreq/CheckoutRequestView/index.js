@@ -4,7 +4,7 @@ import Page from 'src/app/common/components/Page';
 import Checkout from './Checkout';
 import { connect } from 'react-redux';
 import { removeRequest } from '../../requests/RequestsView/requestsActions';
-import { changeOrderStatus } from '../../orders/OrdersView/ordersActions';
+import { changeOrderStatus,deleteOrder } from '../../orders/OrdersView/ordersActions';
 import {
 	addToHospitalInventory,
 	removeFromInventory
@@ -30,7 +30,8 @@ const CheckoutRequestView = props => {
 		changeOrderStatus,
 		addToHospitalInventory,
 		inventory,
-		removeFromInventory
+		removeFromInventory,
+		deleteOrder
 	} = props;
 	const navigate = useNavigate();
 	if (!auth.uid) navigate('/login', { replace: false });
@@ -46,6 +47,7 @@ const CheckoutRequestView = props => {
 					addToHospitalInventory={addToHospitalInventory}
 					inventory={inventory}
 					removeFromInventory={removeFromInventory}
+					removeOrder={deleteOrder}
 				/>
 			</Container>
 		</Page>
@@ -64,7 +66,8 @@ const actions = {
 	removeRequest,
 	changeOrderStatus,
 	addToHospitalInventory,
-	removeFromInventory
+	removeFromInventory,
+	deleteOrder
 };
 
 export default compose(

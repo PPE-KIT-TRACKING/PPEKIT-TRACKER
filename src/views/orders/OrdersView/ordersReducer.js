@@ -1,5 +1,9 @@
 import { createReducer } from '../../../app/common/utils/reducerUtil';
-import { INSERT_ORDER, CHANGE_ORDER_STATUS } from './ordersConstants';
+import {
+	INSERT_ORDER,
+	CHANGE_ORDER_STATUS,
+	DELETE_ORDER
+} from './ordersConstants';
 import { v4 as uuid } from 'uuid';
 
 const initialState = [
@@ -98,7 +102,12 @@ export const changeOrderStatus = (state, payload) => {
 	return newstate;
 };
 
+export const deleteOrder = (state, payload) => {
+	return state;
+};
+
 export default createReducer(initialState, {
 	[INSERT_ORDER]: insertOrder,
-	[CHANGE_ORDER_STATUS]: changeOrderStatus
+	[CHANGE_ORDER_STATUS]: changeOrderStatus,
+	[DELETE_ORDER]: deleteOrder
 });

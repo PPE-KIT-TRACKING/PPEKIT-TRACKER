@@ -1,3 +1,4 @@
 export const INSERT_ORDER = 'INSERT_ORDER';
 export const CHANGE_ORDER_STATUS = 'CHANGE_ORDER_STATUS';
 export const FETCH_ORDERS = 'FETCH_ORDERS';
+export const DELETE_ORDER = 'DELETE_ORDER';

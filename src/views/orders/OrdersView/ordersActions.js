@@ -5,8 +5,7 @@ import {
 } from './ordersConstants';
 import { asyncActionStart } from '../../async/asyncActions';
 import { asyncActionFinish } from '../../async/asyncActions';
-import { firebase, getFirebase } from 'react-redux-firebase';
-import moment from 'moment';
+import { DELETE_ORDER } from './ordersConstants'
 
 export const insertOrder = order => {
 	return {
@@ -42,6 +41,24 @@ export const changeOrderStatus = orderId => {
 					completedDate: firebase.firestore.FieldValue.serverTimestamp()
 				});
 
+			dispatch(asyncActionFinish());
+		} catch (error) {
+			console.log(error);
+		}
+	};
+};
+
+
+export const deleteOrder = orderId => {
+	return async (dispatch, getState, { getFirestore }) => {
+		try {
+			const firestore = getFirestore();
+			dispatch(asyncActionStart());
+			await firestore
+				.collection('orders')
+				.doc(orderId)
+				.delete()
+			dispatch({ type: DELETE_ORDER });
 			dispatch(asyncActionFinish());
 		} catch (error) {
 			console.log(error);
