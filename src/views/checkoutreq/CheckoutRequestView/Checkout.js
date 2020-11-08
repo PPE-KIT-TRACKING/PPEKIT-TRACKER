@@ -78,17 +78,16 @@ function Checkout(props) {
 		removeFromInventory,
 		removeOrder
 	} = props;
-	const currentDate = new Date()
+	const currentDate = new Date();
 	if (requests) {
 		for (const request of requests) {
 			const requiredby = new Date(request.requiredby);
 			if (currentDate > requiredby) {
 				for (const order of request.ppeNeeded)
-					removeOrder(order.orderId)
+					removeOrder(order.orderId);
 			}
 		}
 	}
-	
 
 	const handleNext = () => {
 		setActiveStep(activeStep + 1);

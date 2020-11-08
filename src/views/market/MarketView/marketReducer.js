@@ -5,18 +5,21 @@ import { v4 as uuid } from 'uuid';
 const initialState = [];
 
 export const addToCartReducer = (state = initialState, payload) => {
+	const newState = [...state];
 	const updatedProduct = Object.assign({}, payload.product);
-	let alreadyinCart = false;
+	if (updatedProduct.count != 0) {
+		let alreadyinCart = false;
 
-	const newState = state.map(product => {
-		if (updatedProduct.uid === product.uid) {
-			alreadyinCart = true;
-			return updatedProduct;
+		for (let i = 0; i < newState.length; i++) {
+			if (updatedProduct.id === newState[i].id) {
+				newState[i].count = newState[i].count + updatedProduct.count;
+				alreadyinCart = true;
+				break;
+			}
 		}
-		return product;
-	});
-	if (!alreadyinCart) {
-		newState.push(updatedProduct);
+		if (!alreadyinCart) {
+			newState.push(updatedProduct);
+		}
 	}
 	return newState;
 };

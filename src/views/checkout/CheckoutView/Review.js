@@ -6,13 +6,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 
-const products = [
-	{ name: 'Product 1', desc: 'A nice thing', price: '$9.99' },
-	{ name: 'Product 2', desc: 'Another thing', price: '$3.45' },
-	{ name: 'Product 3', desc: 'Something else', price: '$6.51' },
-	{ name: 'Product 4', desc: 'Best thing of all', price: '$14.11' },
-	{ name: 'Shipping', desc: '', price: 'Free' }
-];
+// const products = [
+// 	{ name: 'Product 1', desc: 'A nice thing', price: '$9.99' },
+// 	{ name: 'Product 2', desc: 'Another thing', price: '$3.45' },
+// 	{ name: 'Product 3', desc: 'Something else', price: '$6.51' },
+// 	{ name: 'Product 4', desc: 'Best thing of all', price: '$14.11' },
+// 	{ name: 'Shipping', desc: '', price: 'Free' }
+// ];
 const addresses = [
 	'1 Material-UI Drive',
 	'Reactville',
@@ -39,9 +39,11 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-export default function Review() {
+export default function Review(props) {
+	console.log('props in review: ', props);
 	const classes = useStyles();
-
+	const products = props.cart_items.cart_items.market;
+	console.log('products: ', products);
 	return (
 		<React.Fragment>
 			<Typography variant="h6" gutterBottom>
@@ -49,20 +51,20 @@ export default function Review() {
 			</Typography>
 			<List disablePadding>
 				{products.map(product => (
-					<ListItem className={classes.listItem} key={product.name}>
+					<ListItem className={classes.listItem} key={product.title}>
 						<ListItemText
-							primary={product.name}
-							secondary={product.desc}
+							primary={product.title}
+							secondary={product.description}
 						/>
-						<Typography variant="body2">{product.price}</Typography>
+						<Typography variant="body2">{product.count}</Typography>
 					</ListItem>
 				))}
-				<ListItem className={classes.listItem}>
+				{/* <ListItem className={classes.listItem}>
 					<ListItemText primary="Total" />
 					<Typography variant="subtitle1" className={classes.total}>
 						$34.06
 					</Typography>
-				</ListItem>
+				</ListItem> */}
 			</List>
 			<Grid container spacing={2}>
 				<Grid item xs={12} sm={6}>
@@ -71,12 +73,12 @@ export default function Review() {
 						gutterBottom
 						className={classes.title}
 					>
-						Shipping
+						Customer Basic Info
 					</Typography>
-					<Typography gutterBottom>John Smith</Typography>
+					<Typography gutterBottom>Piyush Chotiya</Typography>
 					<Typography gutterBottom>{addresses.join(', ')}</Typography>
 				</Grid>
-				<Grid item container direction="column" xs={12} sm={6}>
+				{/* <Grid item container direction="column" xs={12} sm={6}>
 					<Typography
 						variant="h6"
 						gutterBottom
@@ -100,7 +102,7 @@ export default function Review() {
 							</React.Fragment>
 						))}
 					</Grid>
-				</Grid>
+				</Grid> */}
 			</Grid>
 		</React.Fragment>
 	);

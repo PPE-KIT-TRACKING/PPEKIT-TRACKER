@@ -5,32 +5,34 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
-export default function PaymentForm() {
+export default function MiscellaneousInfo() {
 	return (
 		<React.Fragment>
 			<Typography variant="h6" gutterBottom>
-				Payment method
+				Order Details Enquiry
 			</Typography>
 			<Grid container spacing={3}>
 				<Grid item xs={12} md={6}>
 					<TextField
 						required
 						id="cardName"
-						label="Name on card"
+						label="Certificate No"
 						fullWidth
 						autoComplete="cc-name"
 					/>
 				</Grid>
 				<Grid item xs={12} md={6}>
 					<TextField
-						required
 						id="cardNumber"
-						label="Card number"
-						fullWidth
-						autoComplete="cc-number"
+						label="Expected Delivery Date"
+						type="date"
+						defaultValue="2020-11-10"
+						InputLabelProps={{
+							shrink: true
+						}}
 					/>
 				</Grid>
-				<Grid item xs={12} md={6}>
+				{/* <Grid item xs={12} md={6}>
 					<TextField
 						required
 						id="expDate"
@@ -38,8 +40,8 @@ export default function PaymentForm() {
 						fullWidth
 						autoComplete="cc-exp"
 					/>
-				</Grid>
-				<Grid item xs={12} md={6}>
+				</Grid> */}
+				{/* <Grid item xs={12} md={6}>
 					<TextField
 						required
 						id="cvv"
@@ -48,8 +50,8 @@ export default function PaymentForm() {
 						fullWidth
 						autoComplete="cc-csc"
 					/>
-				</Grid>
-				<Grid item xs={12}>
+				</Grid> */}
+				{/* <Grid item xs={12}>
 					<FormControlLabel
 						control={
 							<Checkbox
@@ -60,7 +62,7 @@ export default function PaymentForm() {
 						}
 						label="Remember credit card details for next time"
 					/>
-				</Grid>
+				</Grid> */}
 			</Grid>
 		</React.Fragment>
 	);

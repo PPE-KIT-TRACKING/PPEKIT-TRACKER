@@ -9,8 +9,9 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import AddressForm from './AddressForm';
-import PaymentForm from './PaymentForm';
+import PaymentForm from './MiscellaneousInfo';
 import Review from './Review';
+import MiscellaneousInfo from './MiscellaneousInfo';
 
 function Copyright() {
 	return (
@@ -62,32 +63,37 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-const steps = ['Shipping address', 'Payment details', 'Review your order'];
+const steps = ['Review your order', 'Miscellaneous Details'];
 
-function getStepContent(step) {
+function getStepContent(step, props) {
 	switch (step) {
 		case 0:
-			return <AddressForm />;
+			return <Review cart_items={props}></Review>;
 		case 1:
-			return <PaymentForm />;
-		case 2:
-			return <Review />;
+			return <MiscellaneousInfo />;
 		default:
 			throw new Error('Unknown step');
 	}
 }
 
-export default function Checkout() {
+export default function Checkout(props) {
 	const classes = useStyles();
 	const [activeStep, setActiveStep] = React.useState(0);
 
-	const handleNext = () => {
-		setActiveStep(activeStep + 1);
+	const handleNext = props => {
+		const products = props.cart_items.market;
+		if (products.length === 0) {
+			setActiveStep(activeStep);
+		} else {
+			setActiveStep(activeStep + 1);
+		}
 	};
 
 	const handleBack = () => {
 		setActiveStep(activeStep - 1);
 	};
+
+	const handleDone = () => {};
 
 	return (
 		<React.Fragment>
@@ -115,14 +121,22 @@ export default function Checkout() {
 								</Typography>
 								<Typography variant="subtitle1">
 									Your order number is #2001539. We have
-									emailed your order confirmation, and will
-									send you an update when your order has
-									shipped.
+									placed your order to desired manufacturer.
+									Your order is under process at
+									manufacturer's end.
 								</Typography>
+								<Button
+									variant="contained"
+									color="primary"
+									onClick={handleDone}
+									className={classes.button}
+								>
+									Done
+								</Button>
 							</React.Fragment>
 						) : (
 							<React.Fragment>
-								{getStepContent(activeStep)}
+								{getStepContent(activeStep, props)}
 								<div className={classes.buttons}>
 									{activeStep !== 0 && (
 										<Button
@@ -135,7 +149,7 @@ export default function Checkout() {
 									<Button
 										variant="contained"
 										color="primary"
-										onClick={handleNext}
+										onClick={() => handleNext(props)}
 										className={classes.button}
 									>
 										{activeStep === steps.length - 1

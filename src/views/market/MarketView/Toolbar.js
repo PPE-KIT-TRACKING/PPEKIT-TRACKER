@@ -40,7 +40,7 @@ const Toolbar = ({ className, ...rest }) => {
 				<Card>
 					<CardContent>
 						<Box maxWidth={500}>
-							<TextField
+							{/* <TextField
 								fullWidth
 								InputProps={{
 									startAdornment: (
@@ -56,7 +56,7 @@ const Toolbar = ({ className, ...rest }) => {
 								}}
 								placeholder="Search product"
 								variant="outlined"
-							/>
+							/> */}
 							<Box mt={1}></Box>
 							<Button
 								variant="contained"

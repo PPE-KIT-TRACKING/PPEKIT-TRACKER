@@ -103,7 +103,7 @@ const useStyles = makeStyles(theme => ({
 
 const ProductCard = ({ className, product, ...rest }) => {
 	function addProduct(props, product) {
-		product.count += quantity;
+		product.count = quantity;
 		props.addToCart(product);
 	}
 	function changeCounter(value) {
