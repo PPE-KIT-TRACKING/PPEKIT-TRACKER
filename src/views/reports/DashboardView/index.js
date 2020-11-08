@@ -8,13 +8,15 @@ import InventoryDonut from './InventoryDonut';
 // import LatestProducts from './LatestProducts';
 import Sales from './Sales';
 // import TasksProgress from './TasksProgress';
-// import TotalCustomers from './TotalCustomers';
+import TotalCustomers from './TotalCustomers';
 // import TotalProfit from './TotalProfit';
 // import FrequentUsedProducts from './FrequentUsedProducts';
 // import { firestoreConnect } from 'react-redux-firebase';
 // import { compose } from 'redux';
 import { Navigate, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
+import moment from 'moment';
+import { first } from 'lodash';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -51,6 +53,28 @@ const products = [
 		color: 'yellow'
 	}
 ];
+const calcuateBurnrate = activity => {
+	if (!activity || activity.length === 0) return [0, 0, 0, 0];
+	activity.sort((a, b) => {
+		const KeyA = new Date(a.timestamp);
+		const keyB = new Date(b.timestamp);
+		if (KeyA > keyB) return 1;
+		else if (KeyA < keyB) return -1;
+		return 0;
+	});
+
+	const burnRate = [0, 0, 0, 0];
+	for (let index = 0; index < activity.length; index++) {
+		const currActiv = activity[index];
+
+		if (currActiv.quantityDiff < 0)
+			burnRate[currActiv.index] += -1 * currActiv.quantityDiff;
+	}
+	const firstDate = new Date(activity[0].timestamp);
+	const lastDate = new Date(activity[activity.length - 1].timestamp);
+	const days = parseInt((lastDate - firstDate) / (1000 * 60 * 60 * 24), 10);
+	return burnRate.map(val => parseFloat(val / days).toFixed(2));
+};
 
 const Dashboard = props => {
 	const { auth, profile } = props;
@@ -59,23 +83,32 @@ const Dashboard = props => {
 	if (!auth.uid) {
 		return <Navigate to="/login" state={{ from: location }} />;
 	}
-	console.log('in index', profile.activity);
+	const { inventory, activity } = profile;
+	const burnRate = calcuateBurnrate(activity);
+	const isHospital = profile.type === 'hospital';
 	return (
 		<Page className={classes.root} title="Dashboard">
 			<Container maxWidth={false}>
 				<Grid container spacing={1}>
-					{products &&
-						products.map(product => (
+					{inventory &&
+						inventory.map((product, index, obj) => (
 							<Grid item lg={3} sm={6} xl={3} xs={12}>
-								{/* <TotalCustomers product={product} /> */}
+								<TotalCustomers
+									item={product}
+									burnrate={burnRate[index]}
+									isHospital={isHospital}
+								/>
 							</Grid>
 						))}
 
 					<Grid item lg={7} md={12} xl={9} xs={12}>
-						<InventoryTimeSeries activity={profile.activity} />
+						<InventoryTimeSeries activity={activity} />
 					</Grid>
 					<Grid item lg={4} md={6} xl={3} xs={12}>
-						<InventoryDonut inventory={profile.inventory}/>
+						<InventoryDonut
+							inventory={inventory}
+							activity={activity}
+						/>
 					</Grid>
 				</Grid>
 			</Container>

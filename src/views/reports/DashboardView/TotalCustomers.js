@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 
 const TotalCustomers = ({ className, ...props }) => {
 	const classes = useStyles();
-	const { product } = props;
+	const { item, burnrate, isHospital } = props;
 	return (
 		<Card className={clsx(classes.root, className)} {...props}>
 			<CardContent>
@@ -45,10 +45,10 @@ const TotalCustomers = ({ className, ...props }) => {
 							gutterBottom
 							variant="h6"
 						>
-							{product.name}
+							{item.name}
 						</Typography>
 						<Typography color="textPrimary" variant="h3">
-							{product.burnrate}
+							{burnrate + ' units'}
 						</Typography>
 					</Grid>
 					<Grid item>
@@ -59,14 +59,16 @@ const TotalCustomers = ({ className, ...props }) => {
 				</Grid>
 				<Box mt={2} display="flex" alignItems="center">
 					<ArrowUpwardIcon className={classes.differenceIcon} />
-					<Typography
+					{/* <Typography
 						className={classes.differenceValue}
 						variant="body2"
 					>
-						{product.percent}
-					</Typography>
+						{0}
+					</Typography> */}
 					<Typography color="textSecondary" variant="caption">
-						Since last month
+						{isHospital
+							? 'Burn Rate per day*'
+							: 'Supply Rate per day*'}
 					</Typography>
 				</Box>
 			</CardContent>
