@@ -4,14 +4,17 @@ import Page from 'src/app/common/components/Page';
 import Checkout from './Checkout';
 import { connect } from 'react-redux';
 import { removeRequest } from '../../requests/RequestsView/requestsActions';
-import { changeOrderStatus,deleteOrder } from '../../orders/OrdersView/ordersActions';
+import {
+	changeOrderStatus,
+	deleteOrder
+} from '../../orders/OrdersView/ordersActions';
 import {
 	addToHospitalInventory,
 	removeFromInventory
 } from '../../inventory/InventoryView/inventoryActions';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -33,10 +36,10 @@ const CheckoutRequestView = props => {
 		removeFromInventory,
 		deleteOrder
 	} = props;
-	const navigate = useNavigate();
-	if (!auth.uid) navigate('/login', { replace: false });
-
 	const classes = useStyles();
+	const location = useLocation();
+	if (!auth.uid) return <Navigate to="/login" state={{ from: location }} />;
+
 	return (
 		<Page className={classes.root} title="Customers">
 			<Container maxWidth={false}>
