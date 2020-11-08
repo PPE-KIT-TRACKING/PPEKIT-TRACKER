@@ -80,12 +80,9 @@ function Checkout(props) {
 		removeFromInventory,
 		removeOrder
 	} = props;
-<<<<<<< HEAD
-=======
 	let request = null;
 	if (requests)
 		request = requests.find(request => request.id === params.requestId);
->>>>>>> 47c22501c589abcd1716d5e539e204eeb8311a18
 	const currentDate = new Date();
 	if (requests) {
 		for (const request of requests) {
