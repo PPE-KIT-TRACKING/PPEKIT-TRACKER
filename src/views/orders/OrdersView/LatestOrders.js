@@ -57,7 +57,7 @@ const Profile = ({ className, user, completedDate, props }) => {
 		return (
 			<Container maxWidth="lg">
 				<Typography color="textPrimary" gutterBottom variant="h3">
-					Order is Still Pending..!
+					Order is Still Pending or Expired..!
 				</Typography>
 			</Container>
 		);

@@ -83,16 +83,7 @@ function Checkout(props) {
 	let request = null;
 	if (requests)
 		request = requests.find(request => request.id === params.requestId);
-	const currentDate = new Date();
-	if (requests) {
-		for (const request of requests) {
-			const requiredby = new Date(request.requiredby);
-			if (currentDate > requiredby) {
-				for (const order of request.ppeNeeded)
-					removeOrder(order.orderId);
-			}
-		}
-	}
+	
 
 	const handleNext = () => {
 		setActiveStep(activeStep + 1);
@@ -107,7 +98,7 @@ function Checkout(props) {
 		let pointer = 0;
 		if (canRequestCompleted) {
 			for (const order of request.ppeNeeded) {
-				changeOrderStatus(order.orderId, costOffered[pointer]);
+				changeOrderStatus(order.orderId, costOffered[pointer],false);
 				pointer += 1;
 				addToHospitalInventory(
 					order.orderId,

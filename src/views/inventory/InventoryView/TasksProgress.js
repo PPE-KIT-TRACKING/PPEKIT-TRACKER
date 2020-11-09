@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
 		height: '100%'
 	},
 	avatar: {
-		backgroundColor: '#303f9f',
+		backgroundColor: '#A3E4D7',
 		height: 75,
 		width: 75
 	}
@@ -64,8 +64,11 @@ const TasksProgress = ({ className, ...props }) => {
 						</Typography>
 					</Grid>
 					<Grid item>
-						<Avatar className={classes.avatar}>
-							<InsertChartIcon />
+						<Avatar
+							className={classes.avatar}
+							src={'/static/images/products/product_'+ (index+1) +'.png'}
+						>
+							{/* <InsertChartIcon /> */}
 						</Avatar>
 					</Grid>
 				</Grid>

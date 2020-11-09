@@ -86,6 +86,7 @@ const Dashboard = props => {
 									item={product}
 									burnrate={burnRate[index]}
 									isHospital={isHospital}
+									index={ index}
 								/>
 							</Grid>
 						))}

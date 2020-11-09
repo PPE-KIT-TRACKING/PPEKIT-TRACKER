@@ -16,14 +16,13 @@ export const insertOrder = order => {
 				.doc()
 				.set(order);
 			dispatch({ type: INSERT_ORDER });
-			
 		} catch (error) {
 			console.log(error);
 		}
 	};
 };
 
-export const changeOrderStatus = (orderId, costOffered) => {
+export const changeOrderStatus = (orderId, costOffered, expired) => {
 	return async (dispatch, getState, { getFirestore, getFirebase }) => {
 		try {
 			const firestore = getFirestore();
@@ -39,15 +38,23 @@ export const changeOrderStatus = (orderId, costOffered) => {
 				uid: firebase.auth().currentUser.uid
 			};
 			dispatch(asyncActionStart());
-			await firestore
-				.collection('orders')
-				.doc(orderId)
-				.update({
-					status: 'completed',
-					manufacturer: newUser,
-					completedDate: firebase.firestore.FieldValue.serverTimestamp(),
-					costOffered: costOffered
-				});
+			if (!expired)
+				await firestore
+					.collection('orders')
+					.doc(orderId)
+					.update({
+						status: 'completed',
+						manufacturer: newUser,
+						completedDate: firebase.firestore.FieldValue.serverTimestamp(),
+						costOffered: costOffered
+					});
+			else
+				await firestore
+					.collection('orders')
+					.doc(orderId)
+					.update({
+						status: 'expired',
+					});
 
 			dispatch(asyncActionFinish());
 		} catch (error) {

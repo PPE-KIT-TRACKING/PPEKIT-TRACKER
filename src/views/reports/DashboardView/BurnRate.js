@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 		height: '100%'
 	},
 	avatar: {
-		backgroundColor: colors.green[600],
+		backgroundColor: '#A3E4D7',
 		height: 56,
 		width: 56
 	},
@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 
 const TotalCustomers = ({ className, ...props }) => {
 	const classes = useStyles();
-	const { item, burnrate, isHospital } = props;
+	const { item, burnrate, isHospital,index } = props;
 	return (
 		<Card className={clsx(classes.root, className)} {...props}>
 			<CardContent>
@@ -52,8 +52,11 @@ const TotalCustomers = ({ className, ...props }) => {
 						</Typography>
 					</Grid>
 					<Grid item>
-						<Avatar className={classes.avatar}>
-							<PeopleIcon />
+						<Avatar
+							className={classes.avatar}
+							src={'/static/images/products/product_'+(index+1)+'.png'}
+						>
+							{/* <PeopleIcon /> */}
 						</Avatar>
 					</Grid>
 				</Grid>

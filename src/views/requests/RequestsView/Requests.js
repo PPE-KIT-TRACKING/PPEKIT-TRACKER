@@ -22,6 +22,12 @@ import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import moment from 'moment';
 import { insertRequest } from './requestsActions';
+import { Navigate, useLocation } from 'react-router-dom';
+import { removeRequest } from '../../requests/RequestsView/requestsActions';
+import {
+	changeOrderStatus,
+	deleteOrder
+} from '../../orders/OrdersView/ordersActions';
 
 const useRowStyles = makeStyles({
 	root: {
@@ -144,7 +150,22 @@ Row.propTypes = {
 };
 
 function Requests(props) {
-	const { requests, insertRequest } = props;
+	const { requests, insertRequest, profile } = props;
+	const location = useLocation();
+	if (profile.type === 'hospital')
+		return <Navigate to={location.state.from.pathname} state={{ from: location }} />;
+	console.log(requests)
+	const currentDate = new Date();
+	if (requests) {
+		for (const request of requests) {
+			const requiredby = new Date(request.requiredby);
+			if (currentDate > requiredby) {
+				for (const order of request.ppeNeeded)
+					changeOrderStatus(order.orderId,"",true);
+				removeRequest(request.id);
+			}
+		}
+	}
 	return (
 		<TableContainer component={Paper}>
 			<Button
@@ -180,12 +201,15 @@ function Requests(props) {
 
 const mapState = state => {
 	return {
-		requests: state.firestore.ordered.requests
+		requests: state.firestore.ordered.requests,
+		profile: state.firebase.profile
 	};
 };
 
 const mapActions = {
-	insertRequest
+	insertRequest,
+	changeOrderStatus ,
+	removeRequest
 };
 
 export default compose(
