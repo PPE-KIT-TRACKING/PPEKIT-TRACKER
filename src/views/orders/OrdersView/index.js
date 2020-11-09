@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import { Navigate, useLocation } from 'react-router-dom';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -13,13 +15,20 @@ const useStyles = makeStyles(theme => ({
 		minHeight: '100%',
 		paddingBottom: theme.spacing(3),
 		paddingTop: theme.spacing(3)
-	}
+	},
+	skeleton: {
+		position: 'fixed',
+		top: '32%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)'
+	},
 }));
 
 const Orders = props => {
-	const { allOrders, auth, profile } = props;
+	const { allOrders, auth, profile, requesting } = props;
 	const classes = useStyles();
 	const location = useLocation();
+
 	if (!auth.uid) {
 		return <Navigate to="/login" state={{ from: location }} />;
 	}
@@ -41,7 +50,17 @@ const Orders = props => {
 			<Container maxWidth={false}>
 				<Grid container spacing={4}>
 					<Grid item lg={10} md={14} xl={11} xs={14}>
-						<LatestOrders profile={profile} orders={orders} />
+						{requesting.length === 0 || requesting.orders  ? (
+							// <CircularProgress className={ classes.loader}/>
+							<Skeleton
+								className={classes.skeleton}
+								variant="rect"
+								width={930}
+								height={230}
+							/>
+						) : (
+							<LatestOrders profile={profile} orders={orders} />
+						)}
 					</Grid>
 				</Grid>
 			</Container>
@@ -53,7 +72,8 @@ const mapState = state => {
 	return {
 		allOrders: state.firestore.ordered.orders,
 		auth: state.firebase.auth,
-		profile: state.firebase.profile
+		profile: state.firebase.profile,
+		requesting: state.firestore.status.requesting
 	};
 };
 

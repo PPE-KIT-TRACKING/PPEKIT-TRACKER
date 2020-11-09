@@ -24,6 +24,7 @@ import moment from 'moment';
 import { insertRequest } from './requestsActions';
 import { Navigate, useLocation } from 'react-router-dom';
 import { removeRequest } from '../../requests/RequestsView/requestsActions';
+import Skeleton from '@material-ui/lab/Skeleton';
 import {
 	changeOrderStatus,
 	deleteOrder
@@ -149,21 +150,40 @@ Row.propTypes = {
 	}).isRequired
 };
 
+const skeletonStyle= {
+		position: 'fixed',
+		top: '32%',
+		left: '50%',
+		transform: 'translate(-50%, -50%)'
+	}
+
 function Requests(props) {
 	const { requests, insertRequest, profile } = props;
 	const location = useLocation();
 	if (profile.type === 'hospital')
-		return <Navigate to={location.state.from.pathname} state={{ from: location }} />;
-	console.log(requests)
+		return (
+			<Navigate
+				to={location.state.from.pathname}
+				state={{ from: location }}
+			/>
+		);
+	if (!requests) {
+		return (
+			<Skeleton
+				className={skeletonStyle}
+				variant="rect"
+				width={1200}
+				height={180}
+			/>
+		);
+	}
 	const currentDate = new Date();
-	if (requests) {
-		for (const request of requests) {
-			const requiredby = new Date(request.requiredby);
-			if (currentDate > requiredby) {
-				for (const order of request.ppeNeeded)
-					changeOrderStatus(order.orderId,"",true);
-				removeRequest(request.id);
-			}
+	for (const request of requests) {
+		const requiredby = new Date(request.requiredby);
+		if (currentDate > requiredby) {
+			for (const order of request.ppeNeeded)
+				changeOrderStatus(order.orderId, '', true);
+			removeRequest(request.id);
 		}
 	}
 	return (
@@ -208,7 +228,7 @@ const mapState = state => {
 
 const mapActions = {
 	insertRequest,
-	changeOrderStatus ,
+	changeOrderStatus,
 	removeRequest
 };
 

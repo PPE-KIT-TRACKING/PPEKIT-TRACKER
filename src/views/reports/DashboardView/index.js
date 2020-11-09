@@ -6,6 +6,8 @@ import InventoryDonut from './InventoryDonut';
 import BurnRate from './BurnRate';
 import { Navigate, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -79,26 +81,79 @@ const Dashboard = props => {
 		<Page className={classes.root} title="Dashboard">
 			<Container maxWidth={false}>
 				<Grid container spacing={1}>
-					{inventory &&
+					{inventory || false ? (
 						inventory.map((product, index, obj) => (
 							<Grid item lg={3} sm={6} xl={3} xs={12}>
 								<BurnRate
 									item={product}
 									burnrate={burnRate[index]}
 									isHospital={isHospital}
-									index={ index}
+									index={index}
 								/>
 							</Grid>
-						))}
+						))
+					) : (
+						<Grid container>
+							
+							<Grid item lg={3} sm={6} xl={3} xs={12}>
+								<Skeleton
+									// className={classes.loader}
+									variant="rect"
+									width={300}
+									height={140}
+								/>
+							</Grid>
+							<Grid item lg={3} sm={6} xl={3} xs={12}>
+								<Skeleton
+									// className={classes.loader}
+									variant="rect"
+									width={300}
+									height={140}
+								/>
+							</Grid>
+							<Grid item lg={3} sm={6} xl={3} xs={12}>
+								<Skeleton
+									// className={classes.loader}
+									variant="rect"
+									width={300}
+									height={140}
+								/>
+							</Grid>
+							<Grid item lg={3} sm={6} xl={3} xs={12}>
+								<Skeleton
+									// className={classes.loader}
+									variant="rect"
+									width={300}
+									height={140}
+								/>
+							</Grid>
+						</Grid>
+					)}
 
 					<Grid item lg={7} md={12} xl={9} xs={12}>
-						<InventoryTimeSeries activity={activity} />
+						{activity  ? (
+							<InventoryTimeSeries activity={activity} />
+						) : (
+							<Skeleton
+								variant="rect"
+								width={700}
+									height={540}
+							></Skeleton>
+						)}
 					</Grid>
 					<Grid item lg={4} md={6} xl={3} xs={12}>
-						<InventoryDonut
-							inventory={inventory}
-							activity={activity}
-						/>
+						{activity && inventory ? (
+							<InventoryDonut
+								inventory={inventory}
+								activity={activity}
+							/>
+						) : (
+							<Skeleton
+								variant="rect"
+								width={450}
+								height={400}
+							></Skeleton>
+						)}
 					</Grid>
 				</Grid>
 			</Container>

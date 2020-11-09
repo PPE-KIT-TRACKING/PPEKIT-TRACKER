@@ -5,6 +5,7 @@ import TasksProgress from './TasksProgress';
 import { Navigate, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { removeFromInventory, addToInventory } from './inventoryActions';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -29,7 +30,7 @@ const Inventory = props => {
 		<Page className={classes.root} title="Inventory">
 			<Container maxWidth={false}>
 				<Grid container spacing={3}>
-					{inventory &&
+					{inventory  ? (
 						inventory.map((product, index, obj) => (
 							<Grid item lg={3} sm={6} xl={3} xs={12}>
 								<TasksProgress
@@ -40,7 +41,43 @@ const Inventory = props => {
 									index={index}
 								/>
 							</Grid>
-						))}
+						))
+					) : (
+						<Grid container>
+							<Grid item lg={3} sm={6} xl={3} xs={12}>
+								<Skeleton
+									// className={classes.loader}
+									variant="rect"
+									width={300}
+									height={140}
+								/>
+							</Grid>
+							<Grid item lg={3} sm={6} xl={3} xs={12}>
+								<Skeleton
+									// className={classes.loader}
+									variant="rect"
+									width={300}
+									height={140}
+								/>
+							</Grid>
+							<Grid item lg={3} sm={6} xl={3} xs={12}>
+								<Skeleton
+									// className={classes.loader}
+									variant="rect"
+									width={300}
+									height={140}
+								/>
+							</Grid>
+							<Grid item lg={3} sm={6} xl={3} xs={12}>
+								<Skeleton
+									// className={classes.loader}
+									variant="rect"
+									width={300}
+									height={140}
+								/>
+							</Grid>
+						</Grid>
+					)}
 				</Grid>
 			</Container>
 		</Page>

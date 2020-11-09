@@ -127,6 +127,7 @@ const ProductCard = ({ className, product, ...rest }) => {
 						alt="Product"
 						src={product.media}
 						variant="square"
+						color="g"
 					/>
 				</Box>
 				<Typography
