@@ -3,6 +3,7 @@ import { v4 as uuid } from 'uuid';
 export default [
 	{
 		id: uuid(),
+		index: 0,
 		createdAt: '27/03/2019',
 		count: 0,
 		description: '80% Ethanol-based Hand Rub Sanitizer and Disinfectant',
@@ -12,6 +13,7 @@ export default [
 	},
 	{
 		id: uuid(),
+		index: 1,
 		createdAt: '31/03/2019',
 		count: 0,
 		description: 'Latex Medical Examination Disposable Hand Gloves',
@@ -21,6 +23,7 @@ export default [
 	},
 	{
 		id: uuid(),
+		index: 2,
 		createdAt: '03/04/2019',
 		count: 0,
 		description:
@@ -31,6 +34,7 @@ export default [
 	},
 	{
 		id: uuid(),
+		index: 3,
 		createdAt: '04/04/2019',
 		count: 0,
 		description: 'Disposable Overall Cover PPE Gown',

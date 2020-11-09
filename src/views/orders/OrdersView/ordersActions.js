@@ -7,17 +7,18 @@ import {
 import { asyncActionStart } from '../../async/asyncActions';
 import { asyncActionFinish } from '../../async/asyncActions';
 
-export const insertOrder = order => {
+export const insertOrder = (order,orderId) => {
 	return async (dispatch, getState, { getFirestore }) => {
 		try {
 			const firestore = getFirestore();
 			await firestore
 				.collection('orders')
-				.doc()
+				.doc(orderId)
 				.set(order);
 			dispatch({ type: INSERT_ORDER });
 		} catch (error) {
 			console.log(error);
+			console.log("Bear")
 		}
 	};
 };
@@ -53,7 +54,7 @@ export const changeOrderStatus = (orderId, costOffered, expired) => {
 					.collection('orders')
 					.doc(orderId)
 					.update({
-						status: 'expired',
+						status: 'expired'
 					});
 
 			dispatch(asyncActionFinish());

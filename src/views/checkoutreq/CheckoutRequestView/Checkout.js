@@ -83,7 +83,6 @@ function Checkout(props) {
 	let request = null;
 	if (requests)
 		request = requests.find(request => request.id === params.requestId);
-	
 
 	const handleNext = () => {
 		setActiveStep(activeStep + 1);
@@ -98,7 +97,7 @@ function Checkout(props) {
 		let pointer = 0;
 		if (canRequestCompleted) {
 			for (const order of request.ppeNeeded) {
-				changeOrderStatus(order.orderId, costOffered[pointer],false);
+				changeOrderStatus(order.orderId, costOffered[pointer], false);
 				pointer += 1;
 				addToHospitalInventory(
 					order.orderId,
