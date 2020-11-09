@@ -1,17 +1,24 @@
 import {
 	INSERT_ORDER,
 	CHANGE_ORDER_STATUS,
-	FETCH_ORDERS
+	FETCH_ORDERS,
+	DELETE_ORDER
 } from './ordersConstants';
 import { asyncActionStart } from '../../async/asyncActions';
 import { asyncActionFinish } from '../../async/asyncActions';
-import { DELETE_ORDER } from './ordersConstants';
 
 export const insertOrder = order => {
-	return {
-		type: INSERT_ORDER,
-		payload: {
-			order
+	return async (dispatch, getState, { getFirestore }) => {
+		try {
+			const firestore = getFirestore();
+			await firestore
+				.collection('orders')
+				.doc()
+				.set(order);
+			dispatch({ type: INSERT_ORDER });
+			
+		} catch (error) {
+			console.log(error);
 		}
 	};
 };

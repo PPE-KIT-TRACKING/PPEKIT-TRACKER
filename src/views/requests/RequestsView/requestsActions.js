@@ -1,22 +1,26 @@
+import { REMOVE_FROM_INVENTORY } from 'src/views/inventory/InventoryView/inventoryConstants';
 import { asyncActionStart } from '../../async/asyncActions';
 import { asyncActionFinish } from '../../async/asyncActions';
+import { INSERT_REQUEST, REMOVE_REQUEST } from './requestsConstants';
 
 export const insertRequest = request => {
 	return async (dispatch, getState, { getFirestore }) => {
 		const firestore = getFirestore();
-		const requests = initialState();
+		// const requests = initialState();
+		// await firestore
+		// 	.collection('requests')
+		// 	.doc()
+		// 	.set(requests[0]);
+		// await firestore
+		// 	.collection('requests')
+		// 	.doc()
+		// 	.set(requests[1]);
 		await firestore
 			.collection('requests')
 			.doc()
-			.set(requests[0]);
-		await firestore
-			.collection('requests')
-			.doc()
-			.set(requests[1]);
-		await firestore
-			.collection('requests')
-			.doc()
-			.set(requests[2]);
+			.set(request);
+		dispatch({type:INSERT_REQUEST})
+
 	};
 };
 
@@ -29,6 +33,7 @@ export const removeRequest = requestId => {
 				.collection('requests')
 				.doc(requestId)
 				.delete();
+			dispatch({type:REMOVE_REQUEST})
 			dispatch(asyncActionFinish());
 		} catch (error) {
 			console.log(error);

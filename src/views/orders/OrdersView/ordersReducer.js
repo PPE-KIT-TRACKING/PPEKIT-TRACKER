@@ -88,7 +88,7 @@ const initialState = [
 ];
 
 export const insertOrder = (state, payload) => {
-	return [Object.assign({}, payload.order), ...state];
+	return state;
 };
 
 export const changeOrderStatus = (state, payload) => {
