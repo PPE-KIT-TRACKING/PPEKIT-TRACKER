@@ -6,6 +6,7 @@ import {
 } from './ordersConstants';
 import { asyncActionStart } from '../../async/asyncActions';
 import { asyncActionFinish } from '../../async/asyncActions';
+import { toastr } from 'react-redux-toastr';
 
 export const insertOrder = (order, orderId) => {
 	return async (dispatch, getState, { getFirestore }) => {
@@ -16,6 +17,7 @@ export const insertOrder = (order, orderId) => {
 				.doc(orderId)
 				.set(order);
 			dispatch({ type: INSERT_ORDER });
+			toastr.success('Success', 'Order has been placed sucessfully..!');
 		} catch (error) {
 			console.log(error);
 			console.log('Bear');

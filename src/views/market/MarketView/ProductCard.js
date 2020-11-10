@@ -102,9 +102,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ProductCard = ({ className, product, ...rest }) => {
+	const initialState = 0;
+	const [quantity, setCount] = useState(initialState);
 	function addProduct(props, product) {
 		product.count = quantity;
 		props.addToCart(product);
+		setCount(0);
 	}
 	function changeCounter(value) {
 		if (value === 'increment') {
@@ -116,8 +119,6 @@ const ProductCard = ({ className, product, ...rest }) => {
 		}
 	}
 
-	const initialState = 0;
-	const [quantity, setCount] = useState(initialState);
 	const classes = useStyles();
 	return (
 		<Card className={clsx(classes.root, className)} {...rest}>

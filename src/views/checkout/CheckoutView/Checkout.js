@@ -12,6 +12,8 @@ import PaymentForm from './MiscellaneousInfo';
 import Review from './Review';
 import MiscellaneousInfo from './MiscellaneousInfo';
 import { v4 as uuid } from 'uuid';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
 	appBar: {
@@ -70,6 +72,8 @@ function getStepContent(step, props, handlePlaceOrder) {
 
 export default function Checkout(props) {
 	const classes = useStyles();
+	const location = useLocation();
+	const navigate = useNavigate();
 	const [activeStep, setActiveStep] = React.useState(0);
 
 	const handleNext = props => {
@@ -85,11 +89,9 @@ export default function Checkout(props) {
 		setActiveStep(activeStep - 1);
 	};
 
-
 	const handlePlaceOrder = values => {
 		const products = props.cart_items.market;
 		const profile = props.cart_items.profile;
-		console.log('profile in  : ', props);
 		const request = {
 			location: profile.state + ', ' + profile.country,
 			name: profile.firstName + ' ' + profile.lastName,
@@ -105,7 +107,7 @@ export default function Checkout(props) {
 			let order = {
 				status: 'pending',
 				expectedDate: new Date(values.expectedDate),
-				ref: '123e',
+				ref: uuid(),
 				createdAt: new Date(),
 				costOffered: '-',
 				quantity: products[i].count,
@@ -128,8 +130,8 @@ export default function Checkout(props) {
 				}
 			});
 		}
-		console.log(request);
 		props.insertRequest(request);
+		navigate('/app/dashboard', { from: location });
 	};
 	return (
 		<React.Fragment>

@@ -12,7 +12,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 export default function MiscellaneousInfo(props) {
 	const handleSubmit = () => {};
-	console.log('props of miscell: ', props);
+	// console.log('props of miscell: ', props);
 	const products = props.cart_items.cart_items.market;
 	const useStyles = makeStyles(theme => ({
 		button: {
@@ -21,6 +21,7 @@ export default function MiscellaneousInfo(props) {
 		}
 	}));
 	const location = useLocation();
+	const to = location.state ? location.state.from.pathname : '/app/dashboard';
 	const classes = useStyles();
 	return (
 		<React.Fragment>
@@ -32,12 +33,7 @@ export default function MiscellaneousInfo(props) {
 					}}
 					onSubmit={values => {
 						props.handlePlaceOrder(values);
-						return (
-							<Navigate
-								to="/app/dashboard"
-								state={{ from: location }}
-							/>
-						);
+						return <Navigate to={to} state={{ from: location }} />;
 					}}
 					validationSchema={Yup.object().shape({
 						certificateNo: Yup.string()
