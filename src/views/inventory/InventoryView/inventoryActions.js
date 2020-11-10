@@ -5,8 +5,9 @@ import {
 } from './inventoryConstants';
 import { toastr } from 'react-redux-toastr';
 import { getFirestore } from 'redux-firestore';
+import { removeRequest } from '../../requests/RequestsView/requestsActions';
 
-export const removeFromInventory = items => {
+export const removeFromInventory = (items, requestId) => {
 	return async (dispatch, getState, { getFirebase }) => {
 		const firebase = getFirebase();
 		try {
@@ -23,7 +24,7 @@ export const removeFromInventory = items => {
 			await firebase.updateProfile({
 				inventory: inventory
 			});
-
+			if (requestId) dispatch(removeRequest(requestId));
 			toastr.success('Success', 'Inventory updated sucessfully..!');
 			dispatch({ type: REMOVE_FROM_INVENTORY });
 		} catch (error) {

@@ -43,7 +43,10 @@ const TasksProgress = ({ className, ...props }) => {
 	};
 
 	const handleRemoveProducts = () => {
-		removeFromInventory([{ index: index, quantity: Number(current) }]);
+		removeFromInventory(
+			[{ index: index, quantity: Number(current) }],
+			null
+		);
 		setCurrent(0);
 	};
 

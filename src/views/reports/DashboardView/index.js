@@ -46,23 +46,32 @@ const products = [
 ];
 const calcuateBurnrate = activity => {
 	if (!activity || activity.length === 0) return [0, 0, 0, 0];
+
 	activity.sort((a, b) => {
-		const KeyA = new Date(a.timestamp);
-		const keyB = new Date(b.timestamp);
+		const KeyA = new Date(a[0].timestamp);
+		const keyB = new Date(b[0].timestamp);
 		if (KeyA > keyB) return 1;
 		else if (KeyA < keyB) return -1;
 		return 0;
 	});
 
 	const burnRate = [0, 0, 0, 0];
+	// console.log(activity, typeof activity, activity[0]);
 	for (let index = 0; index < activity.length; index++) {
-		const currActiv = activity[index];
-
-		if (currActiv.quantityDiff < 0)
-			burnRate[currActiv.index] += -1 * Number(currActiv.quantityDiff);
+		for (
+			let index1 = 0;
+			index1 < Object.keys(activity[index]).length;
+			index1++
+		) {
+			const currActiv = activity[index][index1];
+			if (currActiv.quantityDiff < 0)
+				burnRate[currActiv.index] +=
+					-1 * Number(currActiv.quantityDiff);
+		}
 	}
-	const firstDate = new Date(activity[0].timestamp);
-	const lastDate = new Date(activity[activity.length - 1].timestamp);
+
+	const firstDate = new Date(activity[0][0].timestamp);
+	const lastDate = new Date(activity[activity.length - 1][0].timestamp);
 	const days = parseInt((lastDate - firstDate) / (1000 * 60 * 60 * 24), 10);
 	if (days !== 0 && days)
 		return burnRate.map(val => parseFloat(val / days).toFixed(2));

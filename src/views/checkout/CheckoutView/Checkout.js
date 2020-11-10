@@ -96,7 +96,7 @@ export default function Checkout(props) {
 			location: profile.state + ', ' + profile.country,
 			name: profile.firstName + ' ' + profile.lastName,
 			requiredby: values.expectedDate,
-			verified: 'yes',
+			certificate: values.certificateNo,
 			hospital: {
 				...props.cart_items.profile,
 				uid: props.cart_items.auth.uid

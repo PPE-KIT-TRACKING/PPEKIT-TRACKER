@@ -72,7 +72,7 @@ function Row(props) {
 				<TableCell align="right">
 					{moment(row.requiredby).format('DD/MM/YYYY')}
 				</TableCell>
-				<TableCell align="right">{row.verified}</TableCell>
+				<TableCell align="right">{row.certificate}</TableCell>
 				<TableCell align="right">
 					<Button
 						variant="contained"
@@ -137,7 +137,7 @@ function Row(props) {
 Row.propTypes = {
 	row: PropTypes.shape({
 		location: PropTypes.string.isRequired,
-		verified: PropTypes.string.isRequired,
+		certificate: PropTypes.string.isRequired,
 		requiredby: PropTypes.string.isRequired,
 		ppeNeeded: PropTypes.arrayOf(
 			PropTypes.shape({
@@ -201,15 +201,6 @@ function Requests(props) {
 	}
 	return (
 		<TableContainer component={Paper}>
-			<Button
-				variant="contained"
-				color="primary"
-				size="small"
-				startIcon={<LocalShippingIcon />}
-				onClick={insertRequest}
-			>
-				populate
-			</Button>
 			<Table aria-label="collapsible table">
 				<TableHead>
 					<TableRow>
@@ -217,7 +208,7 @@ function Requests(props) {
 						<TableCell>Hospital Name</TableCell>
 						<TableCell align="right">Location</TableCell>
 						<TableCell align="right">Required by</TableCell>
-						<TableCell align="right">Verified</TableCell>
+						<TableCell align="right">Certificate No</TableCell>
 						<TableCell align="right">Make a Proposal</TableCell>
 					</TableRow>
 				</TableHead>

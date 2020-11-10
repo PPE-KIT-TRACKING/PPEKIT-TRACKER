@@ -108,7 +108,8 @@ function Checkout(props) {
 				});
 			}
 			addToHospitalInventory(orderId, items);
-			removeFromInventory(items);
+			removeFromInventory(items, request.id);
+			// removeRequest(request.id);
 			toastr.success('Success', 'Request completed..!');
 		} else
 			toastr.error(

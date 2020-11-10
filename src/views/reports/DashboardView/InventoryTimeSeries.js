@@ -7,37 +7,59 @@ class InventoryTimeSeries extends PureComponent {
 		super(props);
 		const { activity } = props;
 		let data = [[0], [0], [0], [0]];
+		let newdata = [];
 		let categories = ['started'];
+		// let newdata = [];
 		if (activity) {
-			activity.map(act => {
-				for (let index = 0; index < 4; index++) {
-					let array = data[index];
-					if (act.index !== index)
-						data[index].push(array[array.length - 1]);
-					else data[index].push(act.item.quantity);
+			for (let index = 0; index < activity.length; index++) {
+				for (
+					let index1 = 0;
+					index1 < Object.keys(activity[index]).length;
+					index1++
+				) {
+					const currActiv = activity[index][index1];
+					data[currActiv.index].push(Number(currActiv.item.quantity));
 				}
-				categories.push(
-					moment(act.timestamp).format('YYYY-MM-DD HH:mm')
-				);
-			});
+				if (Object.keys(activity[index]).length > 0)
+					categories.push(
+						moment(activity[index][0].timestamp).format(
+							'YYYY-MM-DD HH:mm'
+						)
+					);
+			}
+			let lengthArr = [
+				data[0].length,
+				data[1].length,
+				data[2].length,
+				data[3].length
+			];
+			let maxLen = Math.max(...lengthArr);
+			for (let obj of data) {
+				newdata.push([...obj]);
+			}
+			for (let i = 0; i < 4; i++) {
+				for (let j = 0; j < maxLen - data[i].length; j++) {
+					newdata[i].push(newdata[i][newdata[i].length - 1]);
+				}
+			}
 		}
 		this.state = {
 			series: [
 				{
 					name: 'Sanitizers',
-					data: data[0]
+					data: newdata[0]
 				},
 				{
 					name: 'Gloves',
-					data: data[1]
+					data: newdata[1]
 				},
 				{
 					name: 'Masks',
-					data: data[2]
+					data: newdata[2]
 				},
 				{
 					name: 'Gowns',
-					data: data[3]
+					data: newdata[3]
 				}
 			],
 			options: {
@@ -74,36 +96,57 @@ class InventoryTimeSeries extends PureComponent {
 		const { activity } = props;
 		let data = [[0], [0], [0], [0]];
 		let categories = ['started'];
+		let newdata = [];
 		if (activity) {
-			activity.map(act => {
-				for (let index = 0; index < 4; index++) {
-					let array = data[index];
-					if (act.index !== index)
-						data[index].push(array[array.length - 1]);
-					else data[index].push(act.item.quantity);
+			for (let index = 0; index < activity.length; index++) {
+				for (
+					let index1 = 0;
+					index1 < Object.keys(activity[index]).length;
+					index1++
+				) {
+					const currActiv = activity[index][index1];
+					data[currActiv.index].push(Number(currActiv.item.quantity));
 				}
-				categories.push(
-					moment(act.timestamp).format('YYYY-MM-DD HH:mm')
-				);
-			});
+				if (Object.keys(activity[index]).length > 0)
+					categories.push(
+						moment(activity[index][0].timestamp).format(
+							'YYYY-MM-DD HH:mm'
+						)
+					);
+			}
+			let lengthArr = [
+				data[0].length,
+				data[1].length,
+				data[2].length,
+				data[3].length
+			];
+			let maxLen = Math.max(...lengthArr);
+			for (let obj of data) {
+				newdata.push([...obj]);
+			}
+			for (let i = 0; i < 4; i++) {
+				for (let j = 0; j < maxLen - data[i].length; j++) {
+					newdata[i].push(newdata[i][newdata[i].length - 1]);
+				}
+			}
 		}
 		this.setState({
 			series: [
 				{
 					name: 'Sanitizers',
-					data: data[0]
+					data: newdata[0]
 				},
 				{
 					name: 'Gloves',
-					data: data[1]
+					data: newdata[1]
 				},
 				{
 					name: 'Masks',
-					data: data[2]
+					data: newdata[2]
 				},
 				{
 					name: 'Gowns',
-					data: data[3]
+					data: newdata[3]
 				}
 			],
 			options: {

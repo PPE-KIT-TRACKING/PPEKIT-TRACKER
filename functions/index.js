@@ -11,21 +11,27 @@ exports.createActivity = functions.firestore
 		const pInventory = change.before.data().inventory;
 		const aInventory = change.after.data().inventory;
 		let isUpdated = false;
+		const activities = {};
+		let iterable = 0;
 		for (let index = 0; index < pInventory.length; index++) {
-			if (pInventory[index].quantity !== aInventory[index].quantity)
-				isUpdated = index;
+			if (pInventory[index].quantity !== aInventory[index].quantity) {
+				const minorActivity = {
+					index: index,
+					item: aInventory[index],
+					quantityDiff:
+						aInventory[index].quantity - pInventory[index].quantity,
+					timestamp: new Date()
+				};
+				activities[iterable] = minorActivity;
+				isUpdated = true;
+				iterable += 1;
+			}
 		}
 		if (isUpdated === false) return null;
 
 		const newUser = change.after.data();
-		const activity = {
-			index: isUpdated,
-			item: aInventory[isUpdated],
-			quantityDiff:
-				aInventory[isUpdated].quantity - pInventory[isUpdated].quantity,
-			timestamp: new Date()
-		};
-		newUser.activity.push(activity);
+
+		newUser.activity.push(activities);
 		return admin
 			.firestore()
 			.collection('users')
