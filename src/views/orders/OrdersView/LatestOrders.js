@@ -239,7 +239,7 @@ const LatestOrders = ({ className, ...props }) => {
 					</Table>
 				</Box>
 			</PerfectScrollbar>
-			<Box display="flex" justifyContent="flex-end" p={2}>
+			{/* <Box display="flex" justifyContent="flex-end" p={2}>
 				<Button
 					color="primary"
 					endIcon={<ArrowRightIcon />}
@@ -248,7 +248,7 @@ const LatestOrders = ({ className, ...props }) => {
 				>
 					View all
 				</Button>
-			</Box>
+			</Box> */}
 		</Card>
 	);
 };

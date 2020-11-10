@@ -90,7 +90,7 @@ export default function Checkout(props) {
 	};
 
 	const handlePlaceOrder = values => {
-		const products = props.cart_items.market;
+		let products = props.cart_items.market;
 		const profile = props.cart_items.profile;
 		const request = {
 			location: profile.state + ', ' + profile.country,
@@ -104,10 +104,11 @@ export default function Checkout(props) {
 			ppeNeeded: []
 		};
 		for (let i = 0; i < products.length; i++) {
+			var num = Math.floor(Math.random() * (100 + i * 100));
 			let order = {
 				status: 'pending',
 				expectedDate: new Date(values.expectedDate),
-				ref: uuid(),
+				ref: 'ref' + num.toString(),
 				createdAt: new Date(),
 				costOffered: '-',
 				quantity: products[i].count,
@@ -132,6 +133,13 @@ export default function Checkout(props) {
 		}
 		props.insertRequest(request);
 		navigate('/app/dashboard', { from: location });
+
+		while (products.length > 0) {
+			products.pop();
+		}
+		props.cart_items.market = products;
+
+		console.log('props in place order: ', props.cart_items.market);
 	};
 	return (
 		<React.Fragment>
