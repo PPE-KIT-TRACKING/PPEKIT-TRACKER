@@ -6,20 +6,24 @@ import {
 import { toastr } from 'react-redux-toastr';
 import { getFirestore } from 'redux-firestore';
 
-export const removeFromInventory = (index, quantity) => {
+export const removeFromInventory = items => {
 	return async (dispatch, getState, { getFirebase }) => {
 		const firebase = getFirebase();
 		try {
-			if (quantity >= 0) {
-				const inventory = getState().firebase.profile.inventory;
+			const inventory = getState().firebase.profile.inventory;
+			for (let item of items) {
+				let index = item.index;
+				let quantity = Number(item.quantity);
 				inventory[index].quantity =
-					inventory[index].quantity - quantity >= 0
-						? inventory[index].quantity - quantity
+					Number(inventory[index].quantity) - quantity >= 0
+						? Number(inventory[index].quantity) - quantity
 						: 0;
-				await firebase.updateProfile({
-					inventory: inventory
-				});
 			}
+
+			await firebase.updateProfile({
+				inventory: inventory
+			});
+
 			toastr.success('Success', 'Inventory updated sucessfully..!');
 			dispatch({ type: REMOVE_FROM_INVENTORY });
 		} catch (error) {
@@ -31,11 +35,12 @@ export const removeFromInventory = (index, quantity) => {
 export const addToInventory = (index, quantity) => {
 	return async (dispatch, getState, { getFirebase }) => {
 		const firebase = getFirebase();
+		quantity = Number(quantity);
 		try {
 			if (quantity >= 0) {
 				const inventory = getState().firebase.profile.inventory;
 				inventory[index].quantity =
-					inventory[index].quantity + quantity;
+					Number(inventory[index].quantity) + Number(quantity);
 				await firebase.updateProfile({
 					inventory: inventory
 				});
@@ -48,33 +53,39 @@ export const addToInventory = (index, quantity) => {
 	};
 };
 
-export const addToHospitalInventory = (orderId, index, quantity) => {
+export const addToHospitalInventory = (orderId, items) => {
 	return async (dispatch, getState, { getFirebase }) => {
 		const firebase = getFirebase();
 		const firestore = getFirestore();
 		try {
-			if (quantity >= 0) {
-				let querySnap = await firestore
-					.collection('orders')
-					.doc(orderId)
-					.get();
-				const hospitalId = querySnap.data().hospital.uid;
-				querySnap = await firestore
-					.collection('users')
-					.doc(hospitalId)
-					.get();
-				let inventory = querySnap.data().inventory;
-				inventory[index].quantity += quantity;
-				await firestore
-					.collection('users')
-					.doc(hospitalId)
-					.update({
-						inventory: inventory
-					});
+			let querySnap = await firestore
+				.collection('orders')
+				.doc(orderId)
+				.get();
+			const hospitalId = querySnap.data().hospital.uid;
+			querySnap = await firestore
+				.collection('users')
+				.doc(hospitalId)
+				.get();
+			let inventory = querySnap.data().inventory;
+			for (const item of items) {
+				let index = item.index;
+				let quantity = item.quantity;
+				inventory[index].quantity =
+					Number(inventory[index].quantity) + Number(quantity);
 			}
+			console.log('in actions ', inventory, items);
+			await firestore
+				.collection('users')
+				.doc(hospitalId)
+				.update({
+					inventory: inventory
+				});
+
 			dispatch({ type: ADD_TO_HOSPITAL_INVENTORY });
 		} catch (error) {
 			console.log(error);
+			console.log('high');
 		}
 	};
 };

@@ -59,12 +59,14 @@ const calcuateBurnrate = activity => {
 		const currActiv = activity[index];
 
 		if (currActiv.quantityDiff < 0)
-			burnRate[currActiv.index] += -1 * currActiv.quantityDiff;
+			burnRate[currActiv.index] += -1 * Number(currActiv.quantityDiff);
 	}
 	const firstDate = new Date(activity[0].timestamp);
 	const lastDate = new Date(activity[activity.length - 1].timestamp);
 	const days = parseInt((lastDate - firstDate) / (1000 * 60 * 60 * 24), 10);
-	return burnRate.map(val => parseFloat(val / days).toFixed(2));
+	if (days !== 0 && days)
+		return burnRate.map(val => parseFloat(val / days).toFixed(2));
+	return burnRate;
 };
 
 const Dashboard = props => {
@@ -94,7 +96,6 @@ const Dashboard = props => {
 						))
 					) : (
 						<Grid container>
-							
 							<Grid item lg={3} sm={6} xl={3} xs={12}>
 								<Skeleton
 									// className={classes.loader}
@@ -131,13 +132,13 @@ const Dashboard = props => {
 					)}
 
 					<Grid item lg={7} md={12} xl={9} xs={12}>
-						{activity  ? (
+						{activity ? (
 							<InventoryTimeSeries activity={activity} />
 						) : (
 							<Skeleton
 								variant="rect"
 								width={700}
-									height={540}
+								height={540}
 							></Skeleton>
 						)}
 					</Grid>

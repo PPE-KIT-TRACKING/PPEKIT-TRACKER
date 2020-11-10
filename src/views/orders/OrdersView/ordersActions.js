@@ -7,7 +7,7 @@ import {
 import { asyncActionStart } from '../../async/asyncActions';
 import { asyncActionFinish } from '../../async/asyncActions';
 
-export const insertOrder = (order,orderId) => {
+export const insertOrder = (order, orderId) => {
 	return async (dispatch, getState, { getFirestore }) => {
 		try {
 			const firestore = getFirestore();
@@ -18,7 +18,7 @@ export const insertOrder = (order,orderId) => {
 			dispatch({ type: INSERT_ORDER });
 		} catch (error) {
 			console.log(error);
-			console.log("Bear")
+			console.log('Bear');
 		}
 	};
 };

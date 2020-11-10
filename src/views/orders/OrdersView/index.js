@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 		top: '32%',
 		left: '50%',
 		transform: 'translate(-50%, -50%)'
-	},
+	}
 }));
 
 const Orders = props => {
@@ -45,12 +45,21 @@ const Orders = props => {
 					: false;
 			});
 	}
+	if (orders) {
+		orders.sort((a, b) => {
+			const KeyA = new Date(a.createdAt);
+			const keyB = new Date(b.createdAt);
+			if (KeyA > keyB) return -1;
+			else if (KeyA < keyB) return 1;
+			return 0;
+		});
+	}
 	return (
 		<Page className={classes.root} title="Orders">
 			<Container maxWidth={false}>
 				<Grid container spacing={4}>
 					<Grid item lg={10} md={14} xl={11} xs={14}>
-						{requesting.length === 0 || requesting.orders  ? (
+						{requesting.length === 0 || requesting.orders ? (
 							// <CircularProgress className={ classes.loader}/>
 							<Skeleton
 								className={classes.skeleton}

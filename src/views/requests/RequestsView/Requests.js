@@ -150,15 +150,17 @@ Row.propTypes = {
 	}).isRequired
 };
 
-const skeletonStyle= {
-		position: 'fixed',
-		top: '32%',
-		left: '50%',
-		transform: 'translate(-50%, -50%)'
-	}
+const skeletonStyle = {
+	position: 'fixed',
+	top: '32%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)'
+};
 
 function Requests(props) {
-	const { requests, insertRequest, profile } = props;
+	const { insertRequest, profile } = props;
+	let requests = props.requests;
+
 	const location = useLocation();
 	if (profile.type === 'hospital')
 		return (
@@ -177,6 +179,7 @@ function Requests(props) {
 			/>
 		);
 	}
+	requests = [...requests];
 	const currentDate = new Date();
 	for (const request of requests) {
 		const requiredby = new Date(request.requiredby);
@@ -185,6 +188,16 @@ function Requests(props) {
 				changeOrderStatus(order.orderId, '', true);
 			removeRequest(request.id);
 		}
+	}
+
+	if (requests) {
+		requests.sort((a, b) => {
+			const KeyA = new Date(a.requiredby);
+			const keyB = new Date(b.requiredby);
+			if (KeyA > keyB) return 1;
+			else if (KeyA < keyB) return -1;
+			return 0;
+		});
 	}
 	return (
 		<TableContainer component={Paper}>

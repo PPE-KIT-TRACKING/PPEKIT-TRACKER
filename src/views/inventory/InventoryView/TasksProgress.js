@@ -43,7 +43,7 @@ const TasksProgress = ({ className, ...props }) => {
 	};
 
 	const handleRemoveProducts = () => {
-		removeFromInventory(index, Number(current));
+		removeFromInventory([{ index: index, quantity: Number(current) }]);
 		setCurrent(0);
 	};
 
@@ -66,7 +66,11 @@ const TasksProgress = ({ className, ...props }) => {
 					<Grid item>
 						<Avatar
 							className={classes.avatar}
-							src={'/static/images/products/product_'+ (index+1) +'.png'}
+							src={
+								'/static/images/products/product_' +
+								(index + 1) +
+								'.png'
+							}
 						>
 							{/* <InsertChartIcon /> */}
 						</Avatar>

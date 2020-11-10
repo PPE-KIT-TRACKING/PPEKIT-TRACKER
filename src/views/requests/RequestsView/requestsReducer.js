@@ -32,7 +32,7 @@ const initialState = [
 ];
 
 export const insertRequest = (state, payload) => {
-	return [payload.request, ...state];
+	return state;
 };
 
 export const removeRequest = (state, payload) => {

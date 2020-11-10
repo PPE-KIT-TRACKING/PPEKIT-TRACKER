@@ -19,8 +19,7 @@ export const insertRequest = request => {
 			.collection('requests')
 			.doc()
 			.set(request);
-		dispatch({type:INSERT_REQUEST})
-
+		dispatch({ type: INSERT_REQUEST });
 	};
 };
 
@@ -33,7 +32,7 @@ export const removeRequest = requestId => {
 				.collection('requests')
 				.doc(requestId)
 				.delete();
-			dispatch({type:REMOVE_REQUEST})
+			dispatch({ type: REMOVE_REQUEST });
 			dispatch(asyncActionFinish());
 		} catch (error) {
 			console.log(error);

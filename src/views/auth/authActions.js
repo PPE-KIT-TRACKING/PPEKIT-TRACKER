@@ -13,19 +13,19 @@ import moment from 'moment';
 const initialInventory = [
 	{
 		name: 'SANITIZERS',
-		quantity: '100'
+		quantity: 0
 	},
 	{
 		name: 'GLOVES',
-		quantity: '100'
+		quantity: 0
 	},
 	{
 		name: 'MASKS',
-		quantity: '100'
+		quantity: 0
 	},
 	{
 		name: 'GOWNS',
-		quantity: '100'
+		quantity: 0
 	}
 ];
 

@@ -96,16 +96,19 @@ function Checkout(props) {
 		}
 		let pointer = 0;
 		if (canRequestCompleted) {
+			const items = [];
+			let orderId = null;
 			for (const order of request.ppeNeeded) {
 				changeOrderStatus(order.orderId, costOffered[pointer], false);
 				pointer += 1;
-				addToHospitalInventory(
-					order.orderId,
-					order.item.index,
-					order.quantity
-				);
-				removeFromInventory(order.item.index, order.quantity);
+				orderId = order.orderId;
+				items.push({
+					index: order.item.index,
+					quantity: order.quantity
+				});
 			}
+			addToHospitalInventory(orderId, items);
+			removeFromInventory(items);
 			toastr.success('Success', 'Request completed..!');
 		} else
 			toastr.error(

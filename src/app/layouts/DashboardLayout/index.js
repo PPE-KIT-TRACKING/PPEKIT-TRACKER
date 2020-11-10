@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const DashboardLayout = props => {
-	const { auth, profile, logout,requesting } = props;
+	const { auth, profile, logout, requesting } = props;
 	const location = useLocation();
 	const classes = useStyles();
 	const [isMobileNavOpen, setMobileNavOpen] = useState(false);
@@ -68,7 +68,7 @@ const DashboardLayout = props => {
 
 const mapState = state => ({
 	auth: state.firebase.auth,
-	profile: state.firebase.profile,
+	profile: state.firebase.profile
 });
 
 const mapActions = {
