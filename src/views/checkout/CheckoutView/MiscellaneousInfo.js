@@ -2,8 +2,6 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { Formik } from 'formik';
@@ -11,9 +9,6 @@ import * as Yup from 'yup';
 import { Navigate, useLocation } from 'react-router-dom';
 
 export default function MiscellaneousInfo(props) {
-	const handleSubmit = () => {};
-	// console.log('props of miscell: ', props);
-	const products = props.cart_items.cart_items.market;
 	const useStyles = makeStyles(theme => ({
 		button: {
 			marginTop: theme.spacing(3),
@@ -72,7 +67,6 @@ export default function MiscellaneousInfo(props) {
 										}
 										id="cardName"
 										label="Certificate No"
-										fullWidth
 										autoComplete="cc-name"
 										name="certificateNo"
 										value={values.certificateNo}

@@ -5,7 +5,6 @@ import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Review from './Review';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -61,12 +60,13 @@ function getStepContent(step, hospital, orders, handleAcceptRequest) {
 					handleAcceptRequest={handleAcceptRequest}
 				/>
 			);
+		default:return (<div></div>)
 	}
 }
 
 function Checkout(props) {
 	const classes = useStyles();
-	const [activeStep, setActiveStep] = React.useState(0);
+	const [activeStep] = React.useState(0);
 	const params = useParams();
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -74,19 +74,15 @@ function Checkout(props) {
 	const {
 		addToHospitalInventory,
 		changeOrderStatus,
-		removeRequest,
 		inventory,
 		requests,
 		removeFromInventory,
-		removeOrder
 	} = props;
 	let request = null;
 	if (requests)
 		request = requests.find(request => request.id === params.requestId);
 
-	const handleNext = () => {
-		setActiveStep(activeStep + 1);
-	};
+	
 
 	const handleAcceptRequest = costOffered => {
 		let canRequestCompleted = true;
@@ -119,9 +115,7 @@ function Checkout(props) {
 		navigate('/app/requests', { from: location });
 	};
 
-	const handleBack = () => {
-		setActiveStep(activeStep - 1);
-	};
+	
 
 	return (
 		<React.Fragment>

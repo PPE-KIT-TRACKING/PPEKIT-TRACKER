@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const DashboardLayout = props => {
-	const { auth, profile, logout, requesting } = props;
+	const { auth, profile, logout } = props;
 	const location = useLocation();
 	const classes = useStyles();
 	const [isMobileNavOpen, setMobileNavOpen] = useState(false);

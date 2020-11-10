@@ -30,7 +30,6 @@ import {
 	Container
 } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles(theme => ({

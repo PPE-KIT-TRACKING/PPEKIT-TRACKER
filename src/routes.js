@@ -1,20 +1,70 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import DashboardLayout from 'src/app/layouts/DashboardLayout';
-import MainLayout from 'src/app/layouts/MainLayout';
-import AccountView from 'src/views/account/AccountView';
-import DashboardView from 'src/views/reports/DashboardView';
-import LoginView from 'src/views/auth/LoginView';
-import NotFoundView from 'src/views/errors/NotFoundView';
-import ProductListView from 'src/views/product/ProductListView';
-import RegisterView from 'src/views/auth/RegisterView';
-import SettingsView from 'src/views/settings/SettingsView';
-import MarketView from 'src/views/market/MarketView';
-import OrdersView from 'src/views/orders/OrdersView';
-import InventoryView from 'src/views/inventory/InventoryView';
-import CheckoutView from 'src/views/checkout/CheckoutView';
-import RequestsView from 'src/views/requests/RequestsView';
-import CheckoutRequestView from 'src/views/checkoutreq/CheckoutRequestView';
+import Loadable from 'react-loadable'
+import Loading from 'src/app/common/components/Loading';
+const DashboardLayout = Loadable({
+	loader: () => import("src/app/layouts/DashboardLayout"),
+	loading:Loading
+})
+const RequestsView = Loadable({
+	loader: () => import('src/views/requests/RequestsView'),
+	loading: Loading
+});
+const CheckoutRequestView = Loadable({
+	loader: () => import('src/views/checkoutreq/CheckoutRequestView'),
+	loading: Loading
+});
+const CheckoutView = Loadable({
+	loader: () => import('src/views/checkout/CheckoutView'),
+	loading: Loading
+});
+const InventoryView = Loadable({
+	loader: () => import('src/views/inventory/InventoryView'),
+	loading: Loading
+});
+const OrdersView = Loadable({
+	loader: () => import('src/views/orders/OrdersView'),
+	loading: Loading
+});
+const MarketView = Loadable({
+	loader: () => import('src/views/market/MarketView'),
+	loading: Loading
+});
+const SettingsView = Loadable({
+	loader: () => import('src/views/settings/SettingsView'),
+	loading: Loading
+});
+const RegisterView = Loadable({
+	loader: () => import('src/views/auth/RegisterView'),
+	loading: Loading
+});
+const AccountView = Loadable({
+	loader: () => import('src/views/account/AccountView'),
+	loading: Loading
+});
+const DashboardView = Loadable({
+	loader: () => import('src/views/reports/DashboardView'),
+	loading: Loading
+});
+const ProductListView = Loadable({
+	loader: () => import('src/views/product/ProductListView'),
+	loading: Loading
+});
+const NotFoundView = Loadable({
+	loader: () => import('src/views/errors/NotFoundView'),
+	loading: Loading
+});
+const LoginView = Loadable({
+	loader: () => import('src/views/auth/LoginView'),
+	loading: Loading
+});
+const MainLayout = Loadable({
+	loader: () => import('src/app/layouts/MainLayout'),
+	loading: Loading
+});
+
+
+
 
 const routes = [
 	{
@@ -23,7 +73,10 @@ const routes = [
 		children: [
 			{ path: 'login', element: <LoginView /> },
 			{ path: 'register', element: <RegisterView /> },
-			{ path: '404', element: <NotFoundView /> },
+			{
+				path: '404',
+				element: <NotFoundView />
+			},
 			{ path: '/', element: <Navigate to="/login" /> },
 			{ path: '*', element: <Navigate to="/404" /> }
 		]

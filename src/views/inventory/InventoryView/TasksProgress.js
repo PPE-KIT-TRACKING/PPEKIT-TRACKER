@@ -13,7 +13,6 @@ import {
 	Button,
 	TextField
 } from '@material-ui/core';
-import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
 
 const useStyles = makeStyles(() => ({
 	root: {

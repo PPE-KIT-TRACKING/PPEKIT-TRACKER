@@ -27,7 +27,6 @@ import { removeRequest } from '../../requests/RequestsView/requestsActions';
 import Skeleton from '@material-ui/lab/Skeleton';
 import {
 	changeOrderStatus,
-	deleteOrder
 } from '../../orders/OrdersView/ordersActions';
 
 const useRowStyles = makeStyles({
@@ -158,7 +157,7 @@ const skeletonStyle = {
 };
 
 function Requests(props) {
-	const { insertRequest, profile } = props;
+	const { profile } = props;
 	let requests = props.requests;
 
 	const location = useLocation();

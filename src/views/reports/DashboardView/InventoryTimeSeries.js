@@ -9,7 +9,6 @@ class InventoryTimeSeries extends PureComponent {
 		let data = [[0], [0], [0], [0]];
 		let newdata = [];
 		let categories = ['started'];
-		// let newdata = [];
 		if (activity) {
 			for (let index = 0; index < activity.length; index++) {
 				for (

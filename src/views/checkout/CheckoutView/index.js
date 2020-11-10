@@ -3,7 +3,6 @@ import { Container, makeStyles } from '@material-ui/core';
 import Page from 'src/app/common/components/Page';
 import Checkout from './Checkout';
 import { connect } from 'react-redux';
-import { useState } from 'react';
 import { insertOrder } from '../../orders/OrdersView/ordersActions';
 import { insertRequest } from '../../requests/RequestsView/requestsActions';
 

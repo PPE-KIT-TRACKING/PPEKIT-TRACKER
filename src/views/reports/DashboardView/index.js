@@ -6,7 +6,6 @@ import InventoryDonut from './InventoryDonut';
 import BurnRate from './BurnRate';
 import { Navigate, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles(theme => ({
@@ -18,32 +17,7 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-const products = [
-	{
-		name: 'Sanitizer',
-		percent: '0%',
-		burnrate: 160,
-		color: 'blue'
-	},
-	{
-		name: 'Masks',
-		percent: '0%',
-		burnrate: 50,
-		color: 'red'
-	},
-	{
-		name: 'Gloves',
-		percent: '0%',
-		burnrate: 10,
-		color: 'green'
-	},
-	{
-		name: 'Gown',
-		percent: '0%',
-		burnrate: 120,
-		color: 'yellow'
-	}
-];
+
 const calcuateBurnrate = activity => {
 	if (!activity || activity.length === 0) return [0, 0, 0, 0];
 

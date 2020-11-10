@@ -12,6 +12,7 @@ class InventoryDonut extends PureComponent {
 			inventory.map(e => {
 				series.push(e.quantity);
 				legends.push(e.name);
+				return null;
 			});
 		this.state = {
 			series: series,
@@ -64,8 +65,9 @@ class InventoryDonut extends PureComponent {
 			inventory.map(e => {
 				series.push(e.quantity);
 				legends.push(e.name);
+				return null
 			});
-		this.state = {
+		this.setState({
 			series: series,
 			options: {
 				legend: {
@@ -78,7 +80,7 @@ class InventoryDonut extends PureComponent {
 					}
 				}
 			}
-		};
+		});
 	}
 
 	render() {

@@ -56,7 +56,6 @@ export const addToInventory = (index, quantity) => {
 
 export const addToHospitalInventory = (orderId, items) => {
 	return async (dispatch, getState, { getFirebase }) => {
-		const firebase = getFirebase();
 		const firestore = getFirestore();
 		try {
 			let querySnap = await firestore
