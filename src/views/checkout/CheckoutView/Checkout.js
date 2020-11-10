@@ -85,6 +85,7 @@ export default function Checkout(props) {
 		setActiveStep(activeStep - 1);
 	};
 
+
 	const handlePlaceOrder = values => {
 		const products = props.cart_items.market;
 		const profile = props.cart_items.profile;

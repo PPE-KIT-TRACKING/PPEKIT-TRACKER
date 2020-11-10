@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { Navigate, useLocation } from 'react-router-dom';
 
 export default function MiscellaneousInfo(props) {
 	const handleSubmit = () => {};
@@ -19,23 +20,41 @@ export default function MiscellaneousInfo(props) {
 			marginLeft: theme.spacing(1)
 		}
 	}));
+	const location = useLocation();
 	const classes = useStyles();
 	return (
 		<React.Fragment>
 			<React.Fragment>
 				<Formik
 					initialValues={{
-						expectedDate: new Date()
+						expectedDate: null,
+						certificateNo: ''
 					}}
 					onSubmit={values => {
 						props.handlePlaceOrder(values);
+						return (
+							<Navigate
+								to="/app/dashboard"
+								state={{ from: location }}
+							/>
+						);
 					}}
+					validationSchema={Yup.object().shape({
+						certificateNo: Yup.string()
+							.max(255)
+							.required('Certificate number is required'),
+						expectedDate: Yup.date()
+							.required('Enter date')
+							.nullable()
+							.default(undefined)
+					})}
 				>
 					{({
 						errors,
 						handleBlur,
 						handleChange,
 						handleSubmit,
+						isSubmitting,
 						touched,
 						values
 					}) => (
@@ -46,7 +65,15 @@ export default function MiscellaneousInfo(props) {
 							<Grid container spacing={3}>
 								<Grid item xs={12} md={6}>
 									<TextField
-										required
+										error={Boolean(
+											touched.certificateNo &&
+												errors.certificateNo
+										)}
+										fullWidth
+										helperText={
+											touched.certificateNo &&
+											errors.certificateNo
+										}
 										id="cardName"
 										label="Certificate No"
 										fullWidth
@@ -59,9 +86,17 @@ export default function MiscellaneousInfo(props) {
 								<Grid item xs={12} md={6}>
 									<TextField
 										id="cardNumber"
+										error={Boolean(
+											touched.expectedDate &&
+												errors.expectedDate
+										)}
+										fullWidth
+										helperText={
+											touched.expectedDate &&
+											errors.expectedDate
+										}
 										label="Expected Delivery Date"
 										type="date"
-										defaultValue="2020-11-10"
 										name="expectedDate"
 										value={values.expectedDate}
 										onChange={handleChange}
