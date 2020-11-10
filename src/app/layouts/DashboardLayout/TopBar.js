@@ -49,7 +49,7 @@ const TopBar = ({ className, onMobileNavOpen, ...props }) => {
 				<Box flexGrow={1}></Box>
 
 				<Hidden mdDown>
-					<IconButton color="inherit">
+					{/* <IconButton color="inherit">
 						<Badge
 							badgeContent={notifications.length}
 							color="primary"
@@ -57,7 +57,7 @@ const TopBar = ({ className, onMobileNavOpen, ...props }) => {
 						>
 							<NotificationsIcon />
 						</Badge>
-					</IconButton>
+					</IconButton> */}
 					<IconButton color="inherit" onClick={handleLogout}>
 						<InputIcon />
 					</IconButton>
