@@ -21,6 +21,7 @@ export const addToCartReducer = (state = initialState, payload) => {
 			newState.push(updatedProduct);
 		}
 	}
+
 	return newState;
 };
 

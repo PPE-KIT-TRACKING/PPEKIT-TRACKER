@@ -108,7 +108,7 @@ export default function Checkout(props) {
 			let order = {
 				status: 'pending',
 				expectedDate: new Date(values.expectedDate),
-				ref: 'ref' + num.toString(),
+				ref: 'Ref' + num.toString(),
 				createdAt: new Date(),
 				costOffered: '-',
 				quantity: products[i].count,
