@@ -104,10 +104,11 @@ export default function Checkout(props) {
 			ppeNeeded: []
 		};
 		for (let i = 0; i < products.length; i++) {
+			var num = Math.floor(Math.random() * (100 + i * 100));
 			let order = {
 				status: 'pending',
 				expectedDate: new Date(values.expectedDate),
-				ref: uuid(),
+				ref: 'ref' + num.toString(),
 				createdAt: new Date(),
 				costOffered: '-',
 				quantity: products[i].count,
