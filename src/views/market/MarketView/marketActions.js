@@ -10,5 +10,10 @@ export const addToCart = product => {
 			payload: { product: product }
 		});
 		
+		if (product.count == 0) {
+			toastr.warning('Empty action', 'Increase count of product from 0');
+		} else {
+			toastr.success('Item added successfully....');
+		}
 	};
 };
